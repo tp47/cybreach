@@ -1,25 +1,24 @@
-import { MatrixConfig, Sequence } from "./matrix.types";
+import { MatrixConfig } from "./matrix.types";
+import { Drawable } from "@/model/gameEngine/drawable";
+import type { BoardMatrix } from "@/model";
 
-class Matrix {
-  protected canvas: HTMLCanvasElement;
-  protected context: CanvasRenderingContext2D;
+class Matrix extends Drawable {
+  private matrix: BoardMatrix;
+  private matrixSize: number;
 
-  protected sequence: Sequence;
-
-  protected x: number;
-  protected y: number;
-  protected width: number;
-  protected height: number;
+  private x: number;
+  private y: number;
+  private width: number;
+  private height: number;
 
   constructor(
     canvas: HTMLCanvasElement,
-    sequence: Sequence,
+    matrix: BoardMatrix,
     config: MatrixConfig
   ) {
-    this.canvas = canvas;
-    this.context = canvas.getContext("2d") as CanvasRenderingContext2D;
-
-    this.sequence = sequence;
+    super(canvas);
+    this.matrix = matrix;
+    this.matrixSize = Math.floor(Math.sqrt(matrix.length));
 
     this.x = config.x;
     this.y = config.y;
@@ -28,8 +27,23 @@ class Matrix {
   }
 
   public draw() {
-    this.context.strokeStyle = "#d9f06e";
-    this.context.strokeRect(this.x, this.y, this.width, this.height);
+    this.drawStrokeRect("#d9f06e", {
+      x: this.x,
+      y: this.y,
+      width: this.width,
+      height: this.height,
+    });
+
+    this.drawMatrix();
+  }
+
+  private drawMatrix() {
+    this.matrix.forEach((element, index) => {
+      const x = this.x + Math.floor(index % this.matrixSize) * 20;
+      const y = this.y + Math.floor(index / this.matrixSize) * 20;
+
+      this.drawText(element, "12px serif", "red", { x, y });
+    });
   }
 }
 

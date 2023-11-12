@@ -1,5 +1,3 @@
-type Sequence = string[];
-
 type MatrixConfig = {
   x: number;
   y: number;
@@ -7,4 +5,4 @@ type MatrixConfig = {
   height: number;
 };
 
-export type { Sequence, MatrixConfig };
+export type { MatrixConfig };

@@ -1,4 +1,4 @@
-import { Matrix } from "@/model";
+import { Matrix, MatrixGenerator } from "@/model";
 import { GameConfig } from "./game.types";
 
 class Game {
@@ -9,6 +9,7 @@ class Game {
   public level: number;
 
   protected matrix: Matrix;
+  protected matrixGenerator: MatrixGenerator;
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
     if (canvas.getContext("2d") === null) {
@@ -20,7 +21,20 @@ class Game {
     this.seed = config.seed;
     this.level = config.level;
 
-    this.matrix = new Matrix(canvas, ["C8", "FA", "E9"], {
+    this.matrixGenerator = new MatrixGenerator(this.level, this.seed, {
+      minMatrixSize: 3,
+      maxMatrixSize: 8,
+      minSequencesAmount: 2,
+      maxSequencesAmount: 7,
+      minSequenceLength: 2,
+      minBufferSize: 4,
+      maxBufferSize: 8,
+      differentMatrixValuesAmount: 5,
+      matrixValues: ["A0", "E9", "4C", "8B", "6F"],
+      emptyMatrixValue: " ",
+    });
+
+    this.matrix = new Matrix(canvas, this.matrixGenerator.matrix, {
       x: 50,
       y: 50,
       width: 200,
