@@ -6,24 +6,14 @@ class Matrix extends Drawable {
   private matrix: BoardMatrix;
   private matrixSize: number;
 
-  private x: number;
-  private y: number;
-  private width: number;
-  private height: number;
-
   constructor(
     canvas: HTMLCanvasElement,
     matrix: BoardMatrix,
     config: MatrixConfig
   ) {
-    super(canvas);
+    super(canvas, config.dimensions);
     this.matrix = matrix;
     this.matrixSize = Math.floor(Math.sqrt(matrix.length));
-
-    this.x = config.x;
-    this.y = config.y;
-    this.width = config.width;
-    this.height = config.height;
   }
 
   public draw() {
@@ -39,10 +29,10 @@ class Matrix extends Drawable {
 
   private drawMatrix() {
     this.matrix.forEach((element, index) => {
-      const x = this.x + Math.floor(index % this.matrixSize) * 20;
-      const y = this.y + Math.floor(index / this.matrixSize) * 20;
+      const x = this.x + Math.floor(index % this.matrixSize) * 25;
+      const y = this.y + Math.floor(index / this.matrixSize) * 20 + 15;
 
-      this.drawText(element, "12px serif", "red", { x, y });
+      this.drawText(element, "18px mono", "red", { x, y });
     });
   }
 }

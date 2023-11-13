@@ -16,8 +16,13 @@ type MatrixGeneratorConfig = {
 
 type BoardMatrix = string[];
 
-type Sequence = string[];
+type BoardSequence = string[];
 
-type Sequences = Sequence[];
+type BoardSequences = BoardSequence[];
 
-export type { MatrixGeneratorConfig, BoardMatrix, Sequence, Sequences };
+export type {
+  MatrixGeneratorConfig,
+  BoardMatrix,
+  BoardSequence,
+  BoardSequences,
+};

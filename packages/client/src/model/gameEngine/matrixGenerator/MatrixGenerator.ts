@@ -77,7 +77,7 @@ class MatrixGenerator {
       sequences.push(sequence);
     }
 
-    return sequences;
+    return sequences.sort((a, b) => a.length - b.length);
   }
 
   private generateSequence(matrix: BoardMatrix, length: number): Sequence {

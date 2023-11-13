@@ -4,9 +4,19 @@ class Drawable {
   protected canvas: HTMLCanvasElement;
   protected context: CanvasRenderingContext2D;
 
-  constructor(canvas: HTMLCanvasElement) {
+  protected x: number;
+  protected y: number;
+  protected width: number;
+  protected height: number;
+
+  constructor(canvas: HTMLCanvasElement, config: RectDimensions) {
     this.canvas = canvas;
     this.context = canvas.getContext("2d") as CanvasRenderingContext2D;
+
+    this.x = config.x;
+    this.y = config.y;
+    this.width = config.width;
+    this.height = config.height;
   }
 
   protected drawStrokeRect(

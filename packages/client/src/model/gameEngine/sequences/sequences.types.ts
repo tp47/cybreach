@@ -1,6 +1,7 @@
 import { RectDimensions } from "@/model";
 
-type MatrixConfig = {
+type SequencesConfig = {
   dimensions: RectDimensions;
 };
-export type { MatrixConfig };
+
+export type { SequencesConfig };
