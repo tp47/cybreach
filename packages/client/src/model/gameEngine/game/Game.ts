@@ -1,9 +1,8 @@
 import { Matrix, MatrixGenerator, Sequences } from "@/model";
+import { MoveDirection } from "@/model";
 import { GameConfig } from "./game.types";
 
 class Game {
-  private static instance: Game;
-
   protected canvas: HTMLCanvasElement;
   protected context: CanvasRenderingContext2D;
 
@@ -15,10 +14,6 @@ class Game {
   protected MatrixGenerator: MatrixGenerator;
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
-    if (Game.instance) {
-      return Game.instance;
-    }
-
     if (canvas.getContext("2d") === null) {
       throw new Error("Canvas context is null");
     }
@@ -27,7 +22,6 @@ class Game {
 
     this.seed = config.seed;
     this.level = config.level;
-    console.log("cons");
 
     this.MatrixGenerator = new MatrixGenerator(this.level, this.seed, {
       minMatrixSize: 3,
@@ -63,13 +57,11 @@ class Game {
     this.animate = this.animate.bind(this);
 
     this.init();
-
-    Game.instance = this;
   }
 
   private init() {
     this.prepareCanvas();
-    this.setupEvents();
+    this.addDeviceEvents();
     requestAnimationFrame(this.animate);
   }
 
@@ -97,10 +89,41 @@ class Game {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  private setupEvents() {
-    this.canvas.addEventListener("click", (event: MouseEvent) => {
-      console.log(event);
-    });
+  private handleKeystroke(event: KeyboardEvent) {
+    const { key } = event;
+
+    switch (key) {
+      case "ArrowRight":
+      case "l":
+        this.Matrix.moveSelection(MoveDirection.RIGHT);
+        break;
+
+      case "ArrowLeft":
+      case "h":
+        this.Matrix.moveSelection(MoveDirection.LEFT);
+        break;
+
+      case "ArrowUp":
+      case "k":
+        this.Matrix.moveSelection(MoveDirection.UP);
+        break;
+
+      case "ArrowDown":
+      case "j":
+        this.Matrix.moveSelection(MoveDirection.DOWN);
+        break;
+
+      case "Enter":
+        this.Matrix.selectElement();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  private addDeviceEvents() {
+    window.addEventListener("keydown", this.handleKeystroke.bind(this));
   }
 }
 
