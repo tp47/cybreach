@@ -9,7 +9,7 @@ import {
   SignUp,
   Error,
 } from "../components";
-import Main from "@/components/pages/Main";
+import Main from "../components/pages/Main";
 
 export const router = createBrowserRouter([
   {
