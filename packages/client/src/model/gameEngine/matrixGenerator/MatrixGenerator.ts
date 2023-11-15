@@ -3,9 +3,9 @@ import seedrandom from "seedrandom";
 import {
   BoardMatrix,
   MatrixGeneratorConfig,
-  Sequence,
-  Sequences,
-} from "./matrixGenerator.types";
+  BoardSequence,
+  BoardSequences,
+} from "@/model";
 
 class MatrixGenerator {
   private level: number;
@@ -30,7 +30,7 @@ class MatrixGenerator {
   private seededRNG: seedrandom.PRNG;
 
   private _matrix: BoardMatrix;
-  private _sequences: Sequences;
+  private _sequences: BoardSequences;
 
   constructor(level: number, seed: string, config: MatrixGeneratorConfig) {
     this.level = level;
@@ -52,10 +52,10 @@ class MatrixGenerator {
 
     this.seededRNG = seedrandom(seed);
 
-    this._matrix = this.generateMatrix(8);
+    this._matrix = this.generateMatrix(this.maxMatrixSize);
     this._sequences = this.generateSequences(
       this._matrix,
-      3,
+      this.maxSequencesAmount,
       this.maxBufferSize
     );
   }
@@ -64,8 +64,8 @@ class MatrixGenerator {
     matrix: BoardMatrix,
     sequencesAmount: number,
     maxBufferLength: number
-  ): Sequences {
-    const sequences: Sequences = [];
+  ): BoardSequences {
+    const sequences: BoardSequences = [];
 
     for (let i = 0; i < sequencesAmount; i++) {
       const sequenceLength = getRandomSeededInteger(
@@ -80,7 +80,7 @@ class MatrixGenerator {
     return sequences.sort((a, b) => a.length - b.length);
   }
 
-  private generateSequence(matrix: BoardMatrix, length: number): Sequence {
+  private generateSequence(matrix: BoardMatrix, length: number): BoardSequence {
     const matrixSize = Math.sqrt(matrix.length);
     const matrixCopy: BoardMatrix = Object.assign([], matrix);
 
@@ -88,7 +88,7 @@ class MatrixGenerator {
     let currentColumn = 0;
     let searchInRow = true;
 
-    const sequence: Sequence = [];
+    const sequence: BoardSequence = [];
 
     // always statrt in the first line
     for (let i = 0; i < length; i++) {
@@ -168,8 +168,12 @@ class MatrixGenerator {
     return this._matrix;
   }
 
-  public get sequences(): Sequences {
+  public get sequences(): BoardSequences {
     return this._sequences;
+  }
+
+  public get bufferSize(): number {
+    return this.maxBufferSize;
   }
 
   private getMatrixIndex(

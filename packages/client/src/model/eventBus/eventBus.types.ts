@@ -2,7 +2,7 @@ type Subscribers = {
   [key: string]: Subscriber[];
 };
 
-type Subscriber = (...args: unknown[]) => unknown;
+type Subscriber = (...args: any[]) => any;
 
 interface IEventBus {
   dispatch(event: string, arg: unknown): void;

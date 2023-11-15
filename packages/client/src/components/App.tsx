@@ -8,9 +8,13 @@ function App() {
       return;
     }
     const game = new Game(canvasRef.current, {
-      seed: "123",
+      seed: Math.random().toString(),
       level: 12,
     });
+
+    return () => {
+      game.destruct();
+    };
   }, []);
   return <canvas ref={canvasRef}></canvas>;
 }

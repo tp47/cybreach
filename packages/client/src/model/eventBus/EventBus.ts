@@ -1,10 +1,16 @@
 import { IEventBus, Subscriber, Subscribers } from "./eventBus.types";
 
 class EventBus implements IEventBus {
-  private subscribers: Subscribers;
+  private subscribers: Subscribers = {};
+  private static instance: EventBus;
 
   constructor() {
-    this.subscribers = {};
+    // Singleton pattern
+    if (EventBus.instance) {
+      return EventBus.instance;
+    }
+
+    EventBus.instance = this;
   }
 
   dispatch(event: string, ...args: unknown[]): void {

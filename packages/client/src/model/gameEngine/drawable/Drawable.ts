@@ -21,8 +21,14 @@ class Drawable {
 
   protected drawStrokeRect(
     strokeStyle: StrokeStyle,
-    { x, y, width, height }: RectDimensions
+    { x, y, width, height }: RectDimensions,
+    dashes?: number
   ) {
+    if (dashes !== undefined) {
+      this.context.setLineDash([dashes]);
+    } else {
+      this.context.setLineDash([]);
+    }
     this.context.strokeStyle = strokeStyle;
     this.context.strokeRect(x, y, width, height);
   }

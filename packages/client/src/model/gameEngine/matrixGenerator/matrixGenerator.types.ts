@@ -9,7 +9,6 @@ type MatrixGeneratorConfig = {
   minBufferSize: number;
   maxBufferSize: number;
 
-  differentMatrixValuesAmount: number;
   matrixValues: string[];
   emptyMatrixValue: string;
 };

@@ -1,6 +1,6 @@
 import { MatrixConfig, MatrixDirection, MoveDirection } from "./matrix.types";
 import { Drawable } from "@/model/gameEngine/drawable";
-import type { BoardMatrix } from "@/model";
+import { BoardMatrix, EventBus } from "@/model";
 
 class MatrixDrawable extends Drawable {
   private matrix: BoardMatrix;
@@ -11,6 +11,8 @@ class MatrixDrawable extends Drawable {
 
   private isRowDirection = true;
 
+  private EventBus: EventBus;
+
   constructor(
     canvas: HTMLCanvasElement,
     matrix: BoardMatrix,
@@ -19,6 +21,8 @@ class MatrixDrawable extends Drawable {
     super(canvas, config.dimensions);
     this.matrix = matrix;
     this.matrixSize = Math.floor(Math.sqrt(matrix.length));
+
+    this.EventBus = new EventBus();
   }
 
   public draw() {
@@ -83,6 +87,7 @@ class MatrixDrawable extends Drawable {
     if (this.canSelect()) {
       this.selectedElements.push(this.currentElementIndex);
       this.isRowDirection = !this.isRowDirection;
+      this.EventBus.dispatch("select", this.matrix[this.currentElementIndex]);
     }
   }
 
