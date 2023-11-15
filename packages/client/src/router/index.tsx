@@ -5,7 +5,7 @@ import {
   Game,
   LeaderBoard,
   Profile,
-  SignIn,
+  LoginPage,
   SignUp,
   Error,
 } from "../components";
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "signin",
-    element: <SignIn />,
+    element: <LoginPage />,
   },
   {
     path: "signup",

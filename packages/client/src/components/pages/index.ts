@@ -6,3 +6,5 @@ export { SignUp } from "./SignUp";
 export { Profile } from "./Profile";
 export { Game } from "./Game";
 export { Error } from "./Error";
+
+export * from "./LoginPage";
