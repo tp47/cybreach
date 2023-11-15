@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, FormEventHandler } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  handleInput: FormEventHandler<HTMLInputElement>;
+  handleInput?: FormEventHandler<HTMLInputElement>;
 }
 
 export default function Input(props: InputProps) {
