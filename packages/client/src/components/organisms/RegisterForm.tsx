@@ -20,7 +20,7 @@ export default function RegisterForm(props: FormProps) {
   };
 
   return (
-    <form className="bg-gray-900 border-2 border-green-500 py-4 px-6">
+    <form className="bg-gray-900 border-2 border-green-500 py-4 px-6 screen-60">
       <h1 className="text-green-500 text-center text-lg mb-4 font-bold">
         PLUG IN
       </h1>
@@ -29,13 +29,13 @@ export default function RegisterForm(props: FormProps) {
           name="first_name"
           label="first name"
           type="text"
-          error={errors.first_name}
+          error={errors.firstName}
         />
         <Field
           name="second_name"
           label="second name"
           type="text"
-          error={errors.second_name}
+          error={errors.secondName}
         />
         <Field name="login" label="login" type="text" error={errors.login} />
         <Field name="email" label="email" type="email" error={errors.email} />

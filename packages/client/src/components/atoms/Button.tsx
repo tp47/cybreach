@@ -9,7 +9,7 @@ export default function Button(props: ButtonProps) {
   return (
     <button
       type={type}
-      className="bg-green-500 border-2 h-10 border-green-500 text-m"
+      className="bg-green-500 border-2 h-10 border-green-500 text-sm"
     >
       {label}
     </button>
