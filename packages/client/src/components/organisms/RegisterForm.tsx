@@ -1,6 +1,5 @@
 import Field from "../molecules/Field";
 import Button from "../atoms/Button";
-import ErrorLine from "../atoms/ErrorLine";
 
 interface FormProps {
   title?: string;
@@ -8,7 +7,7 @@ interface FormProps {
   handleSubmit?: () => void;
 }
 
-export default function RegisterForm(props: FormProps) {
+export default function RegisterForm() {
   // mock
   const errors = {
     email: "wrong signature",
@@ -20,7 +19,7 @@ export default function RegisterForm(props: FormProps) {
   };
 
   return (
-    <form className="bg-gray-900 border-2 border-green-500 py-4 px-6 screen-60">
+    <form className="bg-gray-900 border-2 border-green-500 py-4 px-6 ">
       <h1 className="text-green-500 text-center text-lg mb-4 font-bold">
         PLUG IN
       </h1>
