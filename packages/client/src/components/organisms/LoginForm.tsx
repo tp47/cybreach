@@ -15,7 +15,7 @@ export default function LoginForm(props: FormProps) {
   };
 
   return (
-    <form className="bg-gray-900 border-2 border-green-500 p-4">
+    <form className="bg-gray-900 border-2 border-green-500 p-8">
       <h1 className="text-green-500 text-center text-lg mb-8 font-bold">
         BREACH IN
       </h1>

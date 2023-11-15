@@ -13,7 +13,7 @@ export default function Input(props: InputProps) {
       type={type}
       autoComplete={autoComplete}
       required
-      className="w-full p-2 bg-gray-800 border border-green-500 text-green-500"
+      className="w-full h-8 p-2 bg-gray-800 border border-green-500 text-green-500"
     />
   );
 }
