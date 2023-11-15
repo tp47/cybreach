@@ -13,6 +13,10 @@ export default function RegisterForm(props: FormProps) {
   const errors = {
     email: "wrong signature",
     password: "wrong signature",
+    firstName: null,
+    secondName: null,
+    login: null,
+    phone: "wrong signature",
   };
 
   return (
@@ -25,15 +29,15 @@ export default function RegisterForm(props: FormProps) {
           name="first_name"
           label="first name"
           type="text"
-          error={errors.email}
+          error={errors.first_name}
         />
         <Field
           name="second_name"
           label="second name"
           type="text"
-          error={errors.email}
+          error={errors.second_name}
         />
-        <Field name="login" label="login" type="text" error={errors.email} />
+        <Field name="login" label="login" type="text" error={errors.login} />
         <Field name="email" label="email" type="email" error={errors.email} />
         <Field
           name="password"
@@ -41,16 +45,11 @@ export default function RegisterForm(props: FormProps) {
           type="password"
           error={errors.password}
         />
-        <Field
-          name="phone"
-          label="phone"
-          type="phone"
-          error={errors.password}
-        />
+        <Field name="phone" label="phone" type="phone" error={errors.phone} />
       </div>
       <div className="flex flex-col justify-between gap-4 mt-8">
-        <Button label="BREACH IN" type="submit" />
-        <Button label="NO ACCESS? PLUG IN!" type="button" />
+        <Button label="PLUG IN" type="submit" />
+        <Button label="HAVE ACCESS? BREACH IN!" type="button" />
       </div>
     </form>
   );
