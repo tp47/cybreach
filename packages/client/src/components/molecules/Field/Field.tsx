@@ -1,5 +1,5 @@
-import ErrorLine from "../atoms/ErrorLine";
-import Input from "../atoms/Input";
+import { ErrorLine } from "@/components";
+import { Input } from "@/components";
 
 interface FieldProps {
   label: string;

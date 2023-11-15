@@ -1,5 +1,5 @@
-import Field from "../molecules/Field";
-import Button from "../atoms/Button";
+import { Field } from "@/components";
+import { Button } from "@/components";
 
 interface FormProps {
   title?: string;
