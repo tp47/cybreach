@@ -1,19 +1,17 @@
-interface InputProps {
-  type: string;
-  name: string;
-  autoComplete: string;
+import { InputHTMLAttributes, FormEventHandler } from "react";
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  handleInput: FormEventHandler<HTMLInputElement>;
 }
 
 export default function Input(props: InputProps) {
-  const { type, name, autoComplete } = props;
+  const { handleInput } = props;
 
   return (
     <input
-      name={name}
-      type={type}
-      autoComplete={autoComplete}
-      required
       className="w-full p-2 bg-gray-800 border border-green-500 text-green-500"
+      onInput={handleInput}
+      {...props}
     />
   );
 }

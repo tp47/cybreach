@@ -1,16 +1,12 @@
-interface ButtonProps {
-  type: "button" | "submit" | "reset" | undefined;
+import { ButtonHTMLAttributes } from "react";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string;
 }
 
-export default function Button(props: ButtonProps) {
-  const { type, label } = props;
-
+export default function Button({ label, ...props }: ButtonProps) {
   return (
-    <button
-      type={type}
-      className="bg-green-500 border-2 h-10 border-green-500 "
-    >
+    <button className="bg-green-500 border-2 h-10 border-green-500" {...props}>
       {label}
     </button>
   );
