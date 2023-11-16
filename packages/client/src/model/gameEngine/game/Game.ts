@@ -22,6 +22,7 @@ class Game {
     if (canvas.getContext("2d") === null) {
       throw new Error("Canvas context is null");
     }
+
     this.canvas = canvas;
     this.context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
@@ -75,9 +76,9 @@ class Game {
     this.EventBus = new EventBus();
 
     this.animate = this.animate.bind(this);
-
     this.handleKeystroke = this.handleKeystroke.bind(this);
     this.endGame = this.endGame.bind(this);
+    this.loseGame = this.loseGame.bind(this);
 
     this.init();
   }
@@ -113,13 +114,20 @@ class Game {
       case GameStatus.SOLVED:
         this.context.font = "24px mono";
         this.context.fillStyle = "#00ff00";
-        this.context.fillText("Sequnce solved", 50, 50);
+        this.context.fillText("Sequence solved", 50, 50);
+        break;
+
+      case GameStatus.LOSED:
+        this.context.font = "24px mono";
+        this.context.fillStyle = "#ff0000";
+        this.context.fillText("Buffer overloaded. Game over", 50, 50);
         break;
 
       default:
         break;
     }
-    requestAnimationFrame(this.animate.bind(this));
+
+    requestAnimationFrame(this.animate);
   }
 
   private drawBackground() {
@@ -152,6 +160,7 @@ class Game {
         break;
 
       case "Enter":
+      case "Space":
         this.Matrix.selectElement();
         break;
 
@@ -176,8 +185,13 @@ class Game {
     this.gameStatus = GameStatus.SOLVED;
   }
 
+  private loseGame() {
+    this.gameStatus = GameStatus.LOSED;
+  }
+
   private registerEvents() {
     this.EventBus.register("sequence_composed", this.endGame);
+    this.EventBus.register("buffer_overloaded", this.loseGame);
   }
 }
 

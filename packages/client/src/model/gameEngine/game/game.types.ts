@@ -6,6 +6,7 @@ type GameConfig = {
 enum GameStatus {
   IN_PROGRESS,
   SOLVED,
+  LOSED,
 }
 
 export type { GameConfig };

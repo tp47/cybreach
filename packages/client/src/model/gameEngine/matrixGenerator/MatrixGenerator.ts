@@ -46,7 +46,6 @@ class MatrixGenerator {
     this.minBufferSize = config.minBufferSize;
     this.maxBufferSize = config.maxBufferSize;
 
-    this.differentMatrixValuesAmount = config.differentMatrixValuesAmount;
     this.matrixValues = config.matrixValues;
     this.emptyMatrixValue = config.emptyMatrixValue;
 
@@ -90,7 +89,7 @@ class MatrixGenerator {
 
     const sequence: BoardSequence = [];
 
-    // always statrt in the first line
+    // Always start from the first line
     for (let i = 0; i < length; i++) {
       let matrixIndex = -1;
       if (searchInRow) {
@@ -216,6 +215,7 @@ class MatrixGenerator {
       this.matrixValues.length - 1,
       this.seededRNG
     );
+
     return this.matrixValues[randomElementIndex];
   }
 }

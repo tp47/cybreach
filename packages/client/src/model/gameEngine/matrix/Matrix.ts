@@ -38,7 +38,9 @@ class MatrixDrawable extends Drawable {
 
   private drawMatrix() {
     this.matrix.forEach((element, index) => {
+      // Each column element with padding
       const x = this.x + Math.floor(index % this.matrixSize) * 25;
+      // Each row from new line
       const y = this.y + Math.floor(index / this.matrixSize) * 20 + 15;
 
       if (index === this.currentElementIndex) {
@@ -52,6 +54,7 @@ class MatrixDrawable extends Drawable {
       }
     });
   }
+
   public moveSelection(direction: MoveDirection) {
     switch (direction) {
       case MoveDirection.LEFT:
@@ -87,7 +90,10 @@ class MatrixDrawable extends Drawable {
     if (this.canSelect()) {
       this.selectedElements.push(this.currentElementIndex);
       this.isRowDirection = !this.isRowDirection;
-      this.EventBus.dispatch("select", this.matrix[this.currentElementIndex]);
+      this.EventBus.dispatch(
+        "element_selected",
+        this.matrix[this.currentElementIndex]
+      );
     }
   }
 
@@ -99,6 +105,7 @@ class MatrixDrawable extends Drawable {
     ) {
       return false;
     }
+
     return true;
   }
 
@@ -110,6 +117,7 @@ class MatrixDrawable extends Drawable {
     ) {
       return false;
     }
+
     return true;
   }
 
@@ -122,6 +130,7 @@ class MatrixDrawable extends Drawable {
     ) {
       return false;
     }
+
     return true;
   }
 
@@ -132,6 +141,7 @@ class MatrixDrawable extends Drawable {
     ) {
       return false;
     }
+
     return true;
   }
 

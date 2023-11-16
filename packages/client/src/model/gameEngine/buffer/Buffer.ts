@@ -67,16 +67,24 @@ class Buffer extends Drawable {
     if (this.buffer.length >= this.bufferLength) {
       return;
     }
+
     this.buffer.push(element);
-    this.sequences.forEach((sequence) => {
+
+    for (const sequence of this.sequences) {
       if (this.buffer.join("").includes(sequence.join(""))) {
         this.EventBus.dispatch("sequence_composed", sequence);
+        return;
       }
-    });
+    }
+
+    if (this.buffer.length === this.bufferLength) {
+      this.EventBus.dispatch("buffer_overloaded");
+      console.log("overl");
+    }
   }
 
   private registerEvents() {
-    this.EventBus.register("select", this.addElement);
+    this.EventBus.register("element_selected", this.addElement);
   }
 }
 
