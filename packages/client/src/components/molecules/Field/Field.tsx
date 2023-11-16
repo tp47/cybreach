@@ -1,15 +1,15 @@
-import { ErrorLine } from "@/components";
-import { Input } from "@/components";
+import { ErrorLine } from '@/components'
+import { Input } from '@/components'
 
 interface FieldProps {
-  label: string;
-  type: string;
-  name: string;
-  error: string | null;
+  label: string
+  type: string
+  name: string
+  error: string | null
 }
 
 export default function Field(props: FieldProps) {
-  const { label, type, name, error } = props;
+  const { label, type, name, error } = props
 
   return (
     <div className="flex flex-col text-sm">
@@ -19,5 +19,5 @@ export default function Field(props: FieldProps) {
       </label>
       <ErrorLine error={error} />
     </div>
-  );
+  )
 }

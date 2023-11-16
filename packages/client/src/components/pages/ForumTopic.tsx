@@ -1,3 +1,3 @@
 export function ForumTopic(): JSX.Element {
-  return <div>ForumTopic</div>;
+  return <div>ForumTopic</div>
 }
