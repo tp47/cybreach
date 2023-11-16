@@ -1,3 +1,3 @@
 export function LeaderBoard(): JSX.Element {
-  return <div>LeaderBoard</div>;
+  return <div>LeaderBoard</div>
 }

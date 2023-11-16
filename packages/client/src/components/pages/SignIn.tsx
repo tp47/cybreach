@@ -1,3 +1,3 @@
 export function SignIn(): JSX.Element {
-  return <div>SignIn</div>;
+  return <div>SignIn</div>
 }

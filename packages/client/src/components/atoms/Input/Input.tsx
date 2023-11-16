@@ -1,11 +1,11 @@
-import { InputHTMLAttributes, FormEventHandler } from "react";
+import { InputHTMLAttributes, FormEventHandler } from 'react'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  handleInput?: FormEventHandler<HTMLInputElement>;
+  handleInput?: FormEventHandler<HTMLInputElement>
 }
 
 export default function Input(props: InputProps) {
-  const { handleInput } = props;
+  const { handleInput } = props
 
   return (
     <input
@@ -13,5 +13,5 @@ export default function Input(props: InputProps) {
       onInput={handleInput}
       {...props}
     />
-  );
+  )
 }
