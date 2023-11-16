@@ -12,11 +12,11 @@ export default function Field(props: FieldProps) {
   const { label, type, name, error } = props;
 
   return (
-    <div className="flex flex-col">
-      <label className="block text-green-500" htmlFor={name}>
+    <div className="flex flex-col text-sm">
+      <label className="block text-green-500">
         {label}
+        <Input name={name} type={type} autoComplete={name} />
       </label>
-      <Input name={name} type={type} autoComplete={name} />
       <ErrorLine error={error} />
     </div>
   );
