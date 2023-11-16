@@ -1,5 +1,5 @@
 interface ErrorLineProps {
-  error: string | null;
+  error: string | undefined;
 }
 
 export default function ErrorLine(props: ErrorLineProps) {
