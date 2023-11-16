@@ -5,11 +5,11 @@ import {
   Game,
   LeaderBoard,
   Profile,
-  LoginPage,
-  SignUp,
   Error,
+  Main,
 } from "../components";
-import Main from "../components/pages/Main";
+
+import { LoginPage, RegisterPage } from "@/components";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "signup",
-    element: <SignUp />,
+    element: <RegisterPage />,
   },
   {
     path: "profile",
