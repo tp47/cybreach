@@ -9,7 +9,7 @@ export default function Input(props: InputProps) {
 
   return (
     <input
-      className="w-full p-2 bg-gray-800 border border-green-500 text-green-500"
+      className="w-full p-2 mt-1 bg-gray-800 border border-green-500 text-green-500"
       onInput={handleInput}
       {...props}
     />
