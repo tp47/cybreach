@@ -1,3 +1,3 @@
 export function Game(): JSX.Element {
-  return <div>Game</div>;
+  return <div>Game</div>
 }

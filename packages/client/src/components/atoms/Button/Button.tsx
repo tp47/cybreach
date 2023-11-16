@@ -1,7 +1,7 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  label?: string;
+  label?: string
 }
 
 export default function Button({ label, ...props }: ButtonProps) {
@@ -9,5 +9,5 @@ export default function Button({ label, ...props }: ButtonProps) {
     <button className="bg-green-500 border-2 h-10 border-green-500" {...props}>
       {label}
     </button>
-  );
+  )
 }
