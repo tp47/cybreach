@@ -1,5 +1,5 @@
 import { Button } from '@/components'
-import { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const enum BUTTON {
@@ -9,8 +9,20 @@ const enum BUTTON {
   TUTORIAL = 'tutorial',
 }
 
-const classNameBtn = `
-    text-white
+const styles = {
+  main: `h-full
+    border-2
+    border-green-300
+    rounded-2xl
+    p-[60px]
+    bg-right
+    bg-contain
+    flex
+    gap-[200px]
+  `,
+  nav: 'h-full flex flex-col min-w-[330px] max-w-[330px]',
+  list: 'h-full flex flex-col justify-center gap-[20px]',
+  btn: `
     bg-green-950
     border-2
     border-green-300
@@ -19,6 +31,7 @@ const classNameBtn = `
     w-full
     shadow-[0px_0px_4px_1px]
     shadow-green-300
+    text-white
     hover:bg-green-300
     hover:text-green-950
     disabled:bg-stone-500
@@ -30,76 +43,49 @@ const classNameBtn = `
     transition-all
     duration-750
     uppercase
-  `
+  `,
+  tutorial: 'text-xl w-full text-green-300',
+}
 
 export default function MainContent() {
   const navigate = useNavigate()
 
   const [showTutorial, setShowTutorial] = useState(false)
 
-  const onClickNav = (e: SyntheticEvent<HTMLButtonElement>) => {
-    const { name } = e.currentTarget
+  const onClickNav = useCallback(
+    (e: SyntheticEvent<HTMLButtonElement>) => {
+      const { name } = e.currentTarget
 
-    if (name === BUTTON.TUTORIAL) {
-      setShowTutorial((prev) => !prev)
-    } else {
-      navigate(`/${name}`)
-    }
-  }
+      if (name === BUTTON.TUTORIAL) {
+        setShowTutorial((prev) => !prev)
+      } else {
+        navigate(`/${name}`)
+      }
+    },
+    [navigate]
+  )
+
+  const getListItem = useCallback(
+    (name: BUTTON) => (
+      <li>
+        <Button label={name} name={name} onClick={onClickNav} className={styles.btn} />
+      </li>
+    ),
+    [onClickNav]
+  )
 
   return (
-    <main
-      className={`
-        h-full
-        border-2
-        border-green-300
-        rounded-2xl
-        p-[60px]
-        bg-right
-        bg-contain
-        flex
-        gap-[200px]
-        ${showTutorial ? '' : 'custom-bg-main-menu'}
-      `}
-    >
-      <nav className="h-full flex flex-col min-w-[330px] max-w-[330px]">
-        <ul className="h-full flex flex-col justify-center gap-[20px] ">
-          <li>
-            <Button
-              label={BUTTON.GAME}
-              name={BUTTON.GAME}
-              onClick={onClickNav}
-              className={classNameBtn}
-            />
-          </li>
-          <li>
-            <Button
-              label={BUTTON.LEADERBOARD}
-              name={BUTTON.LEADERBOARD}
-              onClick={onClickNav}
-              className={classNameBtn}
-            />
-          </li>
-          <li>
-            <Button
-              label={BUTTON.FORUM}
-              name={BUTTON.FORUM}
-              onClick={onClickNav}
-              className={classNameBtn}
-            />
-          </li>
-          <li>
-            <Button
-              label={BUTTON.TUTORIAL}
-              name={BUTTON.TUTORIAL}
-              onClick={onClickNav}
-              className={classNameBtn}
-            />
-          </li>
+    <main className={`${styles.main}${showTutorial ? '' : ' custom-bg-main-menu'}`}>
+      <nav className={styles.nav}>
+        <ul className={styles.list}>
+          {getListItem(BUTTON.GAME)}
+          {getListItem(BUTTON.LEADERBOARD)}
+          {getListItem(BUTTON.FORUM)}
+          {getListItem(BUTTON.TUTORIAL)}
         </ul>
       </nav>
       {showTutorial && (
-        <div className=" text-xl w-full text-green-300">
+        <div className={styles.tutorial}>
           <p className="mb-4">
             Вам нужно за отведенное время и количество шагов выбрать нужные комбинации цифр и
             символов в матрице 5х5 в порядке, указанном в последовательности.
