@@ -4,7 +4,7 @@ export { ForumTopic } from './ForumTopic'
 export { Profile } from './Profile'
 export { Game } from './Game'
 export { Error } from './Error'
-export { Main } from './Main'
+export { MainPage } from './MainPage'
 
 export * from './LoginPage'
 export * from './RegisterPage'
