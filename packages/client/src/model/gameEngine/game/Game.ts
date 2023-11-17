@@ -1,33 +1,33 @@
-import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus } from "@/model";
-import { MoveDirection } from "@/model";
-import { GameConfig, GameStatus } from "./game.types";
+import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus } from '@/model'
+import { MoveDirection } from '@/model'
+import { GameConfig, GameStatus } from './game.types'
 
 class Game {
-  private canvas: HTMLCanvasElement;
-  private context: CanvasRenderingContext2D;
+  private canvas: HTMLCanvasElement
+  private context: CanvasRenderingContext2D
 
-  private seed: string;
-  private level: number;
+  private seed: string
+  private level: number
 
-  private gameStatus: GameStatus = GameStatus.IN_PROGRESS;
+  private gameStatus: GameStatus = GameStatus.IN_PROGRESS
 
-  private Matrix: Matrix;
-  private Sequences: Sequences;
-  private Buffer: Buffer;
-  private MatrixGenerator: MatrixGenerator;
+  private Matrix: Matrix
+  private Sequences: Sequences
+  private Buffer: Buffer
+  private MatrixGenerator: MatrixGenerator
 
-  private EventBus: EventBus;
+  private EventBus: EventBus
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
-    if (canvas.getContext("2d") === null) {
-      throw new Error("Canvas context is null");
+    if (canvas.getContext('2d') === null) {
+      throw new Error('Canvas context is null')
     }
 
-    this.canvas = canvas;
-    this.context = canvas.getContext("2d") as CanvasRenderingContext2D;
+    this.canvas = canvas
+    this.context = canvas.getContext('2d') as CanvasRenderingContext2D
 
-    this.seed = config.seed;
-    this.level = config.level;
+    this.seed = config.seed
+    this.level = config.level
 
     this.MatrixGenerator = new MatrixGenerator(this.level, this.seed, {
       minMatrixSize: 3,
@@ -37,9 +37,9 @@ class Game {
       minSequenceLength: 2,
       minBufferSize: 4,
       maxBufferSize: 6,
-      matrixValues: ["A0", "E9", "4C", "8B", "6F"],
-      emptyMatrixValue: " ",
-    });
+      matrixValues: ['A0', 'E9', '4C', '8B', '6F'],
+      emptyMatrixValue: ' ',
+    })
 
     this.Matrix = new Matrix(canvas, this.MatrixGenerator.matrix, {
       dimensions: {
@@ -48,7 +48,7 @@ class Game {
         width: 200,
         height: 200,
       },
-    });
+    })
 
     this.Buffer = new Buffer(
       canvas,
@@ -62,7 +62,7 @@ class Game {
           height: 200,
         },
       }
-    );
+    )
 
     this.Sequences = new Sequences(canvas, this.MatrixGenerator.sequences, {
       dimensions: {
@@ -71,128 +71,128 @@ class Game {
         width: 200,
         height: 200,
       },
-    });
+    })
 
-    this.EventBus = new EventBus();
+    this.EventBus = new EventBus()
 
-    this.animate = this.animate.bind(this);
-    this.handleKeystroke = this.handleKeystroke.bind(this);
-    this.endGame = this.endGame.bind(this);
-    this.loseGame = this.loseGame.bind(this);
+    this.animate = this.animate.bind(this)
+    this.handleKeystroke = this.handleKeystroke.bind(this)
+    this.endGame = this.endGame.bind(this)
+    this.loseGame = this.loseGame.bind(this)
 
-    this.init();
+    this.init()
   }
 
   private init() {
-    this.prepareCanvas();
-    this.addEvents();
-    this.registerEvents();
-    requestAnimationFrame(this.animate);
+    this.prepareCanvas()
+    this.addEvents()
+    this.registerEvents()
+    requestAnimationFrame(this.animate)
   }
 
   private prepareCanvas() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-    this.drawBackground();
+    this.canvas.width = window.innerWidth
+    this.canvas.height = window.innerHeight
+    this.drawBackground()
   }
 
   private clearCanvas() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
   private animate() {
-    this.clearCanvas();
-    this.drawBackground();
+    this.clearCanvas()
+    this.drawBackground()
 
     switch (this.gameStatus) {
       case GameStatus.IN_PROGRESS:
-        this.Matrix.draw();
-        this.Sequences.draw();
-        this.Buffer.draw();
-        break;
+        this.Matrix.draw()
+        this.Sequences.draw()
+        this.Buffer.draw()
+        break
 
       case GameStatus.SOLVED:
-        this.context.font = "24px mono";
-        this.context.fillStyle = "#00ff00";
-        this.context.fillText("Sequence solved", 50, 50);
-        break;
+        this.context.font = '24px mono'
+        this.context.fillStyle = '#00ff00'
+        this.context.fillText('Sequence solved', 50, 50)
+        break
 
       case GameStatus.LOSED:
-        this.context.font = "24px mono";
-        this.context.fillStyle = "#ff0000";
-        this.context.fillText("Buffer overloaded. Game over", 50, 50);
-        break;
+        this.context.font = '24px mono'
+        this.context.fillStyle = '#ff0000'
+        this.context.fillText('Buffer overloaded. Game over', 50, 50)
+        break
 
       default:
-        break;
+        break
     }
 
-    requestAnimationFrame(this.animate);
+    requestAnimationFrame(this.animate)
   }
 
   private drawBackground() {
-    this.context.fillStyle = "black";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.fillStyle = 'black'
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
   private handleKeystroke(event: KeyboardEvent) {
-    const { key } = event;
+    const { key } = event
 
     switch (key) {
-      case "ArrowRight":
-      case "l":
-        this.Matrix.moveSelection(MoveDirection.RIGHT);
-        break;
+      case 'ArrowRight':
+      case 'l':
+        this.Matrix.moveSelection(MoveDirection.RIGHT)
+        break
 
-      case "ArrowLeft":
-      case "h":
-        this.Matrix.moveSelection(MoveDirection.LEFT);
-        break;
+      case 'ArrowLeft':
+      case 'h':
+        this.Matrix.moveSelection(MoveDirection.LEFT)
+        break
 
-      case "ArrowUp":
-      case "k":
-        this.Matrix.moveSelection(MoveDirection.UP);
-        break;
+      case 'ArrowUp':
+      case 'k':
+        this.Matrix.moveSelection(MoveDirection.UP)
+        break
 
-      case "ArrowDown":
-      case "j":
-        this.Matrix.moveSelection(MoveDirection.DOWN);
-        break;
+      case 'ArrowDown':
+      case 'j':
+        this.Matrix.moveSelection(MoveDirection.DOWN)
+        break
 
-      case "Enter":
-      case "Space":
-        this.Matrix.selectElement();
-        break;
+      case 'Enter':
+      case 'Space':
+        this.Matrix.selectElement()
+        break
 
       default:
-        break;
+        break
     }
   }
 
   private addEvents() {
-    window.addEventListener("keydown", this.handleKeystroke);
+    window.addEventListener('keydown', this.handleKeystroke)
   }
 
   private removeEvents() {
-    window.removeEventListener("keydown", this.handleKeystroke);
+    window.removeEventListener('keydown', this.handleKeystroke)
   }
 
   public destruct() {
-    this.removeEvents();
+    this.removeEvents()
   }
 
   private endGame() {
-    this.gameStatus = GameStatus.SOLVED;
+    this.gameStatus = GameStatus.SOLVED
   }
 
   private loseGame() {
-    this.gameStatus = GameStatus.LOSED;
+    this.gameStatus = GameStatus.LOSED
   }
 
   private registerEvents() {
-    this.EventBus.register("sequence_composed", this.endGame);
-    this.EventBus.register("buffer_overloaded", this.loseGame);
+    this.EventBus.register('sequence_composed', this.endGame)
+    this.EventBus.register('buffer_overloaded', this.loseGame)
   }
 }
 
-export default Game;
+export default Game

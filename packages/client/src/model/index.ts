@@ -1,2 +1,2 @@
-export * from "./eventBus";
-export * from "./gameEngine";
+export * from './eventBus'
+export * from './gameEngine'
