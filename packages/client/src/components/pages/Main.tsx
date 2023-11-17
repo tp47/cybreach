@@ -1,3 +1,5 @@
+import { MainHeader, MainLayout, MainContent } from '@/components'
+
 export default function Main(): JSX.Element {
-  return <div>Main</div>
+  return <MainLayout Header={MainHeader} Content={MainContent} />
 }

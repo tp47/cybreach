@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-bg-gradiend {
+  background: linear-gradient(110deg, #040909 32.66%, #1A372E 85.93%);
+}
+
+.custom-bg-main-menu {
+  background: linear-gradient(to right, #040909 40%, transparent 75%), right / contain no-repeat url('public/assets/images/main-bg.jpeg');
+  background-color: #040909;
+}
