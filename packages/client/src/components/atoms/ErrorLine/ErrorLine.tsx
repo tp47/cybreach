@@ -1,9 +1,11 @@
 interface ErrorLineProps {
-  error: string | undefined;
+  error: string | undefined
 }
 
 export default function ErrorLine(props: ErrorLineProps) {
-  const { error } = props;
+  const { error } = props
 
-  return <span className="text-red-500 w-full text-right">{error}</span>;
+  return (
+    <span className="text-red-500 w-full text-right mt-1 text-xs min-h-[1rem] h-auto">{error}</span>
+  )
 }

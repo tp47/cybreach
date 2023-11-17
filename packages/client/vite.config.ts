@@ -1,8 +1,8 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
-import react from "@vitejs/plugin-react";
-import dotenv from "dotenv";
-dotenv.config();
+import { defineConfig } from 'vite'
+import { resolve } from 'path'
+import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv'
+dotenv.config()
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": resolve("./src"),
+      '@': resolve('./src'),
     },
   },
-});
+})

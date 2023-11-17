@@ -1,48 +1,40 @@
-import { createBrowserRouter } from "react-router-dom";
-import {
-  Forum,
-  ForumTopic,
-  Game,
-  LeaderBoard,
-  Profile,
-  LoginPage,
-  SignUp,
-  Error,
-} from "../components";
-import Main from "../components/pages/Main";
+import { createBrowserRouter } from 'react-router-dom'
+import { Forum, ForumTopic, Game, LeaderBoard, Profile, Error, Main } from '../components'
+
+import { LoginPage, RegisterPage } from '@/components'
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Main />,
     errorElement: <Error />,
   },
   {
-    path: "signin",
+    path: 'signin',
     element: <LoginPage />,
   },
   {
-    path: "signup",
-    element: <SignUp />,
+    path: 'signup',
+    element: <RegisterPage />,
   },
   {
-    path: "profile",
+    path: 'profile',
     element: <Profile />,
   },
   {
-    path: "game",
+    path: 'game',
     element: <Game />,
   },
   {
-    path: "leaderboard",
+    path: 'leaderboard',
     element: <LeaderBoard />,
   },
   {
-    path: "forum",
+    path: 'forum',
     element: <Forum />,
   },
   {
-    path: "forum/:id",
+    path: 'forum/:id',
     element: <ForumTopic />,
   },
-]);
+])
