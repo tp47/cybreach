@@ -1,8 +1,7 @@
 import { Button, Field } from '@/components'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { emailPattern, passwordPattern } from '../../../constants/validation.const'
-import { FormFields } from '@/types/formFields'
-import { FieldsForm } from '@/constants/fieldsForm.enum'
+import { FieldsForm } from '@/constants/fieldsForm'
 
 interface FormProps {
   title?: string
@@ -10,14 +9,19 @@ interface FormProps {
   handleSubmit?: () => void
 }
 
+enum LoginFields {
+  email = 'email',
+  password = 'password',
+}
+
 export default function LoginForm() {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<FormFields>({ mode: 'onBlur' })
+  } = useForm<Record<LoginFields, string>>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
+  const onSubmit: SubmitHandler<Record<LoginFields, string>> = (data) => {
     alert(JSON.stringify(data))
   }
 
@@ -30,7 +34,7 @@ export default function LoginForm() {
           <Field
             label={FieldsForm.EMAIL}
             register={register}
-            pattern={{
+            patternForm={{
               value: emailPattern,
               message: 'Email is not valid',
             }}
@@ -41,7 +45,7 @@ export default function LoginForm() {
           <Field
             label={FieldsForm.PASSWORD}
             register={register}
-            pattern={{
+            patternForm={{
               value: passwordPattern,
               message: 'Password is not valid',
             }}

@@ -7,8 +7,7 @@ import {
   passwordPattern,
   phonePattern,
 } from '../../../constants/validation.const'
-import { FormFields } from '@/types/formFields'
-import { FieldsForm } from '@/constants/fieldsForm.enum'
+import { FieldsForm } from '@/constants/fieldsForm'
 
 interface FormProps {
   title?: string
@@ -21,9 +20,9 @@ export default function RegisterForm() {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<FormFields>({ mode: 'onBlur' })
+  } = useForm<Record<FieldsForm, string>>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
+  const onSubmit: SubmitHandler<Record<FieldsForm, string>> = (data) => {
     alert(JSON.stringify(data))
   }
 
@@ -36,7 +35,7 @@ export default function RegisterForm() {
           <Field
             label={FieldsForm.FIRST_NAME}
             register={register}
-            pattern={{
+            patternForm={{
               value: namePattern,
               message: 'First name is not valid',
             }}
@@ -47,7 +46,7 @@ export default function RegisterForm() {
           <Field
             label={FieldsForm.SECOND_NAME}
             register={register}
-            pattern={{
+            patternForm={{
               value: namePattern,
               message: 'Second name is not valid',
             }}
@@ -58,7 +57,7 @@ export default function RegisterForm() {
           <Field
             label={FieldsForm.LOGIN}
             register={register}
-            pattern={{
+            patternForm={{
               value: loginPattern,
               message: 'Login is not valid',
             }}
@@ -69,7 +68,7 @@ export default function RegisterForm() {
           <Field
             label={FieldsForm.EMAIL}
             register={register}
-            pattern={{
+            patternForm={{
               value: emailPattern,
               message: 'Email is not valid',
             }}
@@ -80,7 +79,7 @@ export default function RegisterForm() {
           <Field
             label={FieldsForm.PASSWORD}
             register={register}
-            pattern={{
+            patternForm={{
               value: passwordPattern,
               message: 'Password is not valid',
             }}
@@ -91,7 +90,7 @@ export default function RegisterForm() {
           <Field
             label={FieldsForm.PHONE}
             register={register}
-            pattern={{
+            patternForm={{
               value: phonePattern,
               message: 'Phone is not valid',
             }}
