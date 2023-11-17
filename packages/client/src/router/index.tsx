@@ -1,15 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
-import {
-  Forum,
-  ForumTopic,
-  Game,
-  LeaderBoard,
-  Profile,
-  LoginPage,
-  SignUp,
-  Error,
-} from '../components'
-import Main from '../components/pages/Main'
+import { Forum, ForumTopic, Game, LeaderBoard, Profile, Error, Main } from '../components'
+
+import { LoginPage, RegisterPage } from '@/components'
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +15,7 @@ export const router = createBrowserRouter([
   },
   {
     path: 'signup',
-    element: <SignUp />,
+    element: <RegisterPage />,
   },
   {
     path: 'profile',
