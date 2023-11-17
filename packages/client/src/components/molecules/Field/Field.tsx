@@ -1,21 +1,14 @@
 import { ErrorLine } from '@/components'
 import { Input } from '@/components'
+import { FormFields } from '@/types/formFields'
 import { Path, UseFormRegister, ValidationRule } from 'react-hook-form'
 
-interface FormData {
-  email: string
-  password: string
-  'first name': string
-  'second name': string
-  login: string
-  phone: string
-}
 interface FieldProps {
   name: string
   type: string
   error: string | undefined
-  label: Path<FormData>
-  register: UseFormRegister<FormData>
+  label: Path<FormFields>
+  register: UseFormRegister<FormFields>
   pattern: ValidationRule<RegExp> | undefined
 }
 

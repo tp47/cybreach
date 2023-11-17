@@ -6,7 +6,9 @@ import {
   namePattern,
   passwordPattern,
   phonePattern,
-} from '../patternsForm'
+} from '../../../constants/validation.const'
+import { FormFields } from '@/types/formFields'
+import { FieldsForm } from '@/constants/fieldsForm.enum'
 
 interface FormProps {
   title?: string
@@ -14,23 +16,14 @@ interface FormProps {
   handleSubmit?: () => void
 }
 
-interface FormData {
-  email: string
-  password: string
-  'first name': string
-  'second name': string
-  login: string
-  phone: string
-}
-
 export default function RegisterForm() {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<FormData>({ mode: 'onBlur' })
+  } = useForm<FormFields>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
     alert(JSON.stringify(data))
   }
 
@@ -41,69 +34,69 @@ export default function RegisterForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Field
-            label="first name"
+            label={FieldsForm.FIRST_NAME}
             register={register}
             pattern={{
               value: namePattern,
               message: 'First name is not valid',
             }}
-            name="first name"
+            name={FieldsForm.FIRST_NAME}
             type="text"
-            error={errors?.['first name']?.message}
+            error={errors?.[FieldsForm.FIRST_NAME]?.message}
           />
           <Field
-            label="second name"
+            label={FieldsForm.SECOND_NAME}
             register={register}
             pattern={{
               value: namePattern,
               message: 'Second name is not valid',
             }}
-            name="second name"
+            name={FieldsForm.SECOND_NAME}
             type="text"
-            error={errors?.['second name']?.message}
+            error={errors?.[FieldsForm.SECOND_NAME]?.message}
           />
           <Field
-            label="login"
+            label={FieldsForm.LOGIN}
             register={register}
             pattern={{
               value: loginPattern,
               message: 'Login is not valid',
             }}
-            name="login"
+            name={FieldsForm.LOGIN}
             type="text"
             error={errors?.login?.message}
           />
           <Field
-            label="email"
+            label={FieldsForm.EMAIL}
             register={register}
             pattern={{
               value: emailPattern,
               message: 'Email is not valid',
             }}
-            name="email"
-            type="email"
+            name={FieldsForm.EMAIL}
+            type={FieldsForm.EMAIL}
             error={errors?.email?.message}
           />
           <Field
-            label="password"
+            label={FieldsForm.PASSWORD}
             register={register}
             pattern={{
               value: passwordPattern,
               message: 'Password is not valid',
             }}
-            name="password"
-            type="password"
+            name={FieldsForm.PASSWORD}
+            type={FieldsForm.PASSWORD}
             error={errors?.password?.message}
           />
           <Field
-            label="phone"
+            label={FieldsForm.PHONE}
             register={register}
             pattern={{
               value: phonePattern,
               message: 'Phone is not valid',
             }}
-            name="phone"
-            type="phone"
+            name={FieldsForm.PHONE}
+            type={FieldsForm.PHONE}
             error={errors?.phone?.message}
           />
           <div className="flex flex-col justify-between mt-8">

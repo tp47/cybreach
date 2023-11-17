@@ -1,6 +1,8 @@
 import { Button, Field } from '@/components'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { emailPattern, passwordPattern } from '../patternsForm'
+import { emailPattern, passwordPattern } from '../../../constants/validation.const'
+import { FormFields } from '@/types/formFields'
+import { FieldsForm } from '@/constants/fieldsForm.enum'
 
 interface FormProps {
   title?: string
@@ -8,23 +10,14 @@ interface FormProps {
   handleSubmit?: () => void
 }
 
-interface FormData {
-  email: string
-  password: string
-  'first name': string
-  'second name': string
-  login: string
-  phone: string
-}
-
 export default function LoginForm() {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<FormData>({ mode: 'onBlur' })
+  } = useForm<FormFields>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
     alert(JSON.stringify(data))
   }
 
@@ -35,25 +28,25 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Field
-            label="email"
+            label={FieldsForm.EMAIL}
             register={register}
             pattern={{
               value: emailPattern,
               message: 'Email is not valid',
             }}
-            name="email"
-            type="email"
+            name={FieldsForm.EMAIL}
+            type={FieldsForm.EMAIL}
             error={errors?.email?.message}
           />
           <Field
-            label="password"
+            label={FieldsForm.PASSWORD}
             register={register}
             pattern={{
               value: passwordPattern,
               message: 'Password is not valid',
             }}
-            name="password"
-            type="password"
+            name={FieldsForm.PASSWORD}
+            type={FieldsForm.PASSWORD}
             error={errors?.password?.message}
           />
           <div className="flex flex-col justify-between mt-8">

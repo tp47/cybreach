@@ -1,18 +1,11 @@
+import { FormFields } from '@/types/formFields'
 import { FormEventHandler } from 'react'
 import { Path, UseFormRegister, ValidationRule } from 'react-hook-form'
 
-interface FormData {
-  email: string
-  password: string
-  'first name': string
-  'second name': string
-  login: string
-  phone: string
-}
 interface InputProps {
   handleInput?: FormEventHandler<HTMLInputElement>
-  label: Path<FormData>
-  register: UseFormRegister<FormData>
+  label: Path<FormFields>
+  register: UseFormRegister<FormFields>
   pattern: ValidationRule<RegExp> | undefined
   type: string
   autoComplete: string
