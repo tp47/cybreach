@@ -4,8 +4,11 @@ import { Path, UseFormRegister, ValidationRule } from 'react-hook-form'
 interface FormData {
   email: string
   password: string
+  'first name': string
+  'second name': string
+  login: string
+  phone: string
 }
-
 interface InputProps {
   handleInput?: FormEventHandler<HTMLInputElement>
   label: Path<FormData>
@@ -20,7 +23,7 @@ export default function Input(props: InputProps) {
 
   return (
     <input
-      className="w-full p-2 bg-gray-800 border border-green-500 text-green-500"
+      className="w-full p-2 mt-1 bg-gray-800 border border-green-500 text-green-500"
       {...register(label, {
         required: 'Field must be filled in',
         pattern: pattern,

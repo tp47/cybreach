@@ -1,5 +1,6 @@
 import { Button, Field } from '@/components'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { emailPattern, passwordPattern } from '../patternsForm'
 
 interface FormProps {
   title?: string
@@ -10,6 +11,10 @@ interface FormProps {
 interface FormData {
   email: string
   password: string
+  'first name': string
+  'second name': string
+  login: string
+  phone: string
 }
 
 export default function LoginForm() {
@@ -18,9 +23,6 @@ export default function LoginForm() {
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<FormData>({ mode: 'onBlur' })
-
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  const passwordPattern = /^(?=.*[A-Z])(?=.*\d).+$/
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     alert(JSON.stringify(data))
