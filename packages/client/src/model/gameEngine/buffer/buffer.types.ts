@@ -1,7 +1,7 @@
-import { RectDimensions } from "../drawable";
+import { RectDimensions } from '../drawable'
 
 type BufferConfig = {
-  dimensions: RectDimensions;
-};
+  dimensions: RectDimensions
+}
 
-export type { BufferConfig };
+export type { BufferConfig }

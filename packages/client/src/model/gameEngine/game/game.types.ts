@@ -1,7 +1,7 @@
 type GameConfig = {
-  seed: string;
-  level: number;
-};
+  seed: string
+  level: number
+}
 
 enum GameStatus {
   IN_PROGRESS,
@@ -9,5 +9,5 @@ enum GameStatus {
   LOSED,
 }
 
-export type { GameConfig };
-export { GameStatus };
+export type { GameConfig }
+export { GameStatus }

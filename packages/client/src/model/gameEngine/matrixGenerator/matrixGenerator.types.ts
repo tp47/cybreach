@@ -1,27 +1,22 @@
 type MatrixGeneratorConfig = {
-  minMatrixSize: number;
-  maxMatrixSize: number;
+  minMatrixSize: number
+  maxMatrixSize: number
 
-  minSequencesAmount: number;
-  maxSequencesAmount: number;
-  minSequenceLength: number;
+  minSequencesAmount: number
+  maxSequencesAmount: number
+  minSequenceLength: number
 
-  minBufferSize: number;
-  maxBufferSize: number;
+  minBufferSize: number
+  maxBufferSize: number
 
-  matrixValues: string[];
-  emptyMatrixValue: string;
-};
+  matrixValues: string[]
+  emptyMatrixValue: string
+}
 
-type BoardMatrix = string[];
+type BoardMatrix = string[]
 
-type BoardSequence = string[];
+type BoardSequence = string[]
 
-type BoardSequences = BoardSequence[];
+type BoardSequences = BoardSequence[]
 
-export type {
-  MatrixGeneratorConfig,
-  BoardMatrix,
-  BoardSequence,
-  BoardSequences,
-};
+export type { MatrixGeneratorConfig, BoardMatrix, BoardSequence, BoardSequences }

@@ -1,1 +1,1 @@
-export { default as Sequences } from "./Sequences";
+export { default as Sequences } from './Sequences'

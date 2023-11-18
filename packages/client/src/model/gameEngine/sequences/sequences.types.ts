@@ -1,7 +1,7 @@
-import { RectDimensions } from "@/model";
+import { RectDimensions } from '@/model'
 
 type SequencesConfig = {
-  dimensions: RectDimensions;
-};
+  dimensions: RectDimensions
+}
 
-export type { SequencesConfig };
+export type { SequencesConfig }

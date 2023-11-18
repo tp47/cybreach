@@ -1,15 +1,15 @@
-type StrokeStyle = string | CanvasGradient | CanvasPattern;
+type StrokeStyle = string | CanvasGradient | CanvasPattern
 
 type Coordinates = {
-  x: number;
-  y: number;
-};
+  x: number
+  y: number
+}
 
 type Sizes = {
-  width: number;
-  height: number;
-};
+  width: number
+  height: number
+}
 
-type RectDimensions = Coordinates & Sizes;
+type RectDimensions = Coordinates & Sizes
 
-export type { StrokeStyle, RectDimensions, Coordinates, Sizes };
+export type { StrokeStyle, RectDimensions, Coordinates, Sizes }

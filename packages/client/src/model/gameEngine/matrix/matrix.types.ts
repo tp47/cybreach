@@ -1,8 +1,8 @@
-import { RectDimensions } from "@/model";
+import { RectDimensions } from '@/model'
 
 type MatrixConfig = {
-  dimensions: RectDimensions;
-};
+  dimensions: RectDimensions
+}
 
 enum MoveDirection {
   LEFT,
@@ -15,5 +15,5 @@ enum MatrixDirection {
   ROW,
   COLUMN,
 }
-export { MoveDirection, MatrixDirection };
-export type { MatrixConfig };
+export { MoveDirection, MatrixDirection }
+export type { MatrixConfig }

@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Forum, ForumTopic, Game, LeaderBoard, Profile, Error, Main } from '../components'
+import { Forum, ForumTopic, Game, LeaderBoard, Profile, Error, MainPage } from '../components'
 
 import { LoginPage, RegisterPage } from '@/components'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Main />,
+    element: <MainPage />,
     errorElement: <Error />,
   },
   {
