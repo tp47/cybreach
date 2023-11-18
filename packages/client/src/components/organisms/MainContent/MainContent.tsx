@@ -68,7 +68,7 @@ export default function MainContent() {
   )
 
   return (
-    <main className={`${styles.main}${showTutorial ? '' : ' custom-bg-main-menu'}`}>
+    <main className={`${styles.main}${showTutorial ? '' : 'bg-custom-main-menu bg-no-repeat'}`}>
       <nav className={styles.nav}>
         <ul className={styles.list}>
           {ARRAY_BUTTONS.map((name, idx) => (

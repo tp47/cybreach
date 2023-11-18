@@ -9,7 +9,7 @@ interface IProps {
 
 export default function MainLayout({ header, content, footer }: IProps) {
   return (
-    <div className="flex flex-col p-[60px] w-screen h-screen custom-bg-gradiend">
+    <div className="flex flex-col p-[60px] w-screen h-screen bg-custom-layout">
       {header && <ErrorBoundary>{header}</ErrorBoundary>}
       {content && <ErrorBoundary>{content}</ErrorBoundary>}
       {footer && <ErrorBoundary>{footer}</ErrorBoundary>}
