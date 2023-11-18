@@ -9,19 +9,16 @@ interface FormProps {
   handleSubmit?: () => void
 }
 
-enum LoginFields {
-  email = 'email',
-  password = 'password',
-}
+interface FieldValues extends Record<FieldsForm.EMAIL | FieldsForm.PASSWORD, string> {}
 
 export default function LoginForm() {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<Record<LoginFields, string>>({ mode: 'onBlur' })
+  } = useForm<FieldValues>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<Record<LoginFields, string>> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     alert(JSON.stringify(data))
   }
 

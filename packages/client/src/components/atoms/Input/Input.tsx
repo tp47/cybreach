@@ -1,17 +1,15 @@
 import { FormEventHandler, InputHTMLAttributes } from 'react'
-import { Path, UseFormRegister, ValidationRule } from 'react-hook-form'
+import { Path, UseFormRegister, ValidationRule, FieldValues } from 'react-hook-form'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   handleInput?: FormEventHandler<HTMLInputElement>
   label: Path<Record<string, string>>
   register: UseFormRegister<Record<string, string>>
   patternForm: ValidationRule<RegExp> | undefined
-  type: string
-  autoComplete: string
 }
 
-export default function Input(props: InputProps) {
-  const { handleInput, label, register, patternForm, type, autoComplete } = props
+export default function Input<T extends FieldValues>(props: InputProps<T>) {
+  const { handleInput, label, register, patternForm } = props
 
   return (
     <input
@@ -21,8 +19,7 @@ export default function Input(props: InputProps) {
         pattern: patternForm,
       })}
       onInput={handleInput}
-      type={type}
-      autoComplete={autoComplete}
+      {...props}
     />
   )
 }

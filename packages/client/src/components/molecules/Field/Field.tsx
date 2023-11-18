@@ -1,8 +1,8 @@
 import { ErrorLine } from '@/components'
 import { Input } from '@/components'
-import { Path, UseFormRegister, ValidationRule } from 'react-hook-form'
+import { Path, UseFormRegister, ValidationRule, FieldValues } from 'react-hook-form'
 
-interface FieldProps {
+interface FieldProps<T extends FieldValues> {
   name: string
   type: string
   error: string | undefined
@@ -11,7 +11,7 @@ interface FieldProps {
   patternForm: ValidationRule<RegExp> | undefined
 }
 
-export default function Field(props: FieldProps) {
+export default function Field<T extends FieldValues>(props: FieldProps<T>) {
   const { label, name, type, error, register, patternForm } = props
 
   return (

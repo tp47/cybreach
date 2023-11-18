@@ -15,14 +15,25 @@ interface FormProps {
   handleSubmit?: () => void
 }
 
+interface FieldValues
+  extends Record<
+    | FieldsForm.EMAIL
+    | FieldsForm.PASSWORD
+    | FieldsForm.FIRST_NAME
+    | FieldsForm.SECOND_NAME
+    | FieldsForm.LOGIN
+    | FieldsForm.PHONE,
+    string
+  > {}
+
 export default function RegisterForm() {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<Record<FieldsForm, string>>({ mode: 'onBlur' })
+  } = useForm<FieldValues>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<Record<FieldsForm, string>> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     alert(JSON.stringify(data))
   }
 
