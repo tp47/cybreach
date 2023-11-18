@@ -1,29 +1,18 @@
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
+import { ReactNode } from 'react'
 
 interface IProps {
-  Header?: () => JSX.Element
-  Content?: () => JSX.Element
-  Footer?: () => JSX.Element
+  header?: ReactNode
+  content?: ReactNode
+  footer?: ReactNode
 }
 
-export default function MainLayout({ Header, Content, Footer }: IProps) {
+export default function MainLayout({ header, content, footer }: IProps) {
   return (
     <div className="flex flex-col p-[60px] w-screen h-screen custom-bg-gradiend">
-      {Header && (
-        <ErrorBoundary>
-          <Header />
-        </ErrorBoundary>
-      )}
-      {Content && (
-        <ErrorBoundary>
-          <Content />
-        </ErrorBoundary>
-      )}
-      {Footer && (
-        <ErrorBoundary>
-          <Footer />
-        </ErrorBoundary>
-      )}
+      {header && <ErrorBoundary>{header}</ErrorBoundary>}
+      {content && <ErrorBoundary>{content}</ErrorBoundary>}
+      {footer && <ErrorBoundary>{footer}</ErrorBoundary>}
     </div>
   )
 }
