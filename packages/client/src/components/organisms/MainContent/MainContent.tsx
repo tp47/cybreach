@@ -9,6 +9,8 @@ const enum BUTTON {
   TUTORIAL = 'tutorial',
 }
 
+const ARRAY_BUTTONS: BUTTON[] = [BUTTON.GAME, BUTTON.LEADERBOARD, BUTTON.FORUM, BUTTON.TUTORIAL]
+
 const styles = {
   main: `h-full
     border-2
@@ -65,23 +67,15 @@ export default function MainContent() {
     [navigate]
   )
 
-  const getListItem = useCallback(
-    (name: BUTTON) => (
-      <li>
-        <Button label={name} name={name} onClick={onClickNav} className={styles.btn} />
-      </li>
-    ),
-    [onClickNav]
-  )
-
   return (
     <main className={`${styles.main}${showTutorial ? '' : ' custom-bg-main-menu'}`}>
       <nav className={styles.nav}>
         <ul className={styles.list}>
-          {getListItem(BUTTON.GAME)}
-          {getListItem(BUTTON.LEADERBOARD)}
-          {getListItem(BUTTON.FORUM)}
-          {getListItem(BUTTON.TUTORIAL)}
+          {ARRAY_BUTTONS.map((name, idx) => (
+            <li key={idx}>
+              <Button label={name} name={name} onClick={onClickNav} className={styles.btn} />
+            </li>
+          ))}
         </ul>
       </nav>
       {showTutorial && (
