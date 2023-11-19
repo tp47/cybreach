@@ -1,5 +1,7 @@
-import { Field } from '@/components'
-import { Button } from '@/components'
+import { Button, Field } from '@/components'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { emailPattern, passwordPattern } from '../../../constants/validation.const'
+import { FieldsForm } from '@/constants/fieldsForm'
 
 interface FormProps {
   title?: string
@@ -7,24 +9,56 @@ interface FormProps {
   handleSubmit?: () => void
 }
 
-export default function LoginForm(props: FormProps) {
-  // mock
-  const errors = {
-    email: 'wrong signature',
-    password: 'wrong signature',
+interface FieldValues extends Record<FieldsForm.EMAIL | FieldsForm.PASSWORD, string> {}
+
+export default function LoginForm() {
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<FieldValues>({ mode: 'onBlur' })
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    alert(JSON.stringify(data))
   }
 
   return (
-    <form className="bg-gray-900 border-2 border-green-500 p-4">
-      <h1 className="text-green-500 text-center text-lg mb-8 font-bold">BREACH IN</h1>
-      <div className="mb-4">
-        <Field name="email" label="email" type="email" error={errors.email} />
-        <Field name="password" label="password" type="password" error={errors.password} />
-      </div>
-      <div className="flex flex-col justify-between gap-4 mt-8">
-        <Button label="BREACH IN" type="submit" />
+    <div className="bg-gray-900 border-2 border-green-500 p-4">
+      <h1 className="text-green-500 text-center text-lg mb-4 font-bold">BREACH IN</h1>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-4">
+          <Field
+            label={FieldsForm.EMAIL}
+            register={register}
+            patternForm={{
+              value: emailPattern,
+              message: 'Email is not valid',
+            }}
+            name={FieldsForm.EMAIL}
+            type={FieldsForm.EMAIL}
+            error={errors?.email?.message}
+          />
+          <Field
+            label={FieldsForm.PASSWORD}
+            register={register}
+            patternForm={{
+              value: passwordPattern,
+              message: 'Password is not valid',
+            }}
+            name={FieldsForm.PASSWORD}
+            type={FieldsForm.PASSWORD}
+            error={errors?.password?.message}
+          />
+          <div className="flex flex-col justify-between mt-8">
+            <Button label="BREACH IN" type="submit" disabled={!isValid} />
+          </div>
+        </div>
+      </form>
+
+      <div className="flex flex-col justify-between">
         <Button label="NO ACCESS? PLUG IN!" type="button" />
       </div>
-    </form>
+    </div>
   )
 }

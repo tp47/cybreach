@@ -1,22 +1,29 @@
 import { ErrorLine } from '@/components'
 import { Input } from '@/components'
+import { Path, UseFormRegister, ValidationRule, FieldValues } from 'react-hook-form'
 
-interface FieldProps {
-  label: string
-  type: string
+interface FieldProps<T extends FieldValues> {
   name: string
-  error: string | null
+  type: string
+  error: string | undefined
+  label: Path<Record<string, string>>
+  register: UseFormRegister<Record<string, string>>
+  patternForm: ValidationRule<RegExp> | undefined
 }
 
-export default function Field(props: FieldProps) {
-  const { label, type, name, error } = props
+export default function Field<T extends FieldValues>(props: FieldProps<T>) {
+  const { label, name, type, error, register, patternForm } = props
 
   return (
     <div className="flex flex-col text-sm">
-      <label className="block text-green-500">
-        {label}
-        <Input name={name} type={type} autoComplete={name} />
-      </label>
+      <label className="block text-green-500">{label}</label>
+      <Input
+        register={register}
+        patternForm={patternForm}
+        label={label}
+        type={type}
+        autoComplete={name}
+      />
       <ErrorLine error={error} />
     </div>
   )
