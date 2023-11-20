@@ -7,7 +7,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainPage />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage errorCode={404} />,
   },
   {
     path: 'signin',
