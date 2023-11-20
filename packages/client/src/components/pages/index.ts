@@ -3,7 +3,7 @@ export { Forum } from './Forum'
 export { ForumTopic } from './ForumTopic'
 export { Profile } from './Profile'
 export { Game } from './Game'
-export { Error } from './Error'
+export { ErrorPage } from './ErrorPage'
 export { MainPage } from './MainPage'
 
 export * from './LoginPage'
