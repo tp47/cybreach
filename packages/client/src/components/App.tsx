@@ -9,7 +9,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
 
   useEffect(() => {
-    AuthApi.getUser().then((res) => setCurrentUser(res))
+    AuthApi.getUser().then((data) => {
+      setCurrentUser(data)
+    })
   }, [])
 
   return (

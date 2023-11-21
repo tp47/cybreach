@@ -1,16 +1,19 @@
 import { Button } from '@/components/atoms'
 import { MainLayout } from '@/components/templates'
+import { UserContext } from '@/services/context'
 import { AuthApi } from '@/services/api'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
 export function Profile() {
   const navigate = useNavigate()
+  const { currentUser, setCurrentUser } = useContext(UserContext)
   const [error, setError] = useState<Error | null>(null)
 
   const onLogout = () => {
     AuthApi.logoutUser()
+      .then(() => setCurrentUser(null))
       .then(() => navigate('/signin'))
       .catch((e) => {
         setError(e)
@@ -21,6 +24,9 @@ export function Profile() {
     <MainLayout
       content={
         <div className="flex justify-center align-center flex-col items-center h-[100%]">
+          <div className="container justify-center items-center">
+            <div className="text-base text-white text-center">{JSON.stringify(currentUser)}</div>
+          </div>
           {error && (
             <span className="text-red-500 text-sm w-full text-center">{error.message}</span>
           )}
