@@ -15,14 +15,15 @@ class Api {
 
   private async _getResponse<T>(res: Response): Promise<T> {
     if (res.ok) {
-      if (res.status === 200) {
+      const contentType = res.headers.get('content-type')
+      if (contentType && contentType.includes('application/json')) {
+        return (await res.json()) as T
+      } else {
         return {} as T
       }
-      const response = await res.json()
-      return response as T
     } else {
-      const response = await res.json()
-      throw new Error((response as ResponseData).reason)
+      const errorResponse = await res.json()
+      throw new Error((errorResponse as ResponseData).reason)
     }
   }
 
