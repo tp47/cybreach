@@ -1,66 +1,41 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Forum, ForumTopic, Game, LeaderBoard, Profile, ErrorPage, MainPage } from '../components'
-import { ProtectedRoute } from '@/components/hocs'
-
+import { AnonimousRoute, ProtectedRoute } from '@/components/hocs/'
 import { LoginPage, RegisterPage } from '@/components'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <ProtectedRoute>
-        <MainPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute page={<MainPage />} />,
     errorElement: <ErrorPage errorCode={404} />,
   },
   {
     path: 'signin',
-    element: <LoginPage />,
+    element: <AnonimousRoute page={<LoginPage />} />,
   },
   {
     path: 'signup',
-    element: <RegisterPage />,
+    element: <AnonimousRoute page={<RegisterPage />} />,
   },
   {
     path: 'profile',
-    element: (
-      <ProtectedRoute>
-        <Profile />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute page={<Profile />} />,
   },
   {
     path: 'game',
-    element: (
-      <ProtectedRoute>
-        <Game />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute page={<Game />} />,
   },
   {
     path: 'leaderboard',
-    element: (
-      <ProtectedRoute>
-        <LeaderBoard />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute page={<LeaderBoard />} />,
   },
   {
     path: 'forum',
-    element: (
-      <ProtectedRoute>
-        <Forum />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute page={<Forum />} />,
   },
   {
     path: 'forum/:id',
-    element: (
-      <ProtectedRoute>
-        <ForumTopic />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute page={<ForumTopic />} />,
   },
 ])
 

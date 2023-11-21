@@ -1,1 +1,2 @@
-export { default as ProtectedRoute } from './ProtectedRoute'
+export * from './AnonimousRoute'
+export * from './ProtectedRoute'

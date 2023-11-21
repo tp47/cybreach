@@ -3,17 +3,14 @@ import { Navigate } from 'react-router-dom'
 import { UserContext } from '@/services/context'
 
 interface ProtectedRouteProps {
-  children: ReactNode
+  page: ReactNode
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {
   const { currentUser } = useContext(UserContext)
+  const isAuth = currentUser && Object.entries(currentUser).length !== 0
 
-  if (currentUser && Object.keys(currentUser).length !== 0) {
-    return <>{children}</>
-  } else {
-    return <Navigate to="/signin" replace />
-  }
+  return <>{isAuth ? page : <Navigate to="/signin" replace />}</>
 }
 
 export default ProtectedRoute
