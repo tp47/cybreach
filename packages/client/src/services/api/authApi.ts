@@ -3,6 +3,7 @@ import { BASE_URL } from '@/constants/baseUrl'
 type User = {
   first_name: string
   second_name: string
+  display_name?: string
   login: string
   email: string
   password: string
@@ -10,7 +11,8 @@ type User = {
 }
 
 type ResponseData = {
-  message: string
+  message?: string
+  reason?: string
 }
 
 class Api {
@@ -21,15 +23,20 @@ class Api {
   }
 
   private async _getResponse<T>(res: Response): Promise<T> {
-    const response = await res.json()
     if (res.ok) {
+      if (res.status === 200) {
+        return {} as T
+      }
+      const response = await res.json()
       return response as T
+    } else {
+      const response = await res.json()
+      throw new Error((response as ResponseData).reason)
     }
-    throw new Error((response as ResponseData).message)
   }
 
   registerUser(userData: User): Promise<User> {
-    return fetch(`${this._baseUrl}/signup`, {
+    return fetch(`${this._baseUrl}/auth/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
@@ -37,8 +44,8 @@ class Api {
     }).then((res) => this._getResponse<User>(res))
   }
 
-  loginUser(credentials: { email: string; password: string }): Promise<User> {
-    return fetch(`${this._baseUrl}/signin`, {
+  loginUser(credentials: Partial<User>): Promise<User> {
+    return fetch(`${this._baseUrl}/auth/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
@@ -46,27 +53,28 @@ class Api {
     }).then((res) => this._getResponse<User>(res))
   }
 
-  updateUserProfile(userData: Partial<User>): Promise<User> {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
+  updateUserProfile(userData: User): Promise<User> {
+    return fetch(`${this._baseUrl}/user/profile`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(userData),
+      credentials: 'include',
     }).then((res) => this._getResponse<User>(res))
   }
 
   getUser(): Promise<User> {
-    return fetch(`${this._baseUrl}/user`, {
+    return fetch(`${this._baseUrl}/auth/user`, {
       credentials: 'include',
     }).then((res) => this._getResponse<User>(res))
   }
 
-  logoutUser(): Promise<User> {
-    return fetch(`${this._baseUrl}/logout`, {
+  logoutUser(): Promise<null> {
+    return fetch(`${this._baseUrl}/auth/logout`, {
       method: 'POST',
       credentials: 'include',
-    }).then((res) => this._getResponse<User>(res))
+    }).then((res) => this._getResponse<null>(res))
   }
 }
 
