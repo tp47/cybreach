@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { router } from '../router'
+import { router } from '@/router'
 import { UserContext } from '@/services/context'
 import { AuthApi } from '@/services/api'
 import { User } from '@/types'
