@@ -25,7 +25,9 @@ export function Profile() {
       content={
         <div className="flex justify-center align-center flex-col items-center h-[100%]">
           <div className="container justify-center items-center">
-            <div className="text-base text-white text-center">{JSON.stringify(currentUser)}</div>
+            <div className="text-base text-white text-center w-52 mx-auto">
+              {JSON.stringify(currentUser, null, 2)}
+            </div>
           </div>
           {error && (
             <span className="text-red-500 text-sm w-full text-center">{error.message}</span>
