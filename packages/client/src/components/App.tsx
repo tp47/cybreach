@@ -1,8 +1,22 @@
 import { RouterProvider } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { router } from '../router'
+import { UserContext } from '@/services/context'
+import { AuthApi } from '@/services/api'
+import { User } from '@/types'
 
 function App() {
-  return <RouterProvider router={router} />
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    AuthApi.getUser().then((res) => setCurrentUser(res))
+  }, [])
+
+  return (
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
+  )
 }
 
 export default App

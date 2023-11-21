@@ -12,12 +12,6 @@ import { AuthApi } from '@/services/api'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-interface FormProps {
-  title?: string
-  isPending?: boolean
-  handleSubmit?: () => void
-}
-
 interface FieldValues
   extends Record<
     | FieldsForm.EMAIL

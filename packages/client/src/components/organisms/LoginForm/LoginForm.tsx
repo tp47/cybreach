@@ -6,12 +6,6 @@ import { AuthApi } from '@/services/api'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-interface FormProps {
-  title?: string
-  isPending?: boolean
-  handleSubmit?: () => void
-}
-
 interface FieldValues extends Record<FieldsForm.LOGIN | FieldsForm.PASSWORD, string> {}
 
 export default function LoginForm() {
