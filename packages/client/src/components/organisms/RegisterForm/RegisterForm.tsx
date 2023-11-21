@@ -9,8 +9,9 @@ import {
 } from '../../../constants/validation.const'
 import { FieldsForm } from '@/constants/fieldsForm'
 import { AuthApi } from '@/services/api'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '@/services/context'
 
 interface FieldValues
   extends Record<
@@ -24,8 +25,9 @@ interface FieldValues
   > {}
 
 export default function RegisterForm() {
-  const [error, setError] = useState<Error | null>(null)
   const navigate = useNavigate()
+  const [error, setError] = useState<Error | null>(null)
+  const { setIsAuth, setCurrentUser } = useContext(UserContext)
 
   const {
     register,
@@ -34,8 +36,13 @@ export default function RegisterForm() {
   } = useForm<FieldValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const setUser = () => {
+      AuthApi.getUser().then((user) => setCurrentUser(user))
+    }
+
     AuthApi.registerUser(data)
-      .then(() => navigate('/'))
+      .then(() => setIsAuth(true))
+      .then(() => setUser())
       .catch((e) => setError(e))
   }
 
