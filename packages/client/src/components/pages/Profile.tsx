@@ -8,12 +8,13 @@ import { useNavigate } from 'react-router-dom'
 
 export function Profile() {
   const navigate = useNavigate()
-  const { currentUser, setCurrentUser } = useContext(UserContext)
+  const { currentUser, setCurrentUser, setIsAuth } = useContext(UserContext)
   const [error, setError] = useState<Error | null>(null)
 
   const onLogout = () => {
     AuthApi.logoutUser()
       .then(() => setCurrentUser(null))
+      .then(() => setIsAuth(false))
       .then(() => navigate('/signin'))
       .catch((e) => {
         setError(e)

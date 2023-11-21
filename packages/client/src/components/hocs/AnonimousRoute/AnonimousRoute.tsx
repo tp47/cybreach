@@ -7,15 +7,9 @@ interface AnonimousRouteProps {
 }
 
 const AnonimousRoute: React.FC<AnonimousRouteProps> = ({ page }) => {
-  const { currentUser } = useContext(UserContext)
-  const isAuth = currentUser && Object.entries(currentUser).length !== 0
+  const { isAuth } = useContext(UserContext)
 
-  return (
-    <>
-      {!isAuth && page}
-      {isAuth && <Navigate to="/" replace />}
-    </>
-  )
+  return <>{isAuth ? <Navigate to="/" replace /> : page}</>
 }
 
 export default AnonimousRoute

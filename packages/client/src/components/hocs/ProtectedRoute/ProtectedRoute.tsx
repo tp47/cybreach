@@ -7,8 +7,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {
-  const { currentUser } = useContext(UserContext)
-  const isAuth = currentUser && Object.entries(currentUser).length !== 0
+  const { isAuth } = useContext(UserContext)
 
   return <>{isAuth ? page : <Navigate to="/signin" replace />}</>
 }
