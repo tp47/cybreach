@@ -13,7 +13,7 @@ export default function Input<T extends FieldValues>(props: InputProps<T>) {
 
   return (
     <input
-      className="w-full p-2 mt-1 bg-gray-800 border border-green-500 text-green-500"
+      className="w-full p-2 mt-1 bg-gray-800 border border-green-400 text-green-400 rounded-md focus:outline-none focus:ring ring-green-300"
       {...register(label, {
         required: 'Field must be filled in',
         pattern: patternForm,

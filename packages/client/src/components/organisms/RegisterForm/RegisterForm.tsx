@@ -47,8 +47,8 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="bg-gray-900 border-2 border-green-500 p-4">
-      <h1 className="text-green-500 text-center text-lg mb-4 font-bold">PLUG IN</h1>
+    <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl shadow-current transition-all duration-500">
+      <h1 className="text-green-400 text-center text-lg mb-4 font-bold">PLUG IN</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col mb-4">
