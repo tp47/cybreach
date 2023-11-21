@@ -8,6 +8,9 @@ import {
   phonePattern,
 } from '../../../constants/validation.const'
 import { FieldsForm } from '@/constants/fieldsForm'
+import { AuthApi } from '@/services/api'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface FormProps {
   title?: string
@@ -27,6 +30,9 @@ interface FieldValues
   > {}
 
 export default function RegisterForm() {
+  const [error, setError] = useState<Error | null>(null)
+  const navigate = useNavigate()
+
   const {
     register,
     formState: { errors, isValid },
@@ -34,7 +40,9 @@ export default function RegisterForm() {
   } = useForm<FieldValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    alert(JSON.stringify(data))
+    AuthApi.registerUser(data)
+      .then(() => navigate('/'))
+      .catch((e) => setError(e))
   }
 
   return (
@@ -42,7 +50,7 @@ export default function RegisterForm() {
       <h1 className="text-green-500 text-center text-lg mb-4 font-bold">PLUG IN</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
+        <div className="flex flex-col mb-4">
           <Field
             label={FieldsForm.FIRST_NAME}
             register={register}
@@ -109,13 +117,18 @@ export default function RegisterForm() {
             type={FieldsForm.PHONE}
             error={errors?.phone?.message}
           />
+          {error && (
+            <span className="text-red-500 text-sm w-full text-center items-center">
+              {error.message}
+            </span>
+          )}
           <div className="flex flex-col justify-between mt-8">
             <Button label="PLUG IN" type="submit" disabled={!isValid} />
           </div>
         </div>
       </form>
       <div className="flex flex-col justify-between">
-        <Button label="HAVE ACCESS? BREACH IN!" type="button" />
+        <Button label="HAVE ACCESS? BREACH IN!" type="button" onClick={() => navigate('/signin')} />
       </div>
     </div>
   )
