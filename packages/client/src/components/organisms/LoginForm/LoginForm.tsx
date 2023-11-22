@@ -12,6 +12,9 @@ interface FieldValues extends Record<FieldsForm.LOGIN | FieldsForm.PASSWORD, str
 export default function LoginForm() {
   const [error, setError] = useState<Error | null>(null)
   const { setIsAuth, setCurrentUser } = useContext(UserContext)
+  const setUser = () => {
+    AuthApi.getUser().then((user) => setCurrentUser(user))
+  }
 
   const {
     register,
@@ -22,13 +25,11 @@ export default function LoginForm() {
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const setUser = () => {
-      AuthApi.getUser().then((user) => setCurrentUser(user))
-    }
-
     AuthApi.loginUser(data)
-      .then(() => setIsAuth(true))
-      .then(() => setUser())
+      .then(() => {
+        setIsAuth(true)
+        setUser()
+      })
       .catch((e) => setError(e))
   }
 

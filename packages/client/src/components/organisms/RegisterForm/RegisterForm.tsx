@@ -28,6 +28,9 @@ export default function RegisterForm() {
   const navigate = useNavigate()
   const [error, setError] = useState<Error | null>(null)
   const { setIsAuth, setCurrentUser } = useContext(UserContext)
+  const setUser = () => {
+    AuthApi.getUser().then((user) => setCurrentUser(user))
+  }
 
   const {
     register,
@@ -36,13 +39,11 @@ export default function RegisterForm() {
   } = useForm<FieldValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const setUser = () => {
-      AuthApi.getUser().then((user) => setCurrentUser(user))
-    }
-
     AuthApi.registerUser(data)
-      .then(() => setIsAuth(true))
-      .then(() => setUser())
+      .then(() => {
+        setIsAuth(true)
+        setUser()
+      })
       .catch((e) => setError(e))
   }
 
