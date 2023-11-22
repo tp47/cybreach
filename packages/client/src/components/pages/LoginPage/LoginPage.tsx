@@ -1,9 +1,5 @@
-import { LoginForm } from '@/components'
+import { LoginForm, MainLayout } from '@/components'
 
 export default function LoginPage() {
-  return (
-    <main className="h-screen bg-custom-layout flex mx-auto justify-center items-center">
-      <LoginForm />
-    </main>
-  )
+  return <MainLayout content={<LoginForm />} />
 }
