@@ -1,15 +1,13 @@
-import { useContext, ReactNode } from 'react'
+import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 import { UserContext } from '@/services/context'
 
 interface ProtectedRouteProps {
-  page: ReactNode
+  page: JSX.Element
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {
+export default function ProtectedRoute({ page }: ProtectedRouteProps) {
   const { isAuth } = useContext(UserContext)
 
   return <>{isAuth ? page : <Navigate to="/signin" replace />}</>
 }
-
-export default ProtectedRoute

@@ -1,15 +1,18 @@
-import { useContext, ReactNode } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { UserContext } from '@/services/context'
 
 interface AnonimousRouteProps {
-  page: ReactNode
+  page: JSX.Element
 }
 
-const AnonimousRoute: React.FC<AnonimousRouteProps> = ({ page }) => {
+export default function AnonimousRoute({ page }: AnonimousRouteProps) {
+  const navigate = useNavigate()
   const { isAuth } = useContext(UserContext)
 
-  return <>{isAuth ? <Navigate to="/" replace /> : page}</>
-}
+  if (isAuth) {
+    navigate('/')
+  }
 
-export default AnonimousRoute
+  return page
+}
