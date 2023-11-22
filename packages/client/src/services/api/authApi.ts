@@ -17,12 +17,21 @@ class Api {
     if (res.ok) {
       const contentType = res.headers.get('content-type')
       if (contentType && contentType.includes('application/json')) {
-        return (await res.json()) as T
+        try {
+          return (await res.json()) as T
+        } catch (error) {
+          throw new Error(`Error parsing JSON response: ${error}`)
+        }
       } else {
         return {} as T
       }
     } else {
-      const errorResponse = await res.json()
+      let errorResponse: ResponseData
+      try {
+        errorResponse = await res.json()
+      } catch (error) {
+        throw new Error(`Error parsing error response: ${error}`)
+      }
       throw new Error((errorResponse as ResponseData).reason)
     }
   }
