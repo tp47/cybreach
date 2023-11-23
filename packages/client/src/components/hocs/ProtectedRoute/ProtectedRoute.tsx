@@ -9,5 +9,5 @@ interface ProtectedRouteProps {
 export default function ProtectedRoute({ page }: ProtectedRouteProps) {
   const { isAuth } = useContext(UserContext)
 
-  return <>{isAuth ? page : <Navigate to="/signin" replace />}</>
+  return isAuth ? page : <Navigate to="/signin" replace />
 }
