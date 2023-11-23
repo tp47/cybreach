@@ -5,7 +5,7 @@ type ContextType = {
   currentUser: User | null
   isAuth: boolean
   setCurrentUser: Dispatch<SetStateAction<User | null>>
-  setIsAuth: Dispatch<SetStateAction<boolean>>
+  setIsAuth: Dispatch<SetStateAction<boolean | null>>
 }
 
 const UserContext = createContext<ContextType>({

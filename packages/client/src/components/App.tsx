@@ -23,7 +23,9 @@ function App() {
     return <div>Loading</div>
   }
 
-  return (
+  return isAuth === null ? (
+    <div>Loading</div>
+  ) : (
     <UserContext.Provider value={{ currentUser, isAuth, setCurrentUser, setIsAuth }}>
       <ErrorBoundary fallback="Error. Check console in dev tools.">
         <RouterProvider router={router} />
