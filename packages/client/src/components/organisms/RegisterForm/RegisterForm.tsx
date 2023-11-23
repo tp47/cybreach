@@ -29,7 +29,9 @@ export default function RegisterForm() {
   const [error, setError] = useState<Error | null>(null)
   const { setIsAuth, setCurrentUser } = useContext(UserContext)
   const setUser = () => {
-    AuthApi.getUser().then((user) => setCurrentUser(user))
+    AuthApi.getUser()
+      .then((user) => setCurrentUser(user))
+      .catch((e) => e)
   }
 
   const {
