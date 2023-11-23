@@ -25,7 +25,7 @@ export function Profile() {
   return (
     <MainLayout
       content={
-        <div className="flex justify-center align-center flex-col items-center h-[100%] w-52 mx-auto">
+        <div className="flex justify-center align-center flex-col items-center h-full w-52 mx-auto">
           <div className="flex justify-center items-center">
             <div className="text-base text-green-300 text-center mx-auto mb-10">
               {JSON.stringify(currentUser, null, 2)}

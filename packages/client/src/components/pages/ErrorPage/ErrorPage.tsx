@@ -13,7 +13,7 @@ export default function ErrorPage({ errorCode }: IProps): JSX.Element {
   return (
     <MainLayout
       content={
-        <div className="flex justify-center align-center flex-col items-center h-[100%]">
+        <div className="flex justify-center align-center flex-col items-center h-full">
           <h1 className="text-green-500 text-9xl">{errorCode}</h1>
           <div className="text-white font-bold text-5xl uppercase text-center mt-10">
             You’ve lost. <br /> there’s no way
@@ -43,7 +43,6 @@ export default function ErrorPage({ errorCode }: IProps): JSX.Element {
               active:text-green-300
               transition-all
               duration-750
-              uppercase
             "
             onClick={() => navigate('/')}
           />
