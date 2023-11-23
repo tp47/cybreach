@@ -8,14 +8,20 @@ import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState<boolean | null>(false)
 
   useEffect(() => {
-    AuthApi.getUser().then((data) => {
-      setCurrentUser(data)
-      setIsAuth(true)
-    })
+    AuthApi.getUser()
+      .then((data) => {
+        setCurrentUser(data)
+        setIsAuth(true)
+      })
+      .catch(() => setIsAuth(false))
   }, [])
+
+  if (isAuth === null) {
+    return <div>Loading</div>
+  }
 
   return (
     <UserContext.Provider value={{ currentUser, isAuth, setCurrentUser, setIsAuth }}>
