@@ -5,10 +5,12 @@ import { UserContext } from '@/services/context'
 import { AuthApi } from '@/services/api'
 import { User } from '@/types'
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
+import { MainLayout } from './templates'
+import { LoaderStub } from './atoms'
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
-  const [isAuth, setIsAuth] = useState<boolean | null>(false)
+  const [isAuth, setIsAuth] = useState<boolean | null>(null)
 
   useEffect(() => {
     AuthApi.getUser()
@@ -19,12 +21,8 @@ function App() {
       .catch(() => setIsAuth(false))
   }, [])
 
-  if (isAuth === null) {
-    return <div>Loading</div>
-  }
-
   return isAuth === null ? (
-    <div>Loading</div>
+    <MainLayout content={<LoaderStub />} />
   ) : (
     <UserContext.Provider value={{ currentUser, isAuth, setCurrentUser, setIsAuth }}>
       <ErrorBoundary fallback="Error. Check console in dev tools.">
