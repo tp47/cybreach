@@ -35,6 +35,10 @@ export default function LoginForm() {
       .catch((e) => setError(e))
   }
 
+  const onSwitch = (): void => {
+    navigate('/signup')
+  }
+
   return (
     <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl transition-all duration-500">
       <h1 className="text-green-400 text-center text-lg mb-4 font-bold">BREACH IN</h1>
@@ -75,7 +79,7 @@ export default function LoginForm() {
       </form>
 
       <div className="flex flex-col justify-between">
-        <Button label="NO ACCESS? PLUG IN!" type="button" onClick={() => navigate('/signup')} />
+        <Button label="NO ACCESS? PLUG IN!" type="button" onClick={onSwitch} />
       </div>
     </div>
   )

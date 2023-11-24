@@ -21,9 +21,11 @@ function App() {
       .catch(() => setIsAuth(false))
   }, [])
 
-  return isAuth === null ? (
-    <MainLayout content={<LoaderStub />} />
-  ) : (
+  if (isAuth == null) {
+    return <MainLayout content={<LoaderStub />} />
+  }
+
+  return (
     <UserContext.Provider value={{ currentUser, isAuth, setCurrentUser, setIsAuth }}>
       <ErrorBoundary fallback="Error. Check console in dev tools.">
         <RouterProvider router={router} />

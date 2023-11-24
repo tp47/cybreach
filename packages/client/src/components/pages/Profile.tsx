@@ -4,10 +4,7 @@ import { UserContext } from '@/services/context'
 import { AuthApi } from '@/services/api'
 import { useState, useContext } from 'react'
 
-// import { useNavigate } from 'react-router-dom'
-
 export function Profile() {
-  // const navigate = useNavigate()
   const { currentUser, setCurrentUser, setIsAuth } = useContext(UserContext)
   const [error, setError] = useState<Error | null>(null)
 

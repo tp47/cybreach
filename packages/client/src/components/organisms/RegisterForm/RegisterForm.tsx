@@ -49,6 +49,10 @@ export default function RegisterForm() {
       .catch((e) => setError(e))
   }
 
+  const onSwitch = (): void => {
+    navigate('/signin')
+  }
+
   return (
     <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl shadow-current transition-all duration-500">
       <h1 className="text-green-400 text-center text-lg mb-4 font-bold">PLUG IN</h1>
@@ -132,7 +136,7 @@ export default function RegisterForm() {
         </div>
       </form>
       <div className="flex flex-col justify-between">
-        <Button label="HAVE ACCESS? BREACH IN!" type="button" onClick={() => navigate('/signin')} />
+        <Button label="HAVE ACCESS? BREACH IN!" type="button" onClick={onSwitch} />
       </div>
     </div>
   )
