@@ -13,6 +13,22 @@ class Api {
     this._baseUrl = baseUrl
   }
 
+  private _setBaseOptions(method = 'GET', body = {}) {
+    if (method === 'GET' || method === 'DELETE') {
+      return {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include' as RequestCredentials,
+        method: method,
+      }
+    }
+    return {
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include' as RequestCredentials,
+      method: method,
+      body: JSON.stringify(body),
+    }
+  }
+
   private async _getResponse<T>(res: Response): Promise<T> {
     if (res.ok) {
       const contentType = res.headers.get('content-type')
@@ -37,45 +53,33 @@ class Api {
   }
 
   registerUser(userData: User): Promise<User> {
-    return fetch(`${this._baseUrl}/auth/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
-      credentials: 'include',
-    }).then((res) => this._getResponse<User>(res))
+    return fetch(`${this._baseUrl}/auth/signup`, this._setBaseOptions('POST', userData)).then(
+      (res) => this._getResponse<User>(res)
+    )
   }
 
-  loginUser(credentials: Partial<User>): Promise<User> {
-    return fetch(`${this._baseUrl}/auth/signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-      credentials: 'include',
-    }).then((res) => this._getResponse<User>(res))
+  loginUser(loginData: Partial<User>): Promise<User> {
+    return fetch(`${this._baseUrl}/auth/signin`, this._setBaseOptions('POST', loginData)).then(
+      (res) => this._getResponse<User>(res)
+    )
   }
 
   updateUserProfile(userData: User): Promise<User> {
-    return fetch(`${this._baseUrl}/user/profile`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-      credentials: 'include',
-    }).then((res) => this._getResponse<User>(res))
+    return fetch(`${this._baseUrl}/user/profile`, this._setBaseOptions('PUT', userData)).then(
+      (res) => this._getResponse<User>(res)
+    )
   }
 
   getUser(): Promise<User> {
-    return fetch(`${this._baseUrl}/auth/user`, {
-      credentials: 'include',
-    }).then((res) => this._getResponse<User>(res))
+    return fetch(`${this._baseUrl}/auth/user`, this._setBaseOptions()).then((res) =>
+      this._getResponse<User>(res)
+    )
   }
 
   logoutUser(): Promise<null> {
-    return fetch(`${this._baseUrl}/auth/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    }).then((res) => this._getResponse<null>(res))
+    return fetch(`${this._baseUrl}/auth/logout`, this._setBaseOptions('POST')).then((res) =>
+      this._getResponse<null>(res)
+    )
   }
 }
 
