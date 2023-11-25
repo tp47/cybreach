@@ -1,5 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Forum, ForumTopic, Game, LeaderBoard, Profile, ErrorPage, MainPage } from '../components'
+import {
+  Forum,
+  ForumTopic,
+  Game,
+  LeaderBoard,
+  ProfilePage,
+  ErrorPage,
+  MainPage,
+} from '../components'
 
 import { LoginPage, RegisterPage } from '@/components'
 
@@ -19,7 +27,7 @@ export const router = createBrowserRouter([
   },
   {
     path: 'profile',
-    element: <Profile />,
+    element: <ProfilePage />,
   },
   {
     path: 'game',
