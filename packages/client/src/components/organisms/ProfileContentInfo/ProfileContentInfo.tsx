@@ -3,38 +3,66 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { emailPattern, loginPattern, namePattern, phonePattern } from '@/constants/validation.const'
 import { Button } from '@/components/atoms'
 import FieldProfile from '@/components/molecules/FieldProfile/FieldProfile'
-import { useNavigate } from 'react-router-dom'
+import { User } from '@/types'
+import { AuthApi } from '@/services/api'
+import { useContext } from 'react'
+import { UserContext } from '@/services/context'
 
 interface FieldValues
   extends Record<
     | FieldsForm.EMAIL
     | FieldsForm.FIRST_NAME
     | FieldsForm.SECOND_NAME
+    | FieldsForm.DISPLAY_NAME
     | FieldsForm.LOGIN
     | FieldsForm.PHONE,
     string
   > {}
 
-export default function ProfileContentInfo(): JSX.Element {
-  const navigate = useNavigate()
+interface IProps {
+  onLogout: () => void
+  user: User | null
+}
+
+export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Element {
+  const { setCurrentUser, setIsAuth } = useContext(UserContext)
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm<FieldValues>({
     mode: 'onBlur',
     defaultValues: {
-      'first name': 'Иван',
-      email: 'pochta@yandex.com',
-      login: 'ivanivan',
-      'second name': 'Иванов',
-      phone: '+7 (999) 854 34 32',
+      first_name: user?.first_name,
+      email: user?.email,
+      login: user?.login,
+      display_name: user?.display_name,
+      second_name: user?.second_name,
+      phone: user?.phone,
     },
   })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    alert(JSON.stringify(data))
+    if (isValid) {
+      const user: Omit<User, 'password'> = {
+        first_name: data?.first_name,
+        email: data?.email,
+        login: data?.login,
+        display_name: data?.display_name,
+        second_name: data?.second_name,
+        phone: data?.phone,
+      }
+
+      AuthApi.updateUserProfile(user).then(() => {
+        AuthApi.getUser()
+          .then((data) => {
+            setCurrentUser(data)
+            setIsAuth(true)
+          })
+          .catch(() => setIsAuth(false))
+      })
+    }
   }
 
   const fields = [
@@ -56,15 +84,23 @@ export default function ProfileContentInfo(): JSX.Element {
     },
     {
       label: FieldsForm.FIRST_NAME,
-      error: errors?.['first name']?.message,
+      error: errors?.first_name?.message,
       patternForm: {
         value: namePattern,
         message: 'Name is not valid',
       },
     },
     {
+      label: FieldsForm.DISPLAY_NAME,
+      error: errors?.display_name?.message,
+      patternForm: {
+        value: namePattern,
+        message: 'Display name is not valid',
+      },
+    },
+    {
       label: FieldsForm.SECOND_NAME,
-      error: errors?.['second name']?.message,
+      error: errors?.second_name?.message,
       patternForm: {
         value: namePattern,
         message: 'Second name is not valid',
@@ -113,7 +149,7 @@ export default function ProfileContentInfo(): JSX.Element {
         />
         <Button
           label="EXIT"
-          onClick={() => navigate('/')}
+          onClick={() => onLogout()}
           className="bg-transparent text-emerald-400 text-left mt-4 cursor-pointer"
         />
       </div>

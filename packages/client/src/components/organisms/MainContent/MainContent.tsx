@@ -13,6 +13,7 @@ const ARRAY_BUTTONS: BUTTON[] = [BUTTON.GAME, BUTTON.LEADERBOARD, BUTTON.FORUM, 
 
 const styles = {
   main: `h-full
+    w-full
     border-2
     border-green-300
     rounded-2xl

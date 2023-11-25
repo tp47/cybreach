@@ -1,5 +1,9 @@
 import { ProfileContentInfo } from '../ProfileContentInfo'
 
+import { UserContext } from '@/services/context'
+import { AuthApi } from '@/services/api'
+import { useState, useContext } from 'react'
+
 const styles = {
   main: `
     h-full
@@ -49,11 +53,25 @@ const styles = {
   `,
 }
 export default function ProfileContent(): JSX.Element {
+  const { currentUser, setCurrentUser, setIsAuth } = useContext(UserContext)
+  const [error, setError] = useState<Error | null>(null)
+
+  const onLogout = () => {
+    AuthApi.logoutUser()
+      .then(() => {
+        setCurrentUser(null)
+        setIsAuth(false)
+      })
+      .catch((e) => {
+        setError(e)
+      })
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
         <section>
-          <div className={styles.name}>Ivan</div>
+          <div className={styles.name}>{currentUser?.display_name}</div>
 
           <div className={styles.imageBox}>
             <div className={styles.image} />
@@ -65,7 +83,11 @@ export default function ProfileContent(): JSX.Element {
           </div>
         </section>
         <section className={styles.right}>
-          <ProfileContentInfo />
+          <ProfileContentInfo onLogout={onLogout} user={currentUser} />
+
+          {error && (
+            <span className="text-red-500 text-sm w-full text-center">{error.message}</span>
+          )}
         </section>
       </div>
     </main>

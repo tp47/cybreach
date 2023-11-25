@@ -1,1 +1,1 @@
-// https://github.com/diegohaz/arc/blob/redux/src/services/api/index.js
+export { default as AuthApi } from './authApi'
