@@ -31,7 +31,7 @@ class Buffer extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect('#d9f06e', {
+    this.drawStrokeRect({
       x: this.x,
       y: this.y,
       width: this.width,
@@ -44,22 +44,27 @@ class Buffer extends Drawable {
   private drawBuffer() {
     for (let i = 0; i < this.bufferLength; i++) {
       this.drawStrokeRect(
-        '#d9f06e',
         {
           x: this.x + i * 25,
           y: this.y,
           width: 20,
           height: 20,
         },
+        undefined,
         2
       )
     }
 
     this.buffer.forEach((element, index) => {
-      this.drawText(element, '18px mono', '#00ff00', {
-        x: this.x + index * 25,
-        y: this.y + 15,
-      })
+      this.drawText(
+        {
+          x: this.x + index * 25,
+          y: this.y + 15,
+        },
+        element,
+        '18px mono',
+        '#00ff00'
+      )
     })
   }
 

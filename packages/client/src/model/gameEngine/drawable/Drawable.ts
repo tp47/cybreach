@@ -9,6 +9,19 @@ class Drawable {
   protected width: number
   protected height: number
 
+  protected styles = {
+    colors: {
+      main: '#66cc9a',
+    },
+
+    fonts: {
+      main: {
+        family: 'mono',
+        size: '24px',
+      },
+    },
+  }
+
   constructor(canvas: HTMLCanvasElement, config: RectDimensions) {
     this.canvas = canvas
     this.context = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -20,8 +33,8 @@ class Drawable {
   }
 
   protected drawStrokeRect(
-    strokeStyle: StrokeStyle,
     { x, y, width, height }: RectDimensions,
+    strokeStyle: StrokeStyle = this.styles.colors.main,
     dashes?: number
   ) {
     if (dashes !== undefined) {
@@ -29,15 +42,16 @@ class Drawable {
     } else {
       this.context.setLineDash([])
     }
+
     this.context.strokeStyle = strokeStyle
     this.context.strokeRect(x, y, width, height)
   }
 
   protected drawText(
+    { x, y }: Coordinates,
     content: string,
-    fontStyle: string,
-    fillStyle: StrokeStyle,
-    { x, y }: Coordinates
+    fontStyle = '20px mono',
+    fillStyle: StrokeStyle = this.styles.colors.main
   ) {
     this.context.font = fontStyle
     this.context.fillStyle = fillStyle

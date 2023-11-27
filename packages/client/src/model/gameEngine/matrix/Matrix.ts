@@ -22,7 +22,7 @@ class MatrixDrawable extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect('#d9f06e', {
+    this.drawStrokeRect({
       x: this.x,
       y: this.y,
       width: this.width,
@@ -40,13 +40,13 @@ class MatrixDrawable extends Drawable {
       const y = this.y + Math.floor(index / this.matrixSize) * 20 + 15
 
       if (index === this.currentElementIndex) {
-        this.drawStrokeRect('yellow', { x, y: y - 15, width: 20, height: 20 })
+        this.drawStrokeRect({ x, y: y - 15, width: 20, height: 20 })
       }
 
       if (this.selectedElements.includes(index)) {
-        this.drawText('[]', '18px mono', 'yellow', { x, y })
+        this.drawText({ x, y }, '[]', '18px mono', 'yellow')
       } else {
-        this.drawText(element, '18px mono', 'red', { x, y })
+        this.drawText({ x, y }, element, '18px mono', 'red')
       }
     })
   }

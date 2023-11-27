@@ -11,7 +11,7 @@ class Sequences extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect('#d9f06e', {
+    this.drawStrokeRect({
       x: this.x,
       y: this.y,
       width: this.width,
@@ -26,7 +26,7 @@ class Sequences extends Drawable {
       const x = this.x + Math.floor(index / this.sequences.length)
       const y = this.y + Math.floor(index % this.sequences.length) * 20 + 15
 
-      this.drawText(sequence.join(' '), '18px mono', 'red', { x, y })
+      this.drawText({ x, y }, sequence.join(' '), '18px mono', 'red')
     })
   }
 }

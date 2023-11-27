@@ -1,6 +1,9 @@
+import { Sizes } from '@/model'
+
 type GameConfig = {
   seed: string
   level: number
+  sizes?: Sizes
 }
 
 enum GameStatus {

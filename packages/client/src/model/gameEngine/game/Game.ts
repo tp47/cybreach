@@ -1,11 +1,8 @@
-import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus } from '@/model'
-import { MoveDirection } from '@/model'
+import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus, MoveDirection, Timer } from '@/model'
+import { Drawable } from '@/model/gameEngine/drawable'
 import { GameConfig, GameStatus } from './game.types'
 
-class Game {
-  private canvas: HTMLCanvasElement
-  private context: CanvasRenderingContext2D
-
+class Game extends Drawable {
   private seed: string
   private level: number
 
@@ -14,6 +11,8 @@ class Game {
   private Matrix: Matrix
   private Sequences: Sequences
   private Buffer: Buffer
+  private Timer: Timer
+
   private MatrixGenerator: MatrixGenerator
 
   private EventBus: EventBus
@@ -22,6 +21,8 @@ class Game {
     if (canvas.getContext('2d') === null) {
       throw new Error('Canvas context is null')
     }
+
+    super(canvas, { x: 0, y: 0, width: 1179, height: 624 })
 
     this.canvas = canvas
     this.context = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -73,6 +74,15 @@ class Game {
       },
     })
 
+    this.Timer = new Timer(canvas, 30000, {
+      dimensions: {
+        x: 50,
+        y: 0,
+        width: 200,
+        height: 50,
+      },
+    })
+
     this.EventBus = new EventBus()
 
     this.animate = this.animate.bind(this)
@@ -109,6 +119,7 @@ class Game {
         this.Matrix.draw()
         this.Sequences.draw()
         this.Buffer.draw()
+        this.Timer.draw()
         break
 
       case GameStatus.SOLVED:
