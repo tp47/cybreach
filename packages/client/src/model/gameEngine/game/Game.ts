@@ -7,6 +7,7 @@ class Game extends Drawable {
   private level: number
 
   private gameStatus: GameStatus = GameStatus.IN_PROGRESS
+  private availableTime: number
 
   private Matrix: Matrix
   private Sequences: Sequences
@@ -40,7 +41,10 @@ class Game extends Drawable {
       maxBufferSize: 6,
       matrixValues: ['A0', 'E9', '4C', '8B', '6F'],
       emptyMatrixValue: ' ',
+      defaultAvailableTime: 30000,
     })
+
+    this.availableTime = this.MatrixGenerator.computeAvailableTime()
 
     this.Matrix = new Matrix(canvas, this.MatrixGenerator.matrix, {
       dimensions: {
@@ -74,7 +78,7 @@ class Game extends Drawable {
       },
     })
 
-    this.Timer = new Timer(canvas, 30000, {
+    this.Timer = new Timer(canvas, this.availableTime, {
       dimensions: {
         x: 50,
         y: 0,
@@ -93,24 +97,24 @@ class Game extends Drawable {
     this.init()
   }
 
-  private init() {
+  private init(): void {
     this.prepareCanvas()
     this.addEvents()
     this.registerEvents()
     requestAnimationFrame(this.animate)
   }
 
-  private prepareCanvas() {
+  private prepareCanvas(): void {
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
     this.drawBackground()
   }
 
-  private clearCanvas() {
+  private clearCanvas(): void {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
-  private animate() {
+  private animate(): void {
     this.clearCanvas()
     this.drawBackground()
 
@@ -123,15 +127,11 @@ class Game extends Drawable {
         break
 
       case GameStatus.SOLVED:
-        this.context.font = '24px mono'
-        this.context.fillStyle = '#00ff00'
-        this.context.fillText('Sequence solved', 50, 50)
+        this.drawText({ x: 50, y: 50 }, 'Solved')
         break
 
       case GameStatus.LOSED:
-        this.context.font = '24px mono'
-        this.context.fillStyle = '#ff0000'
-        this.context.fillText('Buffer overloaded. Game over', 50, 50)
+        this.drawText({ x: 50, y: 50 }, 'Game Over', undefined, 'red')
         break
 
       default:
@@ -141,12 +141,12 @@ class Game extends Drawable {
     requestAnimationFrame(this.animate)
   }
 
-  private drawBackground() {
+  private drawBackground(): void {
     this.context.fillStyle = 'black'
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
-  private handleKeystroke(event: KeyboardEvent) {
+  private handleKeystroke(event: KeyboardEvent): void {
     const { key } = event
 
     switch (key) {
@@ -180,29 +180,30 @@ class Game extends Drawable {
     }
   }
 
-  private addEvents() {
+  private addEvents(): void {
     window.addEventListener('keydown', this.handleKeystroke)
   }
 
-  private removeEvents() {
+  private removeEvents(): void {
     window.removeEventListener('keydown', this.handleKeystroke)
   }
 
-  public destruct() {
+  public destruct(): void {
     this.removeEvents()
   }
 
-  private endGame() {
+  private endGame(): void {
     this.gameStatus = GameStatus.SOLVED
   }
 
-  private loseGame() {
+  private loseGame(): void {
     this.gameStatus = GameStatus.LOSED
   }
 
-  private registerEvents() {
+  private registerEvents(): void {
     this.EventBus.register('sequence_composed', this.endGame)
     this.EventBus.register('buffer_overloaded', this.loseGame)
+    this.EventBus.register('timer_elapsed', this.loseGame)
   }
 }
 

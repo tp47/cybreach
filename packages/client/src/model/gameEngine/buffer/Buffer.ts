@@ -84,7 +84,6 @@ class Buffer extends Drawable {
 
     if (this.buffer.length === this.bufferLength) {
       this.EventBus.dispatch('buffer_overloaded')
-      console.log('overl')
     }
   }
 
