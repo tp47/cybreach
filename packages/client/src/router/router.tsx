@@ -4,7 +4,7 @@ import {
   ForumTopic,
   GamePage,
   LeaderBoard,
-  Profile,
+  ProfilePage,
   ErrorPage,
   MainPage,
 } from '@/components'
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'profile',
-    element: <ProtectedRoute page={<Profile />} />,
+    element: <ProtectedRoute page={<ProfilePage />} />,
   },
   {
     path: 'game',
