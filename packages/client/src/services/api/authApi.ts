@@ -64,7 +64,7 @@ class Api {
     )
   }
 
-  updateUserProfile(userData: User): Promise<User> {
+  updateUserProfile(userData: Partial<User>): Promise<User> {
     return fetch(`${this._baseUrl}/user/profile`, this._setBaseOptions('PUT', userData)).then(
       (res) => this._getResponse<User>(res)
     )

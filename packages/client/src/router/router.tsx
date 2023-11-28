@@ -1,5 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Forum, ForumTopic, Game, LeaderBoard, Profile, ErrorPage, MainPage } from '../components'
+import {
+  Forum,
+  ForumTopic,
+  Game,
+  LeaderBoard,
+  ProfilePage,
+  ErrorPage,
+  MainPage,
+} from '../components'
 import { AnonimousRoute, ProtectedRoute } from '@/components/hocs/'
 import { LoginPage, RegisterPage } from '@/components'
 
@@ -19,7 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'profile',
-    element: <ProtectedRoute page={<Profile />} />,
+    element: <ProtectedRoute page={<ProfilePage />} />,
   },
   {
     path: 'game',
