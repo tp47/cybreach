@@ -172,6 +172,7 @@ class Game extends Drawable {
 
       case 'Enter':
       case 'Space':
+      case ' ':
         this.Matrix.selectElement()
         break
 
