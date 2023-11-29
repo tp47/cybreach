@@ -30,10 +30,6 @@ this.addEventListener('fetch', (event) => {
   event.respondWith(
     // Пытаемся найти ответ на такой запрос в кеше
     caches.match(event.request).then((response) => {
-      // console.log(caches)
-      // console.log(event.request)
-      // console.log(response)
-      // Если ответ найден, выдаём его
       if (response) {
         return response
       }
