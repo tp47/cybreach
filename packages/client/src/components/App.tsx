@@ -15,14 +15,15 @@ function App() {
   const { getUser } = useAuth()
 
   useEffect(() => {
+    if (currentUser && isAuth) return
+
     getUser()
       .then((data) => {
         setCurrentUser(data)
         setIsAuth(true)
       })
       .catch(() => setIsAuth(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [currentUser, getUser, isAuth])
 
   if (isAuth === null) {
     return <MainLayout content={<LoaderStub />} />
