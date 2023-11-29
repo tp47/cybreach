@@ -1,13 +1,12 @@
-import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import { UserContext } from '@/services/context'
+import { useAppSelector } from '@/hooks/redux'
 
 interface ProtectedRouteProps {
   page: JSX.Element
 }
 
 export default function ProtectedRoute({ page }: ProtectedRouteProps) {
-  const { isAuth } = useContext(UserContext)
+  const { isAuth } = useAppSelector((state) => state.user)
 
   return isAuth ? page : <Navigate to="/signin" replace />
 }

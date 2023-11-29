@@ -2,21 +2,16 @@ import { Button, Field } from '@/components'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { loginPattern, passwordPattern } from '../../../constants/validation.const'
 import { FieldsForm } from '@/constants/fieldsForm'
-import { AuthApi } from '@/services/api'
 import { useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
-import { UserContext } from '@/services/context'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { UserAction } from '@/store/user/UserActions'
 
 interface FieldValues extends Record<FieldsForm.LOGIN | FieldsForm.PASSWORD, string> {}
 
 export default function LoginForm() {
-  const [error, setError] = useState<Error | null>(null)
-  const { setIsAuth, setCurrentUser } = useContext(UserContext)
-  const setUser = () => {
-    AuthApi.getUser()
-      .then((user) => setCurrentUser(user))
-      .catch((e) => e)
-  }
+  const { error } = useAppSelector((state) => state.user)
+
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -27,12 +22,7 @@ export default function LoginForm() {
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    AuthApi.loginUser(data)
-      .then(() => {
-        setIsAuth(true)
-        setUser()
-      })
-      .catch((e) => setError(e))
+    dispatch(UserAction.login(data))
   }
 
   const onSwitch = (): void => {
@@ -68,9 +58,7 @@ export default function LoginForm() {
             error={errors?.password?.message}
           />
           {error && (
-            <span className="text-red-500 text-sm w-full text-center items-center">
-              {error.message}
-            </span>
+            <span className="text-red-500 text-sm w-full text-center items-center">{error}</span>
           )}
           <div className="flex flex-col justify-between mt-8">
             <Button label="BREACH IN" type="submit" disabled={!isValid} />
