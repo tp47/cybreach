@@ -1582,10 +1582,10 @@
     tmp "~0.2.1"
     tslib "^2.3.0"
 
-"@nrwl/nx-darwin-arm64@15.9.7":
+"@nrwl/nx-darwin-x64@15.9.7":
   version "15.9.7"
-  resolved "https://registry.npmjs.org/@nrwl/nx-darwin-arm64/-/nx-darwin-arm64-15.9.7.tgz"
-  integrity sha512-aBUgnhlkrgC0vu0fK6eb9Vob7eFnkuknrK+YzTjmLrrZwj7FGNAeyGXSlyo1dVokIzjVKjJg2saZZ0WQbfuCJw==
+  resolved "https://registry.npmjs.org/@nrwl/nx-darwin-x64/-/nx-darwin-x64-15.9.7.tgz"
+  integrity sha512-L+elVa34jhGf1cmn38Z0sotQatmLovxoASCIw5r1CBZZeJ5Tg7Y9nOwjRiDixZxNN56hPKXm6xl9EKlVHVeKlg==
 
 "@nrwl/tao@15.9.7":
   version "15.9.7"
@@ -2931,11 +2931,12 @@ cli-width@^3.0.0:
   resolved "https://registry.npmjs.org/cli-width/-/cli-width-3.0.0.tgz"
   integrity sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
 
-"client@file:/Users/glebkaz/work/yandex/projects/cybreach/packages/client":
+"client@file:/Users/isatashbekov/Documents/practicum/cybreach/packages/client":
   version "0.0.0"
   resolved "file:packages/client"
   dependencies:
     "@reduxjs/toolkit" "^1.9.7"
+    "@types/seedrandom" "^3.0.8"
     dotenv "^16.0.2"
     eslint-config-prettier "^8.5.0"
     react "^18.2.0"
@@ -2943,6 +2944,7 @@ cli-width@^3.0.0:
     react-hook-form "^7.48.2"
     react-redux "^8.1.3"
     react-router-dom "^6.18.0"
+    seedrandom "^3.0.5"
 
 cliui@^7.0.2:
   version "7.0.4"
@@ -3724,10 +3726,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild-darwin-arm64@0.15.18:
+esbuild-darwin-64@0.15.18:
   version "0.15.18"
-  resolved "https://registry.npmjs.org/esbuild-darwin-arm64/-/esbuild-darwin-arm64-0.15.18.tgz"
-  integrity sha512-tKPSxcTJ5OmNb1btVikATJ8NftlyNlc8BVNtyT/UAr62JFOhwHlnoPrhYWz09akBLHI9nElFVfWSTSRsrZiDUA==
+  resolved "https://registry.npmjs.org/esbuild-darwin-64/-/esbuild-darwin-64-0.15.18.tgz"
+  integrity sha512-2WAvs95uPnVJPuYKP0Eqx+Dl/jaYseZEUUT1sjg97TJa4oBtbAKnPnl3b5M9l51/nbx7+QAEtuummJZW0sBEmg==
 
 esbuild@^0.15.9:
   version "0.15.18"
@@ -5889,10 +5891,10 @@ language-tags@^1.0.9:
   dependencies:
     language-subtag-registry "^0.3.20"
 
-lefthook-darwin-arm64@1.3.9:
+lefthook-darwin-x64@1.3.9:
   version "1.3.9"
-  resolved "https://registry.npmjs.org/lefthook-darwin-arm64/-/lefthook-darwin-arm64-1.3.9.tgz"
-  integrity sha512-Tq83fIvOF97FU94jMq+Sp9EDDptd/yn4YXZVT3NpAT8TbPFdk6LPe4fqmLgr7a4sFX7uVH7UHEXhnQpHy5p1pA==
+  resolved "https://registry.npmjs.org/lefthook-darwin-x64/-/lefthook-darwin-x64-1.3.9.tgz"
+  integrity sha512-xF6yfIHrx1MKoDwiHTYAiiY9tWUuJ+sM3E2JJ0J3mpss+h8KhB8iID9mP9Q8CUXJoWTyWb2KFLXULemF51Myxg==
 
 lefthook@^1.3.9:
   version "1.3.9"
@@ -7966,7 +7968,7 @@ serve-static@1.15.0:
     parseurl "~1.3.3"
     send "0.18.0"
 
-"server@file:/Users/glebkaz/work/yandex/projects/cybreach/packages/server":
+"server@file:/Users/isatashbekov/Documents/practicum/cybreach/packages/server":
   version "1.0.0"
   resolved "file:packages/server"
   dependencies:

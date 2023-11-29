@@ -1,5 +1,6 @@
 import AuthApi from '@/services/api/authApi'
 import { User } from '@/types'
+import { useCallback } from 'react'
 
 type UserContextType = {
   getUser: () => Promise<User>
@@ -10,15 +11,18 @@ type UserContextType = {
 }
 
 export const useAuth = (): UserContextType => {
-  const getUser = () => AuthApi.getUser()
+  const getUser = useCallback(() => AuthApi.getUser(), [])
 
-  const loginUser = (data: Partial<User>) => AuthApi.loginUser(data)
+  const loginUser = useCallback((data: Partial<User>) => AuthApi.loginUser(data), [])
 
-  const registerUser = (data: User) => AuthApi.registerUser(data)
+  const registerUser = useCallback((data: User) => AuthApi.registerUser(data), [])
 
-  const updateUserProfile = (user: Omit<User, 'password'>) => AuthApi.updateUserProfile(user)
+  const updateUserProfile = useCallback(
+    (user: Omit<User, 'password'>) => AuthApi.updateUserProfile(user),
+    []
+  )
 
-  const logout = () => AuthApi.logoutUser()
+  const logout = useCallback(() => AuthApi.logoutUser(), [])
 
   return {
     getUser,
