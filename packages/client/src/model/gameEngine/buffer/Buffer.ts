@@ -31,12 +31,18 @@ class Buffer extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect({
-      x: this.x,
-      y: this.y,
-      width: this.width,
-      height: this.height,
-    })
+    this.drawRoundedRect(
+      {
+        x: this.x,
+        y: this.y + this.styles.title.height,
+        width: this.width,
+        height: this.height,
+      },
+      this.styles.container.radiuses,
+      this.styles.container.fill
+    )
+
+    this.drawTitle('Buffer')
 
     this.drawBuffer()
   }
@@ -46,9 +52,9 @@ class Buffer extends Drawable {
       this.drawStrokeRect(
         {
           x: this.x + i * 25,
-          y: this.y,
-          width: 20,
-          height: 20,
+          y: this.y + this.styles.title.height,
+          width: this.styles.matrix.elementWidth,
+          height: this.styles.matrix.elementHeight,
         },
         undefined,
         2

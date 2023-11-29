@@ -11,12 +11,18 @@ class Sequences extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect({
-      x: this.x,
-      y: this.y,
-      width: this.width,
-      height: this.height,
-    })
+    this.drawRoundedRect(
+      {
+        x: this.x,
+        y: this.y + this.styles.title.height,
+        width: this.width,
+        height: this.height,
+      },
+      this.styles.container.radiuses,
+      this.styles.container.fill
+    )
+
+    this.drawTitle('Required sequences')
 
     this.drawSequences()
   }

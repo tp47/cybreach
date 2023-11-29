@@ -48,10 +48,10 @@ class Game extends Drawable {
 
     this.Matrix = new Matrix(canvas, this.MatrixGenerator.matrix, {
       dimensions: {
-        x: 50,
-        y: 50,
-        width: 200,
-        height: 200,
+        x: 24,
+        y: 95,
+        width: 512,
+        height: 419,
       },
     })
 
@@ -61,20 +61,20 @@ class Game extends Drawable {
       this.MatrixGenerator.sequences,
       {
         dimensions: {
-          x: 300,
-          y: 50,
-          width: 200,
-          height: 200,
+          x: 552,
+          y: 95,
+          width: 600,
+          height: 65,
         },
       }
     )
 
     this.Sequences = new Sequences(canvas, this.MatrixGenerator.sequences, {
       dimensions: {
-        x: 550,
-        y: 50,
-        width: 200,
-        height: 200,
+        x: 552,
+        y: 216,
+        width: 600,
+        height: 156,
       },
     })
 
@@ -123,7 +123,7 @@ class Game extends Drawable {
         this.Matrix.draw()
         this.Sequences.draw()
         this.Buffer.draw()
-        this.Timer.draw()
+        // this.Timer.draw()
         break
 
       case GameStatus.SOLVED:

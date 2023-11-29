@@ -20,6 +20,26 @@ class Drawable {
         size: '24px',
       },
     },
+
+    title: {
+      radiuses: [8, 8, 0, 0],
+      height: 40,
+      indention: [15, 28],
+      color: '#000000',
+    },
+
+    matrix: {
+      elementFont: '30px mono',
+      elementWidth: 50,
+      elementHeight: 50,
+      selectedElementColor: '#000000',
+      selectedGroupColor: '#1A372E',
+    },
+
+    container: {
+      radiuses: [0, 0, 8, 8],
+      fill: '#000000',
+    },
   }
 
   constructor(canvas: HTMLCanvasElement, config: RectDimensions) {
@@ -36,7 +56,7 @@ class Drawable {
     { x, y, width, height }: RectDimensions,
     strokeStyle: StrokeStyle = this.styles.colors.main,
     dashes?: number
-  ) {
+  ): void {
     if (dashes !== undefined) {
       this.context.setLineDash([dashes])
     } else {
@@ -45,17 +65,63 @@ class Drawable {
 
     this.context.strokeStyle = strokeStyle
     this.context.strokeRect(x, y, width, height)
+    this.context.setLineDash([])
+  }
+
+  protected drawFilledRect(
+    { x, y, width, height }: RectDimensions,
+    fillStyle: StrokeStyle = this.styles.colors.main
+  ): void {
+    this.context.fillStyle = fillStyle
+    this.context.fillRect(x, y, width, height)
   }
 
   protected drawText(
     { x, y }: Coordinates,
     content: string,
-    fontStyle = '20px mono',
+    fontStyle = `${this.styles.fonts.main.size} ${this.styles.fonts.main.family}`,
     fillStyle: StrokeStyle = this.styles.colors.main
-  ) {
+  ): void {
     this.context.font = fontStyle
     this.context.fillStyle = fillStyle
     this.context.fillText(content, x, y)
+  }
+
+  protected drawTitle(title: string): void {
+    this.drawRoundedRect(
+      {
+        x: this.x,
+        y: this.y,
+        width: this.width,
+        height: this.styles.title.height,
+      },
+      this.styles.title.radiuses
+    )
+    this.drawText(
+      { x: this.x + this.styles.title.indention[0], y: this.y + this.styles.title.indention[1] },
+      title.toUpperCase(),
+      undefined,
+      this.styles.title.color
+    )
+  }
+
+  protected drawRoundedRect(
+    { x, y, width, height }: RectDimensions,
+    radiuses: number[],
+    fillColor: string = this.styles.colors.main,
+    strokeColor: string = this.styles.colors.main
+  ): void {
+    this.context.beginPath()
+    this.context.moveTo(x + radiuses[0], y)
+    this.context.arcTo(x + width, y, x + width, y + height, radiuses[1])
+    this.context.arcTo(x + width, y + height, x, y + height, radiuses[2])
+    this.context.arcTo(x, y + height, x, y, radiuses[3])
+    this.context.arcTo(x, y, x + width, y, radiuses[0])
+    this.context.closePath()
+    this.context.fillStyle = fillColor
+    this.context.fill()
+    this.context.strokeStyle = strokeColor
+    this.context.stroke()
   }
 }
 
