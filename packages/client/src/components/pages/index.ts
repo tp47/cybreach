@@ -2,7 +2,6 @@ export { LeaderBoard } from './LeaderBoard'
 export { Forum } from './Forum'
 export { ForumTopic } from './ForumTopic'
 export { ProfilePage } from './ProfilePage'
-export { Game } from './Game'
 export { ErrorPage } from './ErrorPage'
 export { MainPage } from './MainPage'
 

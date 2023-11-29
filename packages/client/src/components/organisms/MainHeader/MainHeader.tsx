@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function MainHeader() {
   return (
-    <header className="mb-[30px] w-full">
+    <header className="my-3 w-full">
       <div className="flex w-full">
         <h1 className="text-green-300 text-6xl uppercase text-center w-full">code matrix</h1>
         <div className="ml-auto">

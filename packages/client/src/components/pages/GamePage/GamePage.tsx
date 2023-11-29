@@ -1,8 +1,37 @@
-import { GameContainer } from '@/components'
-import { MainLayout } from '@/components'
+import { EndGameScreen, GameContainer, StartGameScreen, MainLayout, Header } from '@/components'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+type GameStage = 'startScreen' | 'inProcess' | 'endScreen'
 
 function GamePage() {
-  return <MainLayout content={<GameContainer />} />
+  const [gameStage, setGameStage] = useState<GameStage>('startScreen')
+  const navigate = useNavigate()
+
+  const onStartGame = () => {
+    setGameStage('inProcess')
+  }
+
+  const onLeaveGame = () => {
+    navigate('/')
+  }
+
+  return (
+    <MainLayout
+      header={<Header title="game" />}
+      content={
+        <>
+          {gameStage === 'startScreen' && (
+            <StartGameScreen onStartGame={onStartGame} onLeaveGame={onLeaveGame} />
+          )}
+          {gameStage === 'inProcess' && <GameContainer />}
+          {gameStage === 'endScreen' && (
+            <EndGameScreen onStartGame={onStartGame} onLeaveGame={onLeaveGame} />
+          )}
+        </>
+      }
+    />
+  )
 }
 
 export default GamePage
