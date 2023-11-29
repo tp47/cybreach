@@ -1,8 +1,8 @@
 import { ProfileContentInfo } from '../ProfileContentInfo'
 
 import { UserContext } from '@/services/context'
-import { AuthApi } from '@/services/api'
 import { useState, useContext } from 'react'
+import { useAuth } from '@/hooks/useAuth'
 
 const styles = {
   main: `
@@ -56,8 +56,10 @@ export default function ProfileContent(): JSX.Element {
   const { currentUser, setCurrentUser, setIsAuth } = useContext(UserContext)
   const [error, setError] = useState<Error | null>(null)
 
+  const { logout } = useAuth()
+
   const onLogout = () => {
-    AuthApi.logoutUser()
+    logout()
       .then(() => {
         setCurrentUser(null)
         setIsAuth(false)

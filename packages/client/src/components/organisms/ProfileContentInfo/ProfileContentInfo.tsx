@@ -4,9 +4,9 @@ import { emailPattern, loginPattern, namePattern, phonePattern } from '@/constan
 import { Button } from '@/components/atoms'
 import FieldProfile from '@/components/molecules/FieldProfile/FieldProfile'
 import { User } from '@/types'
-import { AuthApi } from '@/services/api'
 import { useContext } from 'react'
 import { UserContext } from '@/services/context'
+import { useAuth } from '@/hooks/useAuth'
 
 interface FieldValues
   extends Record<
@@ -26,6 +26,7 @@ interface IProps {
 
 export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Element {
   const { setCurrentUser, setIsAuth } = useContext(UserContext)
+  const { updateUserProfile, getUser } = useAuth()
 
   const {
     register,
@@ -54,8 +55,8 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
         phone: data?.phone,
       }
 
-      AuthApi.updateUserProfile(user).then(() => {
-        AuthApi.getUser()
+      updateUserProfile(user).then(() => {
+        getUser()
           .then((data) => {
             setCurrentUser(data)
             setIsAuth(true)

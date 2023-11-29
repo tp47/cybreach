@@ -2,18 +2,20 @@ import { Button, Field } from '@/components'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { loginPattern, passwordPattern } from '../../../constants/validation.const'
 import { FieldsForm } from '@/constants/fieldsForm'
-import { AuthApi } from '@/services/api'
 import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { UserContext } from '@/services/context'
+import { useAuth } from '@/hooks/useAuth'
 
 interface FieldValues extends Record<FieldsForm.LOGIN | FieldsForm.PASSWORD, string> {}
 
 export default function LoginForm() {
   const [error, setError] = useState<Error | null>(null)
   const { setIsAuth, setCurrentUser } = useContext(UserContext)
+  const { loginUser, getUser } = useAuth()
+
   const setUser = () => {
-    AuthApi.getUser()
+    getUser()
       .then((user) => setCurrentUser(user))
       .catch((e) => e)
   }
@@ -27,7 +29,7 @@ export default function LoginForm() {
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    AuthApi.loginUser(data)
+    loginUser(data)
       .then(() => {
         setIsAuth(true)
         setUser()
