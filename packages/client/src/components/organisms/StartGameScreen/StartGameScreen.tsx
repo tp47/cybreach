@@ -7,7 +7,7 @@ type GameScreenProps = {
 
 export default function StartGameScreen({ onStartGame, onLeaveGame }: GameScreenProps) {
   return (
-    <section className="flex flex-col h-full w-full border-2 border-green-300 rounded-2xl p-[60px] bg-right bg-contain gap-[24px] justify-center items-center">
+    <section className="flex flex-col h-full w-full border-2 border-green-300 rounded-2xl p-[60px] bg-right gap-[24px] justify-center items-center bg-custom-game bg-no-repeat bg-contain">
       <div className="text-green-300 text-3xl w-[60%] uppercase text-center mb-10">
         prepare to solve the code matrix
       </div>
