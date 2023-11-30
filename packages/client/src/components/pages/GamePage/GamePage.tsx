@@ -11,15 +11,15 @@ function GamePage() {
 
   useEffect(() => {
     const eventBus = new EventBus()
-    const handleGameEnd = (result: GameResult) => {
+    const onFinishGame = (result: GameResult) => {
       setGameStage(GameStage.FINISHED)
       setGameResult(result)
     }
 
-    eventBus.register('end_game', handleGameEnd)
+    eventBus.register('end_game', onFinishGame)
 
     return () => {
-      eventBus.unregister('end_game', handleGameEnd)
+      eventBus.unregister('end_game', onFinishGame)
     }
   }, [])
 
