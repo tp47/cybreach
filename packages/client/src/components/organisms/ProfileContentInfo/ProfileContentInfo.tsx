@@ -5,7 +5,7 @@ import { Button } from '@/components/atoms'
 import FieldProfile from '@/components/molecules/FieldProfile/FieldProfile'
 import { User } from '@/types'
 import { AuthApi } from '@/services/api'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '@/services/context'
 
 interface FieldValues
@@ -27,6 +27,8 @@ interface IProps {
 export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Element {
   const { setCurrentUser, setIsAuth } = useContext(UserContext)
 
+  const [isDisabledForm, setIsDisabledForm] = useState(true)
+
   const {
     register,
     formState: { errors, isValid },
@@ -42,6 +44,10 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
       phone: user?.phone,
     },
   })
+
+  const handleChangeProfile = () => {
+    setIsDisabledForm((isDisabledForm) => !isDisabledForm)
+  }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (isValid) {
@@ -129,11 +135,13 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
               type={field.label}
               error={field.error}
               key={index}
+              isDisabled={isDisabledForm}
             />
           ))}
 
           <div className="flex flex-col justify-between mt-8">
             <Button
+              onClick={handleChangeProfile}
               label="EDIT PROFILE"
               type="submit"
               className="bg-transparent text-gray-400 text-left cursor-pointer"

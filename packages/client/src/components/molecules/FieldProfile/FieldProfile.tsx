@@ -8,10 +8,11 @@ interface FieldProps {
   label: Path<Record<string, string>>
   register: UseFormRegister<Record<string, string>>
   patternForm: ValidationRule<RegExp> | undefined
+  isDisabled?: boolean
 }
 
 export default function FieldProfile(props: FieldProps) {
-  const { label, name, type, error, register, patternForm } = props
+  const { label, name, type, error, register, patternForm, isDisabled = false } = props
 
   return (
     <div className="text-sm justify-between">
@@ -21,6 +22,7 @@ export default function FieldProfile(props: FieldProps) {
           register={register}
           patternForm={patternForm}
           label={label}
+          disabled={isDisabled}
           type={type}
           autoComplete={name}
           className="w-full mt-1 bg-transparent text-gray-500 text-right outline-0 font-bold"
