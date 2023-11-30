@@ -1,15 +1,16 @@
-// https://github.com/diegohaz/arc/wiki/Redux-modules
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import userReducer from './user/UserSlice'
 
-const store = configureStore({
-  reducer: {},
+const rootReducer = combineReducers({
+  user: userReducer,
 })
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-type AppDispatch = typeof store.dispatch
+export const setupStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+  })
+}
 
-export default store
-
-export type { RootState, AppDispatch }
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']

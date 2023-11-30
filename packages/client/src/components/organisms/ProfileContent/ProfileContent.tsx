@@ -1,8 +1,7 @@
 import { ProfileContentInfo } from '../ProfileContentInfo'
 
-import { UserContext } from '@/services/context'
-import { AuthApi } from '@/services/api'
-import { useState, useContext } from 'react'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { UserAction } from '@/store/user/UserActions'
 
 const styles = {
   main: `
@@ -53,25 +52,19 @@ const styles = {
   `,
 }
 export default function ProfileContent(): JSX.Element {
-  const { currentUser, setCurrentUser, setIsAuth } = useContext(UserContext)
-  const [error, setError] = useState<Error | null>(null)
+  const { user, error } = useAppSelector((state) => state.user)
+
+  const dispatch = useAppDispatch()
 
   const onLogout = () => {
-    AuthApi.logoutUser()
-      .then(() => {
-        setCurrentUser(null)
-        setIsAuth(false)
-      })
-      .catch((e) => {
-        setError(e)
-      })
+    dispatch(UserAction.logout())
   }
 
   return (
     <main className={styles.main}>
       <div className={styles.container}>
         <section>
-          <div className={styles.name}>{currentUser?.display_name}</div>
+          <div className={styles.name}>{user?.display_name}</div>
 
           <div className={styles.imageBox}>
             <div className={styles.image} />
@@ -83,11 +76,9 @@ export default function ProfileContent(): JSX.Element {
           </div>
         </section>
         <section className={styles.right}>
-          <ProfileContentInfo onLogout={onLogout} user={currentUser} />
+          <ProfileContentInfo onLogout={onLogout} user={user} />
 
-          {error && (
-            <span className="text-red-500 text-sm w-full text-center">{error.message}</span>
-          )}
+          {error && <span className="text-red-500 text-sm w-full text-center">{error}</span>}
         </section>
       </div>
     </main>
