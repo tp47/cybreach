@@ -195,10 +195,12 @@ class Game extends Drawable {
 
   private endGame(): void {
     this.gameStatus = GameStatus.SOLVED
+    this.EventBus.dispatch('gameEnd', 'solved')
   }
 
   private loseGame(): void {
     this.gameStatus = GameStatus.LOSED
+    this.EventBus.dispatch('gameEnd', 'losed')
   }
 
   private registerEvents(): void {
