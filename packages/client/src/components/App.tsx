@@ -1,9 +1,13 @@
 import { RouterProvider } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { router } from '@/router'
+
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
+
+import { MainLayout } from './templates'
+import { LoaderStub } from './atoms'
 
 function App() {
   const [isInit, setIsInit] = useState(false)
@@ -18,7 +22,7 @@ function App() {
   }, [dispatch])
 
   if (!isInit || isLoading) {
-    return <div>Loading</div>
+    return <MainLayout content={<LoaderStub />} />
   }
 
   return (
