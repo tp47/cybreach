@@ -1,6 +1,6 @@
 import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus, MoveDirection, Timer } from '@/model'
 import { Drawable } from '@/model/gameEngine/drawable'
-import { GameConfig, GameStatus } from './game.types'
+import { GameConfig, GameResult, GameStatus } from './game.types'
 
 class Game extends Drawable {
   private seed: string
@@ -195,12 +195,12 @@ class Game extends Drawable {
 
   private endGame(): void {
     this.gameStatus = GameStatus.SOLVED
-    this.EventBus.dispatch('gameEnd', 'solved')
+    this.EventBus.dispatch('end_game', GameResult.SOLVED)
   }
 
   private loseGame(): void {
     this.gameStatus = GameStatus.LOSED
-    this.EventBus.dispatch('gameEnd', 'losed')
+    this.EventBus.dispatch('end_game', GameResult.LOSED)
   }
 
   private registerEvents(): void {

@@ -2,31 +2,29 @@ import { EndGameScreen, GameContainer, StartGameScreen, MainLayout, Header } fro
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EventBus } from '@/model'
-
-type GameStage = 'startScreen' | 'inProcess' | 'endScreen'
-type GameResult = 'solved' | 'losed' | null
+import { GameStage, GameResult } from '@/model/gameEngine/game/'
 
 function GamePage() {
-  const [gameStage, setGameStage] = useState<GameStage>('startScreen')
-  const [gameResult, setGameResult] = useState<GameResult>(null)
+  const [gameStage, setGameStage] = useState<GameStage>(GameStage.STARTING)
+  const [gameResult, setGameResult] = useState<GameResult>()
   const navigate = useNavigate()
 
   useEffect(() => {
     const eventBus = new EventBus()
     const handleGameEnd = (result: GameResult) => {
-      setGameStage('endScreen')
+      setGameStage(GameStage.FINISHED)
       setGameResult(result)
     }
 
-    eventBus.register('gameEnd', handleGameEnd)
+    eventBus.register('end_game', handleGameEnd)
 
     return () => {
-      eventBus.unregister('gameEnd', handleGameEnd)
+      eventBus.unregister('end_game', handleGameEnd)
     }
   }, [])
 
   const onStartGame = () => {
-    setGameStage('inProcess')
+    setGameStage(GameStage.RUNNING)
   }
 
   const onLeaveGame = () => {
@@ -38,11 +36,11 @@ function GamePage() {
       header={<Header title="game" />}
       content={
         <>
-          {gameStage === 'startScreen' && (
+          {gameStage === GameStage.STARTING && (
             <StartGameScreen onStartGame={onStartGame} onLeaveGame={onLeaveGame} />
           )}
-          {gameStage === 'inProcess' && <GameContainer />}
-          {gameStage === 'endScreen' && (
+          {gameStage === GameStage.RUNNING && <GameContainer />}
+          {gameStage === GameStage.FINISHED && (
             <EndGameScreen
               onStartGame={onStartGame}
               onLeaveGame={onLeaveGame}

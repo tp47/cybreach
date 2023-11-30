@@ -1,20 +1,21 @@
 import { Button } from '@/components/atoms'
+import { GameResult } from '@/model/gameEngine/game'
 
 type EndGameScreenProps = {
   onStartGame: () => void
   onLeaveGame: () => void
-  result: 'solved' | 'losed' | null
+  result: GameResult | undefined
 }
 
 export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndGameScreenProps) {
   return (
     <section className="flex flex-col h-full w-full border-2 border-green-300 rounded-2xl p-[60px] bg-right bg-contain gap-[24px] justify-center items-center">
-      {result === 'solved' && (
+      {result === GameResult.SOLVED && (
         <div className="text-green-300 text-3xl w-[60%] uppercase text-center mb-10">
           you solved the code matrix!
         </div>
       )}
-      {result === 'losed' && (
+      {result === GameResult.LOSED && (
         <div className="text-red-400 text-3xl w-[60%] uppercase text-center mb-10">
           you losed this time...
         </div>
