@@ -2,16 +2,18 @@ import { Drawable } from '@/model'
 import { ControlPromptConfig } from './controlPrompt.types'
 
 class ControlPrompt extends Drawable {
-  private prompt: string
+  private clue: string[]
 
-  constructor(canvas: HTMLCanvasElement, prompt: string, config: ControlPromptConfig) {
+  constructor(canvas: HTMLCanvasElement, clue: string[], config: ControlPromptConfig) {
     super(canvas, config.dimensions)
 
-    this.prompt = prompt
+    this.clue = clue
   }
 
   public draw() {
-    this.drawText({ x: this.x, y: this.y }, this.prompt, this.styles.prompt.font)
+    this.clue.forEach((line, index) => {
+      this.drawText({ x: this.x, y: this.y + index * 25 }, line, this.styles.prompt.font)
+    })
   }
 }
 

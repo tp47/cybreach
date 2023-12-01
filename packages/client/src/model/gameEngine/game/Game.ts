@@ -99,7 +99,11 @@ class Game extends Drawable {
 
     this.ControlPrompt = new ControlPrompt(
       canvas,
-      'Use arrow keys to move selection, <Enter> or <Space> to select element, <F> for fullscreen, <Esc> to quit',
+      [
+        'Use arrow keys or <H>, <J>, <K>, <L> to move selection',
+        '<Enter> or <Space> to select element',
+        '<F> for fullscreen, <Esc> to quit',
+      ],
       {
         dimensions: {
           x: 24,
