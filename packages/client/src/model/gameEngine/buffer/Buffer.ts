@@ -49,29 +49,32 @@ class Buffer extends Drawable {
 
   private drawBuffer() {
     for (let i = 0; i < this.bufferLength; i++) {
+      const element = this.buffer[i]
+      let dashes: number | undefined = 2
+
+      if (element !== undefined) {
+        this.drawText(
+          {
+            x: this.x + i * this.styles.matrix.elementWidth + 2 + this.styles.title.indention[0],
+            y: this.y + this.styles.title.height + this.styles.buffer.elementHeight,
+          },
+          element,
+          this.styles.buffer.fontStyle
+        )
+        dashes = undefined
+      }
+
       this.drawStrokeRect(
         {
-          x: this.x + i * 25,
-          y: this.y + this.styles.title.height,
-          width: this.styles.matrix.elementWidth,
-          height: this.styles.matrix.elementHeight,
+          x: this.x + i * this.styles.matrix.elementWidth + this.styles.title.indention[0],
+          y: this.y + this.styles.title.height + 10,
+          width: this.styles.buffer.elementWidth,
+          height: this.styles.buffer.elementHeight,
         },
         undefined,
-        2
+        dashes
       )
     }
-
-    this.buffer.forEach((element, index) => {
-      this.drawText(
-        {
-          x: this.x + index * 25,
-          y: this.y + 15,
-        },
-        element,
-        '18px mono',
-        '#00ff00'
-      )
-    })
   }
 
   private addElement(element: string) {

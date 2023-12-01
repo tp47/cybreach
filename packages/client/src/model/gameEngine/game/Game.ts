@@ -1,4 +1,13 @@
-import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus, MoveDirection, Timer } from '@/model'
+import {
+  Matrix,
+  MatrixGenerator,
+  Sequences,
+  Buffer,
+  EventBus,
+  MoveDirection,
+  Timer,
+  ControlPrompt,
+} from '@/model'
 import { Drawable } from '@/model/gameEngine/drawable'
 import { GameConfig, GameStatus } from './game.types'
 
@@ -13,6 +22,7 @@ class Game extends Drawable {
   private Sequences: Sequences
   private Buffer: Buffer
   private Timer: Timer
+  private ControlPrompt: ControlPrompt
 
   private MatrixGenerator: MatrixGenerator
 
@@ -80,12 +90,25 @@ class Game extends Drawable {
 
     this.Timer = new Timer(canvas, this.availableTime, {
       dimensions: {
-        x: 50,
-        y: 0,
-        width: 200,
-        height: 50,
+        x: 24,
+        y: 24,
+        width: 412,
+        height: 55,
       },
     })
+
+    this.ControlPrompt = new ControlPrompt(
+      canvas,
+      'Use arrow keys to move selection, <Enter> or <Space> to select element, <F> for fullscreen, <Esc> to quit',
+      {
+        dimensions: {
+          x: 24,
+          y: 600,
+          width: 1148,
+          height: 42,
+        },
+      }
+    )
 
     this.EventBus = new EventBus()
 
@@ -123,7 +146,8 @@ class Game extends Drawable {
         this.Matrix.draw()
         this.Sequences.draw()
         this.Buffer.draw()
-        // this.Timer.draw()
+        this.Timer.draw()
+        this.ControlPrompt.draw()
         break
 
       case GameStatus.SOLVED:

@@ -29,10 +29,20 @@ class Sequences extends Drawable {
 
   private drawSequences() {
     this.sequences.forEach((sequence, index) => {
-      const x = this.x + Math.floor(index / this.sequences.length)
-      const y = this.y + Math.floor(index % this.sequences.length) * 20 + 15
+      const x = this.x + Math.floor(index / this.sequences.length) + this.styles.title.indention[0]
+      const y =
+        this.y +
+        Math.floor(index % this.sequences.length) +
+        this.styles.title.height +
+        this.styles.matrix.elementHeight / 2 +
+        10
 
-      this.drawText({ x, y }, sequence.join(' '), '18px mono', 'red')
+      this.drawText(
+        { x, y },
+        sequence.join(' '),
+        this.styles.matrix.elementFont,
+        this.styles.colors.main
+      )
     })
   }
 }

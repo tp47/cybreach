@@ -33,12 +33,26 @@ class Drawable {
       elementWidth: 50,
       elementHeight: 50,
       selectedElementColor: '#000000',
-      selectedGroupColor: '#1A372E',
+      selectedGroupColor: '#1a372e',
     },
 
     container: {
       radiuses: [0, 0, 8, 8],
       fill: '#000000',
+    },
+
+    buffer: {
+      elementWidth: 40,
+      elementHeight: 40,
+      fontStyle: '28px mono',
+    },
+
+    timer: {
+      radiuses: [12, 12, 12, 12],
+    },
+
+    prompt: {
+      font: '18px mono',
     },
   }
 

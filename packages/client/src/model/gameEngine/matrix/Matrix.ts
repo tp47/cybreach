@@ -1,4 +1,4 @@
-import { MatrixConfig, MatrixDirection, MoveDirection } from './matrix.types'
+import { MatrixConfig, MoveDirection } from './matrix.types'
 import { Drawable } from '@/model/gameEngine/drawable'
 import { BoardMatrix, EventBus } from '@/model'
 
@@ -54,7 +54,7 @@ class MatrixDrawable extends Drawable {
           width: elementWidth * this.matrixSize,
           height: elementHeight,
         },
-        '#1A372E'
+        this.styles.matrix.selectedGroupColor
       )
     } else {
       const x =
