@@ -15,6 +15,7 @@ export default function StartGameScreen({ onStartGame, onLeaveGame }: GameScreen
         <Button label="i'm ready, go in!" onClick={onStartGame} />
         <Button label="another time, get out" onClick={onLeaveGame} />
       </div>
+      <div className="text-green-300">Press alt + enter to toogle full screen mode</div>
     </section>
   )
 }

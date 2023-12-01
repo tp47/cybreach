@@ -24,6 +24,7 @@ export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndG
         <Button label="Try again!" onClick={onStartGame} />
         <Button label="another time, get out" onClick={onLeaveGame} />
       </div>
+      <div className="text-green-300">Press alt + enter to toogle full screen mode</div>
     </section>
   )
 }
