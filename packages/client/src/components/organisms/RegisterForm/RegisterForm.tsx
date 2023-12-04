@@ -11,6 +11,7 @@ import { FieldsForm } from '@/constants/fieldsForm'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
+import { setUser } from '@/store/user/UserSlice'
 
 interface FieldValues
   extends Record<
@@ -26,7 +27,7 @@ interface FieldValues
 export default function RegisterForm() {
   const navigate = useNavigate()
 
-  const { error } = useAppSelector((state) => state.user)
+  const { authError } = useAppSelector((state) => state.user)
 
   const dispatch = useAppDispatch()
 
@@ -38,6 +39,7 @@ export default function RegisterForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     dispatch(UserAction.register(data))
+    dispatch(setUser(data))
   }
 
   const onSwitch = (): void => {
@@ -116,8 +118,10 @@ export default function RegisterForm() {
             type={FieldsForm.PHONE}
             error={errors?.phone?.message}
           />
-          {error && (
-            <span className="text-red-500 text-sm w-full text-center items-center">{error}</span>
+          {authError && (
+            <span className="text-red-500 text-sm w-full text-center items-center">
+              {authError}
+            </span>
           )}
           <div className="flex flex-col justify-between mt-8">
             <Button label="PLUG IN" type="submit" disabled={!isValid} />
