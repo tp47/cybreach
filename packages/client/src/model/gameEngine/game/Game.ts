@@ -9,7 +9,7 @@ import {
   ControlPrompt,
 } from '@/model'
 import { Drawable } from '@/model/gameEngine/drawable'
-import { GameConfig, GameResult, GameStatus } from './game.types'
+import { GameConfig, GameResult, GameStage, GameStatus } from './game.types'
 
 class Game extends Drawable {
   private seed: string
@@ -132,8 +132,8 @@ class Game extends Drawable {
   }
 
   private prepareCanvas(): void {
-    this.canvas.width = window.innerWidth
-    this.canvas.height = window.innerHeight
+    this.canvas.width = 1179
+    this.canvas.height = 720
     this.drawBackground()
   }
 
@@ -155,17 +155,14 @@ class Game extends Drawable {
         break
 
       case GameStatus.SOLVED:
-        this.drawText({ x: 50, y: 50 }, 'Solved')
         break
 
       case GameStatus.LOSED:
-        this.drawText({ x: 50, y: 50 }, 'Game Over', undefined, 'red')
         break
 
       default:
         break
     }
-
     requestAnimationFrame(this.animate)
   }
 
@@ -219,6 +216,12 @@ class Game extends Drawable {
 
   public destruct(): void {
     this.removeEvents()
+    this.unregisterEvents()
+    this.Buffer.destruct()
+    this.Buffer = null
+    this.Timer = null
+    this.Matrix = null
+    this.Sequences = null
   }
 
   private endGame(): void {
@@ -235,6 +238,12 @@ class Game extends Drawable {
     this.EventBus.register('sequence_composed', this.endGame)
     this.EventBus.register('buffer_overloaded', this.loseGame)
     this.EventBus.register('timer_elapsed', this.loseGame)
+  }
+
+  private unregisterEvents(): void {
+    this.EventBus.unregister('sequence_composed', this.endGame)
+    this.EventBus.unregister('buffer_overloaded', this.loseGame)
+    this.EventBus.unregister('timer_elapsed', this.loseGame)
   }
 }
 

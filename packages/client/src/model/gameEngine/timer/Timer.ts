@@ -45,6 +45,7 @@ class Timer extends Drawable {
 
   private calculateRemainingTime(): number {
     const remainingTime = this.endTime - performance.now()
+    console.log('endTIME', this.endTime)
 
     if (remainingTime <= 0) {
       this.EventBus.dispatch('timer_elapsed')
