@@ -1,36 +1,34 @@
 import { RouterProvider } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { router } from '@/router'
-import { UserContext } from '@/services/context'
-import { AuthApi } from '@/services/api'
-import { User } from '@/types'
+
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { UserAction } from '@/store/user/UserActions'
+
 import { MainLayout } from './templates'
 import { LoaderStub } from './atoms'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
-  const [isAuth, setIsAuth] = useState<boolean | null>(null)
+  const [isInit, setIsInit] = useState(false)
+
+  const { isLoading } = useAppSelector((state) => state.user)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    AuthApi.getUser()
-      .then((data) => {
-        setCurrentUser(data)
-        setIsAuth(true)
-      })
-      .catch(() => setIsAuth(false))
-  }, [])
+    dispatch(UserAction.get())
+    setIsInit(true)
+  }, [dispatch])
 
-  if (isAuth == null) {
+  if (!isInit || isLoading) {
     return <MainLayout content={<LoaderStub />} />
   }
 
   return (
-    <UserContext.Provider value={{ currentUser, isAuth, setCurrentUser, setIsAuth }}>
-      <ErrorBoundary fallback="Error. Check console in dev tools.">
-        <RouterProvider router={router} />
-      </ErrorBoundary>
-    </UserContext.Provider>
+    <ErrorBoundary fallback="Error. Check console in dev tools.">
+      <RouterProvider router={router} />
+    </ErrorBoundary>
   )
 }
 

@@ -40,7 +40,7 @@ class Api {
     }
   }
 
-  private async _getResponse<T>(res: Response): Promise<T> {
+  private async _getResponse<T = undefined>(res: Response): Promise<T> {
     if (res.ok) {
       const contentType = res.headers.get('content-type')
       if (contentType && contentType.includes('application/json')) {
@@ -63,19 +63,19 @@ class Api {
     }
   }
 
-  async registerUser(userData: User): Promise<User> {
+  async registerUser(userData: User) {
     return fetch(`${this._baseUrl}/auth/signup`, this._setBaseOptions('POST', userData)).then(
       (res) => this._getResponse<User>(res)
     )
   }
 
-  async loginUser(loginData: Partial<User>): Promise<User> {
+  async loginUser(loginData: Partial<User>) {
     return fetch(`${this._baseUrl}/auth/signin`, this._setBaseOptions('POST', loginData)).then(
-      (res) => this._getResponse<User>(res)
+      (res) => this._getResponse(res)
     )
   }
 
-  async updateUserProfile(userData: Partial<User>): Promise<User> {
+  async updateUserProfile(userData: Partial<User>) {
     return fetch(`${this._baseUrl}/user/profile`, this._setBaseOptions('PUT', userData)).then(
       (res) => this._getResponse<User>(res)
     )
@@ -95,15 +95,15 @@ class Api {
     ).then((res) => this._getResponse<User>(res))
   }
 
-  async getUser(): Promise<User> {
+  async getUser() {
     return fetch(`${this._baseUrl}/auth/user`, this._setBaseOptions()).then((res) =>
       this._getResponse<User>(res)
     )
   }
 
-  async logoutUser(): Promise<null> {
+  async logoutUser() {
     return fetch(`${this._baseUrl}/auth/logout`, this._setBaseOptions('POST')).then((res) =>
-      this._getResponse<null>(res)
+      this._getResponse(res)
     )
   }
 }

@@ -12,11 +12,12 @@ import { Button } from '@/components/atoms'
 import { FieldProfile } from '@/components/molecules/FieldProfile'
 import { User } from '@/types'
 import { AuthApi } from '@/services/api'
-import { useContext, useState } from 'react'
-import { UserContext } from '@/services/context'
 import { Modal } from '../Modal'
 import { Field } from '@/components/molecules/Field'
 import { Password } from '@/types/user'
+import { useAppDispatch } from '@/hooks'
+import { useState } from 'react'
+import { UserAction } from '@/store/user/UserActions'
 
 interface FieldValues
   extends Record<
@@ -39,7 +40,7 @@ interface IProps {
 }
 
 export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Element {
-  const { setCurrentUser, setIsAuth } = useContext(UserContext)
+  const dispatch = useAppDispatch()
 
   const [isOpen, setIsOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
@@ -49,7 +50,6 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
   }
 
   const handleEdit = () => {
-    console.log(isDisabled)
     setIsDisabled((isDisabled) => !isDisabled)
   }
 
@@ -80,14 +80,9 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
         phone: data?.phone,
       }
 
-      AuthApi.updateUserProfile(user).then(() => {
-        AuthApi.getUser()
-          .then((data) => {
-            setCurrentUser(data)
-            setIsAuth(true)
-            handleEdit()
-          })
-          .catch(() => setIsAuth(false))
+      dispatch(UserAction.update(user)).then(() => {
+        dispatch(UserAction.get())
+        handleEdit()
       })
     }
   }

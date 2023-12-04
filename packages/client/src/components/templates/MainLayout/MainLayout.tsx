@@ -9,7 +9,7 @@ interface IProps {
 
 export default function MainLayout({ header, content, footer }: IProps) {
   return (
-    <div className="flex flex-col p-[60px] w-screen h-screen bg-custom-layout justify-center items-center">
+    <div className="flex flex-col px-12 pb-8 w-screen h-screen bg-custom-layout justify-center items-center">
       {header && <ErrorBoundary>{header}</ErrorBoundary>}
       {content && <ErrorBoundary>{content}</ErrorBoundary>}
       {footer && <ErrorBoundary>{footer}</ErrorBoundary>}

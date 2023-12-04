@@ -1,9 +1,8 @@
 import { ProfileContentInfo } from '../ProfileContentInfo'
 
-import { UserContext } from '@/services/context'
-import { AuthApi } from '@/services/api'
-import { useState, useContext } from 'react'
 import { ProfileContentAvatar } from '../ProfileContentAvatar'
+import { UserAction } from '@/store/user/UserActions'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 
 const styles = {
   main: `
@@ -26,32 +25,24 @@ const styles = {
   `,
 }
 export default function ProfileContent(): JSX.Element {
-  const { currentUser, setCurrentUser, setIsAuth } = useContext(UserContext)
-  const [error, setError] = useState<Error | null>(null)
+  const { user, error } = useAppSelector((state) => state.user)
+
+  const dispatch = useAppDispatch()
 
   const onLogout = () => {
-    AuthApi.logoutUser()
-      .then(() => {
-        setCurrentUser(null)
-        setIsAuth(false)
-      })
-      .catch((e) => {
-        setError(e)
-      })
+    dispatch(UserAction.logout())
   }
 
   return (
     <main className={styles.main}>
       <div className={styles.container}>
         <section>
-          <ProfileContentAvatar user={currentUser} />
+          <ProfileContentAvatar user={user} />
         </section>
         <section className={styles.right}>
-          <ProfileContentInfo onLogout={onLogout} user={currentUser} />
+          <ProfileContentInfo onLogout={onLogout} user={user} />
 
-          {error && (
-            <span className="text-red-500 text-sm w-full text-center">{error.message}</span>
-          )}
+          {error && <span className="text-red-500 text-sm w-full text-center">{error}</span>}
         </section>
       </div>
     </main>

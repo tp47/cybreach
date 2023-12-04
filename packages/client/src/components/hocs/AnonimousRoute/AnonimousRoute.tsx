@@ -1,13 +1,12 @@
-import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import { UserContext } from '@/services/context'
+import { useAppSelector } from '@/hooks/redux'
 
 interface AnonimousRouteProps {
   page: JSX.Element
 }
 
 export default function AnonimousRoute({ page }: AnonimousRouteProps) {
-  const { isAuth } = useContext(UserContext)
+  const { isAuth } = useAppSelector((state) => state.user)
   const urlParams = new URLSearchParams(window.location.search)
   const derivedPage = urlParams.get('page')
 
