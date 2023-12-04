@@ -12,19 +12,22 @@ interface FieldProps {
 }
 
 export default function FieldProfile(props: FieldProps) {
-  const { label, name, type, error, register, patternForm, isDisabled = false } = props
+  const { label, name, type, error, register, patternForm, isDisabled } = props
 
   return (
     <div className="text-sm justify-between">
       <div className="flex pb-2 border-emerald-500 border-b-2 items-end">
-        <label className="block text-gray-400 uppercase w-[150px]">{label}</label>
+        <label className="block text-gray-400 uppercase w-[150px]" htmlFor={name}>
+          {label}
+        </label>
         <Input
           register={register}
           patternForm={patternForm}
           label={label}
-          disabled={isDisabled}
           type={type}
           autoComplete={name}
+          id={name}
+          disabled={isDisabled}
           className="w-full mt-1 bg-transparent text-gray-500 text-right outline-0 font-bold"
         />
       </div>

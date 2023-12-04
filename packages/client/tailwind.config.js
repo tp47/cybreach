@@ -10,6 +10,8 @@ export default {
         like: 'url(public/assets/svg/like.svg)',
         romb: 'url(public/assets/svg/romb.svg)',
         battery: 'url(public/assets/svg/battery.svg)',
+        back: 'url(public/assets/svg/back.svg)',
+        profileIcon: 'url(public/assets/svg/profileIcon.svg)',
       },
     },
   },

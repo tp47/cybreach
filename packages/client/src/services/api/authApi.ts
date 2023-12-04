@@ -1,5 +1,6 @@
 import { BASE_URL } from '@/constants/baseUrl'
 import { User } from '@/types'
+import { Password } from '@/types/user'
 
 type ResponseData = {
   message?: string
@@ -21,11 +22,21 @@ class Api {
         method: method,
       }
     }
+
+    const contentBody = body instanceof FormData ? body : JSON.stringify(body)
+
+    const headers: {
+      [key: string]: any
+    } = {}
+
+    if (!(body instanceof FormData)) {
+      headers['Content-Type'] = 'application/json'
+    }
     return {
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       credentials: 'include' as RequestCredentials,
       method: method,
-      body: JSON.stringify(body),
+      body: contentBody,
     }
   }
 
@@ -52,31 +63,45 @@ class Api {
     }
   }
 
-  registerUser(userData: User): Promise<User> {
+  async registerUser(userData: User): Promise<User> {
     return fetch(`${this._baseUrl}/auth/signup`, this._setBaseOptions('POST', userData)).then(
       (res) => this._getResponse<User>(res)
     )
   }
 
-  loginUser(loginData: Partial<User>): Promise<User> {
+  async loginUser(loginData: Partial<User>): Promise<User> {
     return fetch(`${this._baseUrl}/auth/signin`, this._setBaseOptions('POST', loginData)).then(
       (res) => this._getResponse<User>(res)
     )
   }
 
-  updateUserProfile(userData: Partial<User>): Promise<User> {
+  async updateUserProfile(userData: Partial<User>): Promise<User> {
     return fetch(`${this._baseUrl}/user/profile`, this._setBaseOptions('PUT', userData)).then(
       (res) => this._getResponse<User>(res)
     )
   }
 
-  getUser(): Promise<User> {
+  async updateUserPassword(userData: Password): Promise<User> {
+    return fetch(`${this._baseUrl}/user/password`, this._setBaseOptions('PUT', userData)).then(
+      (res) => this._getResponse<User>(res)
+    )
+  }
+
+  async updateUserAvatar(userData: FormData): Promise<User> {
+    console.log(userData)
+    return fetch(
+      `${this._baseUrl}/user/profile/avatar`,
+      this._setBaseOptions('PUT', userData)
+    ).then((res) => this._getResponse<User>(res))
+  }
+
+  async getUser(): Promise<User> {
     return fetch(`${this._baseUrl}/auth/user`, this._setBaseOptions()).then((res) =>
       this._getResponse<User>(res)
     )
   }
 
-  logoutUser(): Promise<null> {
+  async logoutUser(): Promise<null> {
     return fetch(`${this._baseUrl}/auth/logout`, this._setBaseOptions('POST')).then((res) =>
       this._getResponse<null>(res)
     )
