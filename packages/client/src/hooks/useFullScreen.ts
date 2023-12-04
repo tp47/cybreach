@@ -11,7 +11,7 @@ export const useFullScreen = () => {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.altKey && e.key === 'Enter') {
+      if (e.altKey && (e.key === 'ƒ' || e.key === 'f')) {
         e.stopPropagation()
         toggleFullScreen()
       }
