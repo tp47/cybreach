@@ -21,12 +21,18 @@ class Timer extends Drawable {
   }
 
   public draw(): void {
-    this.drawStrokeRect({
-      x: this.x,
-      y: this.y,
-      width: this.width,
-      height: this.height,
-    })
+    this.drawRoundedRect(
+      {
+        x: this.x + 330,
+        y: this.y + 2,
+        width: 145,
+        height: this.height,
+      },
+      this.styles.timer.radiuses,
+      this.styles.container.fill
+    )
+
+    this.drawText({ x: this.x, y: this.y + this.height / 1.5 }, 'Breach time remaining:')
 
     this.drawTimer()
   }
@@ -34,7 +40,7 @@ class Timer extends Drawable {
   private drawTimer(): void {
     const time = (this.calculateRemainingTime() / 1000).toString()
 
-    this.drawText({ x: this.x + 50, y: this.y + 50 }, time)
+    this.drawText({ x: this.x + 360, y: this.y + this.height / 1.5 + 1 }, time)
   }
 
   private calculateRemainingTime(): number {
