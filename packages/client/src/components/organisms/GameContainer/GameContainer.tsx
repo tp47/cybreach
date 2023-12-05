@@ -10,10 +10,13 @@ function GameContainer() {
       return
     }
 
-    let game = new Game(canvasRef.current, { seed: Math.random().toString(), level: 1 })
+    let game: Game | null = new Game(canvasRef.current, {
+      seed: Math.random().toString(),
+      level: 1,
+    })
 
     return () => {
-      game.destruct()
+      game?.destruct()
       game = null
     }
   }, [])
