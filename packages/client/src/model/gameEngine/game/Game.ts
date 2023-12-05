@@ -9,7 +9,7 @@ import {
   ControlPrompt,
 } from '@/model'
 import { Drawable } from '@/model/gameEngine/drawable'
-import { GameConfig, GameResult, GameStage, GameStatus } from './game.types'
+import { GameConfig, GameResult, GameStatus } from './game.types'
 
 class Game extends Drawable {
   private seed: string
@@ -18,10 +18,10 @@ class Game extends Drawable {
   private gameStatus: GameStatus = GameStatus.IN_PROGRESS
   private availableTime: number
 
-  private Matrix: Matrix
-  private Sequences: Sequences
-  private Buffer: Buffer
-  private Timer: Timer
+  private Matrix: Matrix | null
+  private Sequences: Sequences | null
+  private Buffer: Buffer | null
+  private Timer: Timer | null
   private ControlPrompt: ControlPrompt
 
   private MatrixGenerator: MatrixGenerator
@@ -147,10 +147,10 @@ class Game extends Drawable {
 
     switch (this.gameStatus) {
       case GameStatus.IN_PROGRESS:
-        this.Matrix.draw()
-        this.Sequences.draw()
-        this.Buffer.draw()
-        this.Timer.draw()
+        this.Matrix?.draw()
+        this.Sequences?.draw()
+        this.Buffer?.draw()
+        this.Timer?.draw()
         this.ControlPrompt.draw()
         break
 
@@ -177,28 +177,28 @@ class Game extends Drawable {
     switch (key) {
       case 'ArrowRight':
       case 'l':
-        this.Matrix.moveSelection(MoveDirection.RIGHT)
+        this.Matrix?.moveSelection(MoveDirection.RIGHT)
         break
 
       case 'ArrowLeft':
       case 'h':
-        this.Matrix.moveSelection(MoveDirection.LEFT)
+        this.Matrix?.moveSelection(MoveDirection.LEFT)
         break
 
       case 'ArrowUp':
       case 'k':
-        this.Matrix.moveSelection(MoveDirection.UP)
+        this.Matrix?.moveSelection(MoveDirection.UP)
         break
 
       case 'ArrowDown':
       case 'j':
-        this.Matrix.moveSelection(MoveDirection.DOWN)
+        this.Matrix?.moveSelection(MoveDirection.DOWN)
         break
 
       case 'Enter':
       case 'Space':
       case ' ':
-        this.Matrix.selectElement()
+        this.Matrix?.selectElement()
         break
 
       default:
@@ -217,7 +217,7 @@ class Game extends Drawable {
   public destruct(): void {
     this.removeEvents()
     this.unregisterEvents()
-    this.Buffer.destruct()
+    this.Buffer?.destruct()
     this.Buffer = null
     this.Timer = null
     this.Matrix = null
