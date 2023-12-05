@@ -14,8 +14,10 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
 
   const styles = {
     name: `
+    flex
+    justify-center
+    text-green-300
     text-5xl
-    text-white
     uppercase
     font-normal
   `,
@@ -99,12 +101,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
               />
             </div>
             <div className="flex flex-col justify-between">
-              <Button
-                onClick={() => handleSubmit()}
-                type="submit"
-                label="SUBMIT"
-                className="bg-slate-950 border-2 border-emerald-400 p-2 rounded-xl shadow shadow-emerald-400 text-gray-400 text-center w-full cursor-pointer"
-              />
+              <Button onClick={() => handleSubmit()} type="submit" label="SUBMIT" />
               <Button
                 label="CANCEL"
                 onClick={() => handleChangeAvatarModal()}

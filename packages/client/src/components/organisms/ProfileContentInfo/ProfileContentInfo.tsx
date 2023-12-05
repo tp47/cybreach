@@ -253,12 +253,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                 />
 
                 <div className="flex flex-col justify-between">
-                  <Button
-                    onClick={handleSubmit(onSubmitPassword)}
-                    type="submit"
-                    label="SUBMIT"
-                    className="bg-slate-950 border-2 border-emerald-400 p-2 rounded-xl shadow shadow-emerald-400 text-gray-400 text-center w-full cursor-pointer"
-                  />
+                  <Button onClick={handleSubmit(onSubmitPassword)} type="submit" label="SUBMIT" />
                 </div>
               </form>
               <Button

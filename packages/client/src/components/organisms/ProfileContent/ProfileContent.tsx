@@ -10,6 +10,7 @@ const styles = {
     border-green-300
     bg-black
     p-20
+    flex h-full w-full rounded-2xl justify-center items-center
   `,
   container: `
     max-w-screen-xl
