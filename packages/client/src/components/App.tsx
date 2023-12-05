@@ -5,6 +5,7 @@ import { router } from '@/router'
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
+import { useFullScreen } from '@/hooks/useFullScreen'
 
 import { MainLayout } from './templates'
 import { LoaderStub } from './atoms'
@@ -13,6 +14,8 @@ function App() {
   const [isInit, setIsInit] = useState(false)
 
   const { isLoading } = useAppSelector((state) => state.user)
+
+  useFullScreen()
 
   const dispatch = useAppDispatch()
 
