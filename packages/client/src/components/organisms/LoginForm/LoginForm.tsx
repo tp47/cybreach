@@ -9,7 +9,7 @@ import { UserAction } from '@/store/user/UserActions'
 interface FieldValues extends Record<FieldsForm.LOGIN | FieldsForm.PASSWORD, string> {}
 
 export default function LoginForm() {
-  const { error } = useAppSelector((state) => state.user)
+  const { authError } = useAppSelector((state) => state.user)
 
   const dispatch = useAppDispatch()
 
@@ -57,8 +57,10 @@ export default function LoginForm() {
             type={FieldsForm.PASSWORD}
             error={errors?.password?.message}
           />
-          {error && (
-            <span className="text-red-500 text-sm w-full text-center items-center">{error}</span>
+          {authError && (
+            <span className="text-red-500 text-sm w-full text-center items-center">
+              {authError}
+            </span>
           )}
           <div className="flex flex-col justify-between mt-8">
             <Button label="BREACH IN" type="submit" disabled={!isValid} />

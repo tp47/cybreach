@@ -25,7 +25,7 @@ const styles = {
   `,
 }
 export default function ProfileContent(): JSX.Element {
-  const { user, error } = useAppSelector((state) => state.user)
+  const { user, authError } = useAppSelector((state) => state.user)
 
   const dispatch = useAppDispatch()
 
@@ -42,7 +42,9 @@ export default function ProfileContent(): JSX.Element {
         <section className={styles.right}>
           <ProfileContentInfo onLogout={onLogout} user={user} />
 
-          {error && <span className="text-red-500 text-sm w-full text-center">{error}</span>}
+          {authError && (
+            <span className="text-red-500 text-sm w-full text-center">{authError}</span>
+          )}
         </section>
       </div>
     </main>

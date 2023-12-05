@@ -18,10 +18,10 @@ class Game extends Drawable {
   private gameStatus: GameStatus = GameStatus.IN_PROGRESS
   private availableTime: number
 
-  private Matrix: Matrix
-  private Sequences: Sequences
-  private Buffer: Buffer
-  private Timer: Timer
+  private Matrix: Matrix | null
+  private Sequences: Sequences | null
+  private Buffer: Buffer | null
+  private Timer: Timer | null
   private ControlPrompt: ControlPrompt
 
   private MatrixGenerator: MatrixGenerator
@@ -132,8 +132,8 @@ class Game extends Drawable {
   }
 
   private prepareCanvas(): void {
-    this.canvas.width = window.innerWidth
-    this.canvas.height = window.innerHeight
+    this.canvas.width = 1179
+    this.canvas.height = 720
     this.drawBackground()
   }
 
@@ -147,25 +147,22 @@ class Game extends Drawable {
 
     switch (this.gameStatus) {
       case GameStatus.IN_PROGRESS:
-        this.Matrix.draw()
-        this.Sequences.draw()
-        this.Buffer.draw()
-        this.Timer.draw()
+        this.Matrix?.draw()
+        this.Sequences?.draw()
+        this.Buffer?.draw()
+        this.Timer?.draw()
         this.ControlPrompt.draw()
         break
 
       case GameStatus.SOLVED:
-        this.drawText({ x: 50, y: 50 }, 'Solved')
         break
 
       case GameStatus.LOSED:
-        this.drawText({ x: 50, y: 50 }, 'Game Over', undefined, 'red')
         break
 
       default:
         break
     }
-
     requestAnimationFrame(this.animate)
   }
 
@@ -180,28 +177,28 @@ class Game extends Drawable {
     switch (key) {
       case 'ArrowRight':
       case 'l':
-        this.Matrix.moveSelection(MoveDirection.RIGHT)
+        this.Matrix?.moveSelection(MoveDirection.RIGHT)
         break
 
       case 'ArrowLeft':
       case 'h':
-        this.Matrix.moveSelection(MoveDirection.LEFT)
+        this.Matrix?.moveSelection(MoveDirection.LEFT)
         break
 
       case 'ArrowUp':
       case 'k':
-        this.Matrix.moveSelection(MoveDirection.UP)
+        this.Matrix?.moveSelection(MoveDirection.UP)
         break
 
       case 'ArrowDown':
       case 'j':
-        this.Matrix.moveSelection(MoveDirection.DOWN)
+        this.Matrix?.moveSelection(MoveDirection.DOWN)
         break
 
       case 'Enter':
       case 'Space':
       case ' ':
-        this.Matrix.selectElement()
+        this.Matrix?.selectElement()
         break
 
       default:
@@ -219,6 +216,12 @@ class Game extends Drawable {
 
   public destruct(): void {
     this.removeEvents()
+    this.unregisterEvents()
+    this.Buffer?.destruct()
+    this.Buffer = null
+    this.Timer = null
+    this.Matrix = null
+    this.Sequences = null
   }
 
   private endGame(): void {
@@ -235,6 +238,12 @@ class Game extends Drawable {
     this.EventBus.register('sequence_composed', this.endGame)
     this.EventBus.register('buffer_overloaded', this.loseGame)
     this.EventBus.register('timer_elapsed', this.loseGame)
+  }
+
+  private unregisterEvents(): void {
+    this.EventBus.unregister('sequence_composed', this.endGame)
+    this.EventBus.unregister('buffer_overloaded', this.loseGame)
+    this.EventBus.unregister('timer_elapsed', this.loseGame)
   }
 }
 
