@@ -1,3 +1,5 @@
+import { InDevelopmentStub, Header, MainLayout } from '@/components'
+
 export function LeaderBoard(): JSX.Element {
-  return <div>LeaderBoard</div>
+  return <MainLayout header={<Header title="leaderboard" />} content={<InDevelopmentStub />} />
 }

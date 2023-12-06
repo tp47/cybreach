@@ -19,7 +19,7 @@ const styles = {
     rounded-2xl
     p-[60px]
     bg-right
-    bg-contain
+    bg-cover
     flex
     gap-[200px]
   `,
@@ -71,6 +71,7 @@ export default function MainContent() {
   return (
     <main className={`${styles.main}${showTutorial ? '' : 'bg-custom-main-menu bg-no-repeat'}`}>
       <nav className={styles.nav}>
+        <h1 className="text-bold text-7xl text-green-300 decoration-underline">CYBREACH</h1>
         <ul className={styles.list}>
           {ARRAY_BUTTONS.map((name, idx) => (
             <li key={idx}>
