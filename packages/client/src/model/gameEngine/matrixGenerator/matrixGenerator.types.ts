@@ -1,4 +1,6 @@
 type MatrixGeneratorConfig = {
+  defaultAvailableTime: number
+
   minMatrixSize: number
   maxMatrixSize: number
 

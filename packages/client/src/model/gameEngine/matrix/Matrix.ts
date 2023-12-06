@@ -1,4 +1,4 @@
-import { MatrixConfig, MatrixDirection, MoveDirection } from './matrix.types'
+import { MatrixConfig, MoveDirection } from './matrix.types'
 import { Drawable } from '@/model/gameEngine/drawable'
 import { BoardMatrix, EventBus } from '@/model'
 
@@ -22,31 +22,77 @@ class MatrixDrawable extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect('#d9f06e', {
-      x: this.x,
-      y: this.y,
-      width: this.width,
-      height: this.height,
-    })
+    this.drawRoundedRect(
+      {
+        x: this.x,
+        y: this.y + this.styles.title.height,
+        width: this.width,
+        height: this.height,
+      },
+      this.styles.container.radiuses,
+      this.styles.container.fill
+    )
 
+    this.drawTitle('Code matrix')
     this.drawMatrix()
   }
 
   private drawMatrix() {
+    const { elementWidth, elementHeight, elementFont, selectedElementColor } = this.styles.matrix
+
+    if (this.isRowDirection) {
+      const x = this.x + elementWidth
+      const y =
+        this.y +
+        Math.floor(this.currentElementIndex / this.matrixSize) * elementHeight +
+        20 +
+        this.styles.title.height
+      this.drawFilledRect(
+        {
+          x,
+          y,
+          width: elementWidth * this.matrixSize,
+          height: elementHeight,
+        },
+        this.styles.matrix.selectedGroupColor
+      )
+    } else {
+      const x =
+        this.x +
+        Math.floor(this.currentElementIndex % this.matrixSize) * elementWidth +
+        elementWidth
+      const y = this.y + this.styles.title.height + 20
+      this.drawFilledRect(
+        { x, y, width: elementWidth, height: elementHeight * this.matrixSize },
+        this.styles.matrix.selectedGroupColor
+      )
+    }
+
     this.matrix.forEach((element, index) => {
       // Each column element with padding
-      const x = this.x + Math.floor(index % this.matrixSize) * 25
+      const x = this.x + Math.floor(index % this.matrixSize) * elementWidth + 55
       // Each row from new line
-      const y = this.y + Math.floor(index / this.matrixSize) * 20 + 15
+      const y =
+        this.y + Math.floor(index / this.matrixSize) * elementHeight + 55 + this.styles.title.height
 
       if (index === this.currentElementIndex) {
-        this.drawStrokeRect('yellow', { x, y: y - 15, width: 20, height: 20 })
-      }
-
-      if (this.selectedElements.includes(index)) {
-        this.drawText('[]', '18px mono', 'yellow', { x, y })
+        this.drawFilledRect({
+          x: x - 5,
+          y: y - 35,
+          width: elementWidth,
+          height: elementHeight,
+        })
+        if (this.selectedElements.includes(index)) {
+          this.drawText({ x, y }, '[]', elementFont, selectedElementColor)
+        } else {
+          this.drawText({ x, y }, element, elementFont, selectedElementColor)
+        }
       } else {
-        this.drawText(element, '18px mono', 'red', { x, y })
+        if (this.selectedElements.includes(index)) {
+          this.drawText({ x, y }, '[]', elementFont)
+        } else {
+          this.drawText({ x, y }, element, elementFont, this.styles.colors.main)
+        }
       }
     })
   }

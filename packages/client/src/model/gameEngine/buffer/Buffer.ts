@@ -31,36 +31,50 @@ class Buffer extends Drawable {
   }
 
   public draw() {
-    this.drawStrokeRect('#d9f06e', {
-      x: this.x,
-      y: this.y,
-      width: this.width,
-      height: this.height,
-    })
+    this.drawRoundedRect(
+      {
+        x: this.x,
+        y: this.y + this.styles.title.height,
+        width: this.width,
+        height: this.height,
+      },
+      this.styles.container.radiuses,
+      this.styles.container.fill
+    )
+
+    this.drawTitle('Buffer')
 
     this.drawBuffer()
   }
 
   private drawBuffer() {
     for (let i = 0; i < this.bufferLength; i++) {
+      const element = this.buffer[i]
+      let dashes: number | undefined = 2
+
+      if (element !== undefined) {
+        this.drawText(
+          {
+            x: this.x + i * this.styles.matrix.elementWidth + 2 + this.styles.title.indention[0],
+            y: this.y + this.styles.title.height + this.styles.buffer.elementHeight,
+          },
+          element,
+          this.styles.buffer.fontStyle
+        )
+        dashes = undefined
+      }
+
       this.drawStrokeRect(
-        '#d9f06e',
         {
-          x: this.x + i * 25,
-          y: this.y,
-          width: 20,
-          height: 20,
+          x: this.x + i * this.styles.matrix.elementWidth + this.styles.title.indention[0],
+          y: this.y + this.styles.title.height + 10,
+          width: this.styles.buffer.elementWidth,
+          height: this.styles.buffer.elementHeight,
         },
-        2
+        undefined,
+        dashes
       )
     }
-
-    this.buffer.forEach((element, index) => {
-      this.drawText(element, '18px mono', '#00ff00', {
-        x: this.x + index * 25,
-        y: this.y + 15,
-      })
-    })
   }
 
   private addElement(element: string) {
@@ -79,7 +93,6 @@ class Buffer extends Drawable {
 
     if (this.buffer.length === this.bufferLength) {
       this.EventBus.dispatch('buffer_overloaded')
-      console.log('overl')
     }
   }
 

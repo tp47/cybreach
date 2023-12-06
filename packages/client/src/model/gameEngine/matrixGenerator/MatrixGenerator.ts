@@ -5,6 +5,7 @@ import { BoardMatrix, MatrixGeneratorConfig, BoardSequence, BoardSequences } fro
 class MatrixGenerator {
   private level: number
   private seed: string
+  private defaultAvailableTime: number
 
   private minMatrixSize: number
   private maxMatrixSize: number
@@ -16,7 +17,6 @@ class MatrixGenerator {
   private minBufferSize: number
   private maxBufferSize: number
 
-  private differentMatrixValuesAmount: number
   private matrixValues: string[]
   private emptyMatrixValue: string
 
@@ -30,6 +30,8 @@ class MatrixGenerator {
   constructor(level: number, seed: string, config: MatrixGeneratorConfig) {
     this.level = level
     this.seed = seed
+
+    this.defaultAvailableTime = config.defaultAvailableTime
 
     this.minMatrixSize = config.minMatrixSize
     this.maxMatrixSize = config.maxMatrixSize
@@ -146,6 +148,12 @@ class MatrixGenerator {
 
   public get bufferSize(): number {
     return this.maxBufferSize
+  }
+
+  public computeAvailableTime(): number {
+    const availableTime = Math.max(this.defaultAvailableTime - this.level * 5, 10000)
+
+    return availableTime
   }
 
   private getMatrixIndex(matrixSize: number, row: number, column: number): number {

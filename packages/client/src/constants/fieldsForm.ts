@@ -3,6 +3,7 @@ export enum FieldsForm {
   SECOND_NAME = 'second_name',
   LOGIN = 'login',
   EMAIL = 'email',
+  DISPLAY_NAME = 'display_name',
   PASSWORD = 'password',
   PHONE = 'phone',
 }

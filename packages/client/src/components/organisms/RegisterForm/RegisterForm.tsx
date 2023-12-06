@@ -8,10 +8,9 @@ import {
   phonePattern,
 } from '../../../constants/validation.const'
 import { FieldsForm } from '@/constants/fieldsForm'
-import { AuthApi } from '@/services/api'
-import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '@/services/context'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { UserAction } from '@/store/user/UserActions'
 
 interface FieldValues
   extends Record<
@@ -26,13 +25,10 @@ interface FieldValues
 
 export default function RegisterForm() {
   const navigate = useNavigate()
-  const [error, setError] = useState<Error | null>(null)
-  const { setIsAuth, setCurrentUser } = useContext(UserContext)
-  const setUser = () => {
-    AuthApi.getUser()
-      .then((user) => setCurrentUser(user))
-      .catch((e) => e)
-  }
+
+  const { error } = useAppSelector((state) => state.user)
+
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -41,12 +37,7 @@ export default function RegisterForm() {
   } = useForm<FieldValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    AuthApi.registerUser(data)
-      .then(() => {
-        setIsAuth(true)
-        setUser()
-      })
-      .catch((e) => setError(e))
+    dispatch(UserAction.register(data))
   }
 
   const onSwitch = (): void => {
@@ -126,9 +117,7 @@ export default function RegisterForm() {
             error={errors?.phone?.message}
           />
           {error && (
-            <span className="text-red-500 text-sm w-full text-center items-center">
-              {error.message}
-            </span>
+            <span className="text-red-500 text-sm w-full text-center items-center">{error}</span>
           )}
           <div className="flex flex-col justify-between mt-8">
             <Button label="PLUG IN" type="submit" disabled={!isValid} />

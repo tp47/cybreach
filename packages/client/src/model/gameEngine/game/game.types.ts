@@ -1,6 +1,9 @@
+import { Sizes } from '@/model'
+
 type GameConfig = {
   seed: string
   level: number
+  sizes?: Sizes
 }
 
 enum GameStatus {
@@ -9,5 +12,16 @@ enum GameStatus {
   LOSED,
 }
 
+enum GameStage {
+  STARTING,
+  RUNNING,
+  FINISHED,
+}
+
+enum GameResult {
+  SOLVED,
+  LOSED,
+}
+
 export type { GameConfig }
-export { GameStatus }
+export { GameStatus, GameStage, GameResult }

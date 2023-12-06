@@ -1,10 +1,10 @@
 export { LeaderBoard } from './LeaderBoard'
 export { Forum } from './Forum'
 export { ForumTopic } from './ForumTopic'
-export { Profile } from './Profile'
-export { Game } from './Game'
+export { ProfilePage } from './ProfilePage'
 export { ErrorPage } from './ErrorPage'
 export { MainPage } from './MainPage'
 
 export * from './LoginPage'
 export * from './RegisterPage'
+export * from './GamePage'

@@ -1,19 +1,29 @@
-import { Matrix, MatrixGenerator, Sequences, Buffer, EventBus } from '@/model'
-import { MoveDirection } from '@/model'
-import { GameConfig, GameStatus } from './game.types'
+import {
+  Matrix,
+  MatrixGenerator,
+  Sequences,
+  Buffer,
+  EventBus,
+  MoveDirection,
+  Timer,
+  ControlPrompt,
+} from '@/model'
+import { Drawable } from '@/model/gameEngine/drawable'
+import { GameConfig, GameResult, GameStatus } from './game.types'
 
-class Game {
-  private canvas: HTMLCanvasElement
-  private context: CanvasRenderingContext2D
-
+class Game extends Drawable {
   private seed: string
   private level: number
 
   private gameStatus: GameStatus = GameStatus.IN_PROGRESS
+  private availableTime: number
 
   private Matrix: Matrix
   private Sequences: Sequences
   private Buffer: Buffer
+  private Timer: Timer
+  private ControlPrompt: ControlPrompt
+
   private MatrixGenerator: MatrixGenerator
 
   private EventBus: EventBus
@@ -22,6 +32,8 @@ class Game {
     if (canvas.getContext('2d') === null) {
       throw new Error('Canvas context is null')
     }
+
+    super(canvas, { x: 0, y: 0, width: 1179, height: 624 })
 
     this.canvas = canvas
     this.context = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -39,14 +51,17 @@ class Game {
       maxBufferSize: 6,
       matrixValues: ['A0', 'E9', '4C', '8B', '6F'],
       emptyMatrixValue: ' ',
+      defaultAvailableTime: 30000,
     })
+
+    this.availableTime = this.MatrixGenerator.computeAvailableTime()
 
     this.Matrix = new Matrix(canvas, this.MatrixGenerator.matrix, {
       dimensions: {
-        x: 50,
-        y: 50,
-        width: 200,
-        height: 200,
+        x: 24,
+        y: 95,
+        width: 512,
+        height: 419,
       },
     })
 
@@ -56,22 +71,48 @@ class Game {
       this.MatrixGenerator.sequences,
       {
         dimensions: {
-          x: 300,
-          y: 50,
-          width: 200,
-          height: 200,
+          x: 552,
+          y: 95,
+          width: 600,
+          height: 65,
         },
       }
     )
 
     this.Sequences = new Sequences(canvas, this.MatrixGenerator.sequences, {
       dimensions: {
-        x: 550,
-        y: 50,
-        width: 200,
-        height: 200,
+        x: 552,
+        y: 216,
+        width: 600,
+        height: 156,
       },
     })
+
+    this.Timer = new Timer(canvas, this.availableTime, {
+      dimensions: {
+        x: 24,
+        y: 24,
+        width: 412,
+        height: 55,
+      },
+    })
+
+    this.ControlPrompt = new ControlPrompt(
+      canvas,
+      [
+        'Use arrow keys or <H>, <J>, <K>, <L> to move selection',
+        '<Enter> or <Space> to select element',
+        '<F> for fullscreen, <Esc> to quit',
+      ],
+      {
+        dimensions: {
+          x: 24,
+          y: 600,
+          width: 1148,
+          height: 42,
+        },
+      }
+    )
 
     this.EventBus = new EventBus()
 
@@ -83,24 +124,24 @@ class Game {
     this.init()
   }
 
-  private init() {
+  private init(): void {
     this.prepareCanvas()
     this.addEvents()
     this.registerEvents()
     requestAnimationFrame(this.animate)
   }
 
-  private prepareCanvas() {
+  private prepareCanvas(): void {
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
     this.drawBackground()
   }
 
-  private clearCanvas() {
+  private clearCanvas(): void {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
-  private animate() {
+  private animate(): void {
     this.clearCanvas()
     this.drawBackground()
 
@@ -109,18 +150,16 @@ class Game {
         this.Matrix.draw()
         this.Sequences.draw()
         this.Buffer.draw()
+        this.Timer.draw()
+        this.ControlPrompt.draw()
         break
 
       case GameStatus.SOLVED:
-        this.context.font = '24px mono'
-        this.context.fillStyle = '#00ff00'
-        this.context.fillText('Sequence solved', 50, 50)
+        this.drawText({ x: 50, y: 50 }, 'Solved')
         break
 
       case GameStatus.LOSED:
-        this.context.font = '24px mono'
-        this.context.fillStyle = '#ff0000'
-        this.context.fillText('Buffer overloaded. Game over', 50, 50)
+        this.drawText({ x: 50, y: 50 }, 'Game Over', undefined, 'red')
         break
 
       default:
@@ -130,12 +169,12 @@ class Game {
     requestAnimationFrame(this.animate)
   }
 
-  private drawBackground() {
+  private drawBackground(): void {
     this.context.fillStyle = 'black'
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
-  private handleKeystroke(event: KeyboardEvent) {
+  private handleKeystroke(event: KeyboardEvent): void {
     const { key } = event
 
     switch (key) {
@@ -161,6 +200,7 @@ class Game {
 
       case 'Enter':
       case 'Space':
+      case ' ':
         this.Matrix.selectElement()
         break
 
@@ -169,29 +209,32 @@ class Game {
     }
   }
 
-  private addEvents() {
+  private addEvents(): void {
     window.addEventListener('keydown', this.handleKeystroke)
   }
 
-  private removeEvents() {
+  private removeEvents(): void {
     window.removeEventListener('keydown', this.handleKeystroke)
   }
 
-  public destruct() {
+  public destruct(): void {
     this.removeEvents()
   }
 
-  private endGame() {
+  private endGame(): void {
     this.gameStatus = GameStatus.SOLVED
+    this.EventBus.dispatch('end_game', GameResult.SOLVED)
   }
 
-  private loseGame() {
+  private loseGame(): void {
     this.gameStatus = GameStatus.LOSED
+    this.EventBus.dispatch('end_game', GameResult.LOSED)
   }
 
-  private registerEvents() {
+  private registerEvents(): void {
     this.EventBus.register('sequence_composed', this.endGame)
     this.EventBus.register('buffer_overloaded', this.loseGame)
+    this.EventBus.register('timer_elapsed', this.loseGame)
   }
 }
 
