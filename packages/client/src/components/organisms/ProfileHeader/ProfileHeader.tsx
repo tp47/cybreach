@@ -8,8 +8,8 @@ export default function ProfileHeader(): JSX.Element {
       <div className="bg-back w-[72px] h-[72px] cursor-pointer" onClick={() => navigate('/')} />
 
       <div className="mr-[40%] flex gap-5">
-        <div className="bg-profileIcon w-[48px] h-[48px]" />
-        <div className="text-5xl text-emerald-500">Profile</div>
+        <div className="bg-profileIcon w-[60px] h-[60px] bg-cover bg-no-repeat" />
+        <div className="text-6xl text-bold text-green-300 uppercase">Profile</div>
       </div>
     </div>
   )
