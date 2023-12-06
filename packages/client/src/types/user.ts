@@ -8,3 +8,8 @@ export type User = {
   phone: string
   avatar?: string
 }
+
+export type Password = {
+  oldPassword: string
+  newPassword: string
+}

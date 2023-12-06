@@ -1,15 +1,16 @@
 import { ProfileContentInfo } from '../ProfileContentInfo'
 
-import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { ProfileContentAvatar } from '../ProfileContentAvatar'
 import { UserAction } from '@/store/user/UserActions'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 
 const styles = {
   main: `
-    h-full
     border-2
     border-green-300
     bg-black
     p-20
+    flex h-full w-full rounded-2xl justify-center items-center
   `,
   container: `
     max-w-screen-xl
@@ -22,33 +23,6 @@ const styles = {
   right: `
     mt-20
     basis-1/2
-  `,
-  name: `
-    text-5xl
-    text-white
-    uppercase
-    font-normal
-  `,
-  image: `
-    bg-profile
-    h-[260px]
-    w-[438px]
-    mt-10
-  `,
-  icons: `
-    flex
-    w-[100%]
-    justify-center
-    gap-3
-  `,
-  icon: `
-    h-[28px]
-    w-[28px]
-    bg-no-repeat
-    bg-cover
-  `,
-  imageBox: `
-    w-[438px]
   `,
 }
 export default function ProfileContent(): JSX.Element {
@@ -64,16 +38,7 @@ export default function ProfileContent(): JSX.Element {
     <main className={styles.main}>
       <div className={styles.container}>
         <section>
-          <div className={styles.name}>{user?.display_name}</div>
-
-          <div className={styles.imageBox}>
-            <div className={styles.image} />
-            <div className={styles.icons}>
-              <div className={`${styles.icon} bg-like`} />
-              <div className={`${styles.icon} bg-romb`} />
-              <div className={`${styles.icon} bg-battery`} />
-            </div>
-          </div>
+          <ProfileContentAvatar user={user} />
         </section>
         <section className={styles.right}>
           <ProfileContentInfo onLogout={onLogout} user={user} />

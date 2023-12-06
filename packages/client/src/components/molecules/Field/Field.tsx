@@ -16,7 +16,7 @@ export default function Field<T extends FieldValues>(props: FieldProps<T>) {
 
   return (
     <div className="flex flex-col text-sm">
-      <label className="block text-green-500">{label}</label>
+      <label className="block text-emerald-400">{label}</label>
       <Input
         register={register}
         patternForm={patternForm}
