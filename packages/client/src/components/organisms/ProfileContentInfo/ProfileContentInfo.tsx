@@ -44,9 +44,11 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
 
   const [isOpen, setIsOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
+  const [isErrorPassword, setIsErrorPassword] = useState(false)
 
   const handleModal = () => {
     setIsOpen((isOpen) => !isOpen)
+    setIsErrorPassword(false)
   }
 
   const handleEdit = () => {
@@ -95,9 +97,14 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
       newPassword: data.new_password,
     }
 
-    AuthApi.updateUserPassword(userData).then(() => {
-      handleModal()
-    })
+    AuthApi.updateUserPassword(userData)
+      .then(() => {
+        handleModal()
+        setIsErrorPassword(false)
+      })
+      .catch(() => {
+        setIsErrorPassword(true)
+      })
   }
 
   const fields = [
@@ -227,7 +234,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   }}
                   name={FieldsForm.OLD_PASSWORD}
                   type={FieldsForm.PASSWORD}
-                  error={errors?.password?.message}
+                  error={errors?.old_password?.message}
                 />
                 <Field
                   label={FieldsForm.NEW_PASSWORD}
@@ -238,7 +245,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   }}
                   name={FieldsForm.NEW_PASSWORD}
                   type={FieldsForm.PASSWORD}
-                  error={errors?.password?.message}
+                  error={errors?.new_password?.message}
                 />
                 <Field
                   label={FieldsForm.CONFIRM_PASSWORD}
@@ -249,15 +256,19 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   }}
                   name={FieldsForm.CONFIRM_PASSWORD}
                   type={FieldsForm.PASSWORD}
-                  error={errors?.password?.message}
+                  error={errors?.confirm_password?.message}
                 />
-
+                {isErrorPassword ? (
+                  <div className="text-red-500 text-center mb-2">Password is incorrect</div>
+                ) : (
+                  ''
+                )}
                 <div className="flex flex-col justify-between">
                   <Button
                     onClick={handleSubmit(onSubmitPassword)}
                     type="submit"
                     label="SUBMIT"
-                    className="bg-slate-950 border-2 border-emerald-400 p-2 rounded-xl shadow shadow-emerald-400 text-gray-400 text-center w-full cursor-pointer"
+                    disabled={isValid ? false : true}
                   />
                 </div>
               </form>

@@ -10,18 +10,21 @@ const styles = {
     border-green-300
     bg-black
     p-20
+    w-full
+    h-full
   `,
   container: `
-    max-w-screen-xl
     flex
     gap-x-20
-    w-[100%]
+    w-[90%]
     justify-between
     mx-auto
   `,
   right: `
     mt-20
     basis-1/2
+    h-full
+    w-full
   `,
 }
 export default function ProfileContent(): JSX.Element {
