@@ -69,10 +69,6 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
   const handleAddFile = (event: React.FormEvent<HTMLInputElement>) => {
     if (event.target) {
       const element = event.target as HTMLInputElement

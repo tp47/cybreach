@@ -88,7 +88,6 @@ class Api {
   }
 
   async updateUserAvatar(userData: FormData): Promise<User> {
-    console.log(userData)
     return fetch(
       `${this._baseUrl}/user/profile/avatar`,
       this._setBaseOptions('PUT', userData)

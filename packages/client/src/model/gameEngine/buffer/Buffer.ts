@@ -99,6 +99,14 @@ class Buffer extends Drawable {
   private registerEvents() {
     this.EventBus.register('element_selected', this.addElement)
   }
+
+  private unregisterEvents() {
+    this.EventBus.unregister('element_selected', this.addElement)
+  }
+
+  public destruct(): void {
+    this.unregisterEvents()
+  }
 }
 
 export default Buffer
