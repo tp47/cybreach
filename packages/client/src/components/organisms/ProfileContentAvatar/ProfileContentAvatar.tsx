@@ -3,6 +3,8 @@ import { Modal } from '../Modal'
 import { useState } from 'react'
 import { Button } from '@/components/atoms'
 import { AuthApi } from '@/services/api'
+import { UserAction } from '@/store/user/UserActions'
+import { useAppDispatch } from '@/hooks'
 
 interface IProps {
   user: User | null
@@ -10,26 +12,26 @@ interface IProps {
 
 export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
-  const [file, setFile] = useState<File>()
+  const [file, setFile] = useState<File | null>(null)
+  const [isError, setIsError] = useState(false)
+  const dispatch = useAppDispatch()
 
   const styles = {
     name: `
-    flex
-    justify-center
-    text-green-300
     text-5xl
+    text-white
     uppercase
     font-normal
   `,
     image: `
     bg-profile
     cursor-pointer
-    h-[260px]
-    w-[438px]
     mt-10
+    bg-cover
   `,
     icons: `
     flex
+    mt-2
     w-[100%]
     justify-center
     gap-3
@@ -46,6 +48,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
   }
 
   const handleChangeAvatarModal = () => {
+    setFile(null)
     setIsOpen((isOpen) => !isOpen)
   }
 
@@ -54,7 +57,15 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
       const formData = new FormData()
       formData.append('avatar', file)
 
-      AuthApi.updateUserAvatar(formData).then(() => handleChangeAvatarModal())
+      AuthApi.updateUserAvatar(formData)
+        .then(() => {
+          handleChangeAvatarModal()
+          dispatch(UserAction.get())
+          setIsError(false)
+        })
+        .catch(() => {
+          setIsError(true)
+        })
     }
   }
 
@@ -75,7 +86,13 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
       <div className={styles.name}>{user?.display_name}</div>
 
       <div className={styles.imageBox}>
-        <div className={styles.image} onClick={() => handleChangeAvatarModal()} />
+        <div onClick={() => handleChangeAvatarModal()}>
+          <img
+            className={styles.image}
+            src={`https://ya-praktikum.tech/api/v2/resources${user?.avatar}`}
+            alt=""
+          />
+        </div>
         <div className={styles.icons}>
           <div className={`${styles.icon} bg-like`} />
           <div className={`${styles.icon} bg-romb`} />
@@ -90,7 +107,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
         content={
           <div>
             <div className="mt-20 mb-20 text-center text-emerald-400">
-              <label htmlFor="file">Upload file</label>
+              <label htmlFor="file">{file ? file.name : 'Upload file'}</label>
               <input
                 name="file"
                 id="file"
@@ -100,8 +117,14 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
                 onInput={(event) => handleAddFile(event)}
               />
             </div>
+            {isError ? <div className="mb-2 text-red-500 text-center">Error upload file</div> : ''}
             <div className="flex flex-col justify-between">
-              <Button onClick={() => handleSubmit()} type="submit" label="SUBMIT" />
+              <Button
+                onClick={() => handleSubmit()}
+                type="submit"
+                label="SUBMIT"
+                disabled={file ? false : true}
+              />
               <Button
                 label="CANCEL"
                 onClick={() => handleChangeAvatarModal()}

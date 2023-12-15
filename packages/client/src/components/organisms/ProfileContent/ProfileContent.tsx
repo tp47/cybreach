@@ -10,19 +10,25 @@ const styles = {
     border-green-300
     bg-black
     p-20
-    flex h-full w-full rounded-2xl justify-center items-center
+    w-full
+    h-full
+    flex
+    rounded-2xl
+    justify-center
+    items-center
   `,
   container: `
-    max-w-screen-xl
     flex
     gap-x-20
-    w-[100%]
+    w-[90%]
     justify-between
     mx-auto
   `,
   right: `
     mt-20
     basis-1/2
+    h-full
+    w-full
   `,
 }
 export default function ProfileContent(): JSX.Element {
