@@ -49,6 +49,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
   const handleModal = () => {
     setIsOpen((isOpen) => !isOpen)
     setIsErrorPassword(false)
+    reset({ old_password: '', new_password: '', confirm_password: '' })
   }
 
   const handleEdit = () => {
@@ -59,6 +60,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
     register,
     formState: { errors, isValid },
     handleSubmit,
+    reset,
   } = useForm<FieldValues>({
     mode: 'onBlur',
     defaultValues: {

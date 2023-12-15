@@ -1,6 +1,6 @@
 import { User } from '@/types'
 import { Modal } from '../Modal'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/atoms'
 import { AuthApi } from '@/services/api'
 import { UserAction } from '@/store/user/UserActions'
