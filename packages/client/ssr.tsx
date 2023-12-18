@@ -1,7 +1,6 @@
 import React from 'react'
-import App from './src/components/App'
 import { renderToString } from 'react-dom/server'
 
 export function render() {
-  return renderToString(<App />)
+  return renderToString(<h1>Hello world</h1>)
 }
