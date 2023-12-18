@@ -13,6 +13,7 @@ export default {
         battery: 'url(public/assets/svg/battery.svg)',
         back: 'url(public/assets/svg/back.svg)',
         profileIcon: 'url(public/assets/svg/profileIcon.svg)',
+        fullScreen: 'url(public/assets/svg/full-screen.svg)',
       },
     },
   },

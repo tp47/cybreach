@@ -1,4 +1,5 @@
 import { Button } from '@/components'
+import { FullScreen } from '@/components/atoms/FullScreen'
 import { SyntheticEvent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -95,6 +96,7 @@ export default function MainContent() {
           </p>
         </div>
       )}
+      <FullScreen />
     </main>
   )
 }

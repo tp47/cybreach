@@ -3,6 +3,7 @@ import { ProfileContentInfo } from '../ProfileContentInfo'
 import { ProfileContentAvatar } from '../ProfileContentAvatar'
 import { UserAction } from '@/store/user/UserActions'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { FullScreen } from '@/components/atoms/FullScreen'
 
 const styles = {
   main: `
@@ -54,6 +55,8 @@ export default function ProfileContent(): JSX.Element {
           )}
         </section>
       </div>
+
+      <FullScreen />
     </main>
   )
 }
