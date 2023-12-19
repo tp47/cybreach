@@ -39,7 +39,7 @@ yarn build:ssr
 3. Перейти в каталог `packages/server`
 
 ```
-cd ../packages/server
+cd ../server
 ```
 
 4. Запустить сервер
