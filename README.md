@@ -66,19 +66,25 @@ cd packages/client
 yarn dev:ssr
 ```
 
-3. Перейти в каталог `packages/server`
+3. В отдельном терминале перейти в каталог `packages/server`
 
 ```
-cd ../server
+cd packages/server
 ```
 
-4. Запустить сервер
+4. Произвести link клиентской части приложения
+
+```
+yarn link "client"
+```
+
+5. Запустить сервер
 
 ```
 yarn dev
 ```
 
-5. По адресу http://localhost:3001 будет доступно приложение
+6. По адресу http://localhost:3001 будет доступно приложение
 
 ### Как добавить зависимости?
 
