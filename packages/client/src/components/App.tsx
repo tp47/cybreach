@@ -1,6 +1,6 @@
-import { RouterProvider } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { router } from '@/router'
+import { routes } from '@/routes'
 
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
@@ -30,7 +30,11 @@ function App() {
 
   return (
     <ErrorBoundary fallback="Error. Check console in dev tools.">
-      <RouterProvider router={router} />
+      <Routes>
+        {routes.map((route, index) => (
+          <Route path={route.path} element={route.element} key={index} />
+        ))}
+      </Routes>
     </ErrorBoundary>
   )
 }

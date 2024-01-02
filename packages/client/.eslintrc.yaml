@@ -1,5 +1,9 @@
 root: true
 
+settings: 
+  react:
+    version: "^16.8.0"
+
 env:
   browser: true
   es2020: true

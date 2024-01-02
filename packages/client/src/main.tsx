@@ -7,6 +7,7 @@ import { startServiceWorker } from '@/services/serviceWorker/serviceWorker'
 
 startServiceWorker()
 import { setupStore } from './store/configure'
+import { BrowserRouter } from 'react-router-dom'
 
 const store = setupStore()
 
@@ -14,7 +15,9 @@ ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 )
