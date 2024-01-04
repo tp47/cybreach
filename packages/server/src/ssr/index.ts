@@ -19,6 +19,8 @@ async function compileTemplate(
 ) {
   const url = request.originalUrl
 
+  console.log('url:', url)
+
   try {
     let template: string
 
@@ -26,11 +28,11 @@ async function compileTemplate(
       template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8')
     } else {
       template = fs.readFileSync(path.resolve(clientSourcePath, 'index.html'), 'utf-8')
-
+      console.log('url:', url)
       template = await vite.transformIndexHtml(url, template)
     }
 
-    let render: () => Promise<string>
+    let render: (arg0: string) => Promise<string>
 
     if (!isDev()) {
       render = (await import(clientModulePath)).render
@@ -38,7 +40,7 @@ async function compileTemplate(
       render = (await vite.ssrLoadModule(path.resolve(clientSourcePath, 'ssr.tsx'))).render
     }
 
-    const appHtml = await render()
+    const appHtml = await render(url)
 
     const html = template.replace(`<!--ssr-outlet-->`, appHtml)
 
