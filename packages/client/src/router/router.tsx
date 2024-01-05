@@ -3,7 +3,7 @@ import {
   Forum,
   ForumTopic,
   GamePage,
-  LeaderBoard,
+  LeaderBoardPage,
   ProfilePage,
   ErrorPage,
   MainPage,
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'leaderboard',
-    element: <ProtectedRoute page={<LeaderBoard />} />,
+    element: <ProtectedRoute page={<LeaderBoardPage />} />,
   },
   {
     path: 'forum',
