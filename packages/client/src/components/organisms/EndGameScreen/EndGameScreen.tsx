@@ -16,9 +16,9 @@ export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndG
   const user = useAppSelector((state) => state.user.user)
 
   const setScoreEffect = useCallback(async ({ user }: { user: User }) => {
-    const { display_name, first_name, avatar } = user
+    const { display_name, first_name, avatar, login } = user
 
-    const currentScore = getScoreLocal()
+    const currentScore = getScoreLocal({ login })
     const newScore = currentScore + 10
 
     const response = await LeaderboardApi.setScore({
@@ -28,7 +28,7 @@ export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndG
     })
 
     if (response) {
-      setScoreLocal(newScore)
+      setScoreLocal({ login, value: newScore })
     }
   }, [])
 

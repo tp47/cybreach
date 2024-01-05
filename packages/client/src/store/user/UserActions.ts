@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AuthApi } from '@/services/api'
 import { User } from '@/types'
-import { removeScoreLocal } from '@/services/helpers/score'
 
 type ErrorType = { rejectValue: string }
 
@@ -31,7 +30,6 @@ export const UserAction = {
     async (_, thunkAPI) => {
       try {
         await AuthApi.logoutUser()
-        removeScoreLocal()
       } catch (e) {
         return thunkAPI.rejectWithValue('Не удалость выйти из профиля')
       }
