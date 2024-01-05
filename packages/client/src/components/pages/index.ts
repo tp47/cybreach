@@ -1,4 +1,4 @@
-export { LeaderBoard } from './LeaderBoard'
+export { LeaderBoardPage } from './LeaderBoardPage'
 export { Forum } from './Forum'
 export { ForumTopic } from './ForumTopic'
 export { ProfilePage } from './ProfilePage'

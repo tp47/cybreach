@@ -14,6 +14,9 @@ export default {
         back: 'url(public/assets/svg/back.svg)',
         profileIcon: 'url(public/assets/svg/profileIcon.svg)',
       },
+      colors: {
+        'custom-green-night': '#040909',
+      },
     },
   },
   plugins: [],
