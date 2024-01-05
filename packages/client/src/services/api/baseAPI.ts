@@ -46,7 +46,7 @@ export class BaseAPI {
           throw new Error(`Error parsing JSON response: ${error}`)
         }
       } else {
-        return {} as T
+        return true as T
       }
     } else {
       let errorResponse: ResponseData

@@ -1,7 +1,8 @@
 import { BASE_URL } from '@/constants/baseUrl'
 import { BaseAPI } from './baseAPI'
+import { LEADERBOARD_DATA } from '@/types/leaderboard'
 
-type AllScore = {
+export type AllScoreArguments = {
   cursor: number
   limit: number
 }
@@ -9,20 +10,20 @@ type AllScore = {
 const RATING_FIELD_NAME = 'value'
 const TEAM_NAME = 'cybereach'
 
-const ScoreData = {
+const LeaderboardData = {
   ratingFieldName: RATING_FIELD_NAME,
   teamName: TEAM_NAME,
 }
 
-class Score extends BaseAPI {
-  async getAll(data: AllScore) {
+class Leaderboard extends BaseAPI {
+  async getAll(data: AllScoreArguments) {
     return fetch(
-      `${this._baseUrl}/leaderboard/all`,
+      `${this._baseUrl}/leaderboard/${TEAM_NAME}`,
       this._setBaseOptions('POST', {
         ratingFieldName: RATING_FIELD_NAME,
         ...data,
       })
-    ).then((res) => this._getResponse(res))
+    ).then((res) => this._getResponse<LEADERBOARD_DATA>(res))
   }
 
   async setScore({
@@ -37,7 +38,7 @@ class Score extends BaseAPI {
     return fetch(
       `${this._baseUrl}/leaderboard`,
       this._setBaseOptions('POST', {
-        ...ScoreData,
+        ...LeaderboardData,
         data: {
           avatar,
           playerName,
@@ -48,6 +49,6 @@ class Score extends BaseAPI {
   }
 }
 
-const ScoreApi = new Score({ baseUrl: BASE_URL })
+const LeaderboardApi = new Leaderboard({ baseUrl: BASE_URL })
 
-export default ScoreApi
+export default LeaderboardApi

@@ -1,9 +1,10 @@
 import { Button } from '@/components/atoms'
 import { GameResult } from '@/model/gameEngine/game'
-import { useEffect } from 'react'
-import ScoreApi from '@/services/api/scoreApi'
+import { useCallback, useEffect } from 'react'
+import LeaderboardApi from '@/services/api/leaderboardApi'
 import { useAppSelector } from '@/hooks'
 import { getScoreLocal, setScoreLocal } from '@/services/helpers/score'
+import { User } from '@/types'
 
 type EndGameScreenProps = {
   onStartGame: () => void
@@ -14,20 +15,28 @@ type EndGameScreenProps = {
 export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndGameScreenProps) {
   const user = useAppSelector((state) => state.user.user)
 
+  const setScoreEffect = useCallback(async ({ user }: { user: User }) => {
+    const { display_name, first_name, avatar } = user
+
+    const currentScore = getScoreLocal()
+    const newScore = currentScore + 10
+
+    const response = await LeaderboardApi.setScore({
+      value: newScore,
+      playerName: display_name || first_name,
+      avatar,
+    })
+
+    if (response) {
+      setScoreLocal(newScore)
+    }
+  }, [])
+
   useEffect(() => {
     if (result === GameResult.SOLVED && user) {
-      const { display_name, first_name, avatar } = user
-
-      const currentScore = getScoreLocal()
-      const newScore = currentScore + 10
-      setScoreLocal(newScore)
-      ScoreApi.setScore({
-        value: newScore,
-        playerName: display_name || first_name,
-        avatar,
-      })
+      setScoreEffect({ user })
     }
-  }, [user, result])
+  }, [user, result, setScoreEffect])
 
   return (
     <section className="flex flex-col h-full w-full border-2 border-green-300 rounded-2xl p-[60px] bg-right gap-[24px] justify-center items-center bg-custom-game bg-no-repeat bg-cover">
