@@ -1,3 +1,5 @@
+import { LEADERBOARD_DATA } from '@/types/leaderboard'
+
 const styles = {
   main: `
     w-full
@@ -74,7 +76,11 @@ const LEADERS = [
   },
 ]
 
-export default function LeaderBoardContent() {
+interface IProps {
+  list: LEADERBOARD_DATA | null
+}
+
+export default function LeaderBoardContent({ list }: IProps) {
   return (
     <main className={styles.main}>
       <table className={styles.table}>
@@ -86,11 +92,11 @@ export default function LeaderBoardContent() {
           </tr>
         </thead>
         <tbody>
-          {LEADERS.map((item, idx) => (
+          {list?.map((item, idx) => (
             <tr className={styles.row} key={idx}>
               <td className={`${styles.td} ${styles.center}`}>{idx + 1}</td>
-              <td className={styles.td}>{item.playerName}</td>
-              <td className={`${styles.td} ${styles.center}`}>{item.value}</td>
+              <td className={styles.td}>{item.data.playerName}</td>
+              <td className={`${styles.td} ${styles.center}`}>{item.data.value}</td>
             </tr>
           ))}
           <div className={styles.footer}></div>
