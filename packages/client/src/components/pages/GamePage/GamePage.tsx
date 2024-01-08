@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EventBus } from '@/model'
 import { GameStage, GameResult } from '@/model/gameEngine/game/'
+import { FullScreen } from '@/components/atoms/FullScreen'
 
 function GamePage() {
   const [gameStage, setGameStage] = useState<GameStage>(GameStage.STARTING)
@@ -47,6 +48,8 @@ function GamePage() {
               result={gameResult}
             />
           )}
+
+          <FullScreen />
         </>
       }
     />
