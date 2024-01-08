@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import {
-  Forum,
+  CreateTopicPage,
+  ForumPage,
   ForumTopic,
   GamePage,
   LeaderBoardPage,
@@ -39,11 +40,15 @@ const router = createBrowserRouter([
   },
   {
     path: 'forum',
-    element: <ProtectedRoute page={<Forum />} />,
+    element: <ProtectedRoute page={<ForumPage />} />,
   },
   {
     path: 'forum/:id',
     element: <ProtectedRoute page={<ForumTopic />} />,
+  },
+  {
+    path: 'create-topic',
+    element: <ProtectedRoute page={<CreateTopicPage />} />,
   },
 ])
 
