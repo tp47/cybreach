@@ -34,8 +34,12 @@ export class ForumService {
   }
 
   public async getTopic(id: number) {
-    const topic = await Topics.findOne({ where: { id } })
+    const topic = await Topics.findOne({where: { id }})
     const comments = await Comments.findAll({ where: { topic_id: id } })
+
+    if (topic) {
+      topic.count_comments = comments.length
+    }
 
     const commentsCopy = JSON.parse(JSON.stringify(comments)) as CommentsAttr[]
 
