@@ -5,9 +5,10 @@ const rootReducer = combineReducers({
   user: userReducer,
 })
 
-export const setupStore = () => {
+export const setupStore = (preloadedState) => {
   return configureStore({
     reducer: rootReducer,
+    preloadedState,
   })
 }
 

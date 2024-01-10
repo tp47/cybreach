@@ -3,6 +3,7 @@ import * as path from 'path'
 import { isDev } from '@/utils'
 import type { NextFunction, Request, Response } from 'express'
 import type { ViteDevServer } from 'vite'
+import serialize from 'serialize-javascript';
 
 type Paths = {
   distPath: string
@@ -19,8 +20,6 @@ async function compileTemplate(
 ) {
   const url = request.originalUrl
 
-  console.log('url:', url)
-
   try {
     let template: string
 
@@ -28,11 +27,10 @@ async function compileTemplate(
       template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8')
     } else {
       template = fs.readFileSync(path.resolve(clientSourcePath, 'index.html'), 'utf-8')
-      console.log('url:', url)
       template = await vite.transformIndexHtml(url, template)
     }
 
-    let render: (arg0: string) => Promise<string>
+    let render: (arg0: string, arg1: any) => Promise<string>
 
     if (!isDev()) {
       render = (await import(clientModulePath)).render
@@ -40,9 +38,15 @@ async function compileTemplate(
       render = (await vite.ssrLoadModule(path.resolve(clientSourcePath, 'ssr.tsx'))).render
     }
 
-    const appHtml = await render(url)
+    const initialState = {
+      isLoading : 'false'
+    }
 
-    const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+    const stateMarkup = `<script>window.__PRELOADED_STATE__=${serialize(initialState)}</script>`;
+
+    const appHtml = await render(url, initialState)
+
+    const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--store-outlet-->`, stateMarkup)
 
     response.status(200).set({ 'Content-Type': 'text/html' }).end(html)
   } catch (e) {
