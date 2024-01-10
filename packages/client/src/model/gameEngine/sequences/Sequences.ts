@@ -1,4 +1,5 @@
-import { Drawable, BoardSequences } from '@/model'
+import { BoardSequences } from '@/model'
+import { Drawable } from '../drawable'
 import { SequencesConfig } from './sequences.types'
 
 class Sequences extends Drawable {

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { fileURLToPath } from 'url'
 import react from '@vitejs/plugin-react'
 import * as path from 'path'
 
@@ -19,8 +19,6 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: {
-      '@': resolve('./src'),
-    },
+    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }],
   },
 })
