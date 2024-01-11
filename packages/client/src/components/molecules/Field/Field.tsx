@@ -5,10 +5,10 @@ import { Path, UseFormRegister, ValidationRule, FieldValues } from 'react-hook-f
 interface FieldProps<T extends FieldValues> {
   name: string
   type: string
-  error: string | undefined
+  error?: string
   label: Path<Record<string, string>>
   register: UseFormRegister<Record<string, string>>
-  patternForm: ValidationRule<RegExp> | undefined
+  patternForm?: ValidationRule<RegExp>
 }
 
 export default function Field<T extends FieldValues>(props: FieldProps<T>) {
