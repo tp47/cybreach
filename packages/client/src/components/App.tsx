@@ -25,11 +25,18 @@ function App() {
     const code = urlParams.get('code')
 
     if (code) {
-      AuthApi.oauthLogin({ code })
-    }
+      AuthApi.oauthLogin({ code }).then(() => {
+        dispatch(UserAction.get())
+        setIsInit(true)
 
-    dispatch(UserAction.get())
-    setIsInit(true)
+        const url = new URL(window.location.href)
+        url.searchParams.delete('code')
+        window.history.pushState({}, '', url.href)
+      })
+    } else {
+      dispatch(UserAction.get())
+      setIsInit(true)
+    }
   }, [dispatch])
 
   if (!isInit || isLoading) {
