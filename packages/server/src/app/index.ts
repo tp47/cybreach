@@ -2,6 +2,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { createServer as createViteServer } from 'vite'
 import type { ViteDevServer } from 'vite'
+import bodyParser from 'body-parser'
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
 
 dotenv.config()
 
@@ -10,12 +12,33 @@ import * as path from 'path'
 import compileTemplate from '@/ssr'
 import { isDev } from '@/utils'
 import { useRoutes } from '@/routes'
+import { Topics } from '@/models/Topics'
+import { Comments } from '@/models/Comments'
+
+const sequelizeOptions: SequelizeOptions = {
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  password: 'root',
+  database: 'cyber',
+  dialect: 'postgres'
+}
+
+const sequelize = new Sequelize(sequelizeOptions);
 
 async function startApp() {
   const app = express()
   const port = Number(process.env.SERVER_PORT) || 3001
 
+  sequelize.addModels([Topics, Comments])
+  
+  sequelize.sync().then(() => {
+    console.log('DB connected')
+  })
+
   app.use(cors())
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
   useRoutes(app)
 
   let vite: ViteDevServer
