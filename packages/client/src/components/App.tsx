@@ -9,6 +9,7 @@ import { useFullScreen } from '@/hooks/useFullScreen'
 
 import { MainLayout } from './templates'
 import { LoaderStub } from './atoms'
+import { AuthApi } from '@/services/api'
 
 function App() {
   const [isInit, setIsInit] = useState(false)
@@ -20,6 +21,13 @@ function App() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const code = urlParams.get('code')
+
+    if (code) {
+      AuthApi.oauthLogin({ code })
+    }
+
     dispatch(UserAction.get())
     setIsInit(true)
   }, [dispatch])

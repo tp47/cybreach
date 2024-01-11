@@ -5,6 +5,7 @@ import { FieldsForm } from '@/constants/fieldsForm'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
+import { AuthApi } from '@/services/api'
 
 interface FieldValues extends Record<FieldsForm.LOGIN | FieldsForm.PASSWORD, string> {}
 
@@ -27,6 +28,18 @@ export default function LoginForm() {
 
   const onSwitch = (): void => {
     navigate('/signup')
+  }
+
+  const handleOAuth = async () => {
+    try {
+      const CLIENT_ID = await AuthApi.getServiceId().then((data) => data.service_id)
+      const REDIRECT_URI = encodeURIComponent('http://localhost:3000')
+      const authUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
+
+      document.location.href = authUrl
+    } catch (error) {
+      console.log(`Ошибка: ${error}`)
+    }
   }
 
   return (
@@ -67,6 +80,10 @@ export default function LoginForm() {
           </div>
         </div>
       </form>
+
+      <div className="flex flex-col justify-between">
+        <Button label="OAuth" type="button" onClick={handleOAuth} />
+      </div>
 
       <div className="flex flex-col justify-between">
         <Button label="NO ACCESS? PLUG IN!" type="button" onClick={onSwitch} />

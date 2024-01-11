@@ -3,6 +3,10 @@ import { User } from '@/types'
 import { Password } from '@/types/user'
 import { BaseAPI } from './baseAPI'
 
+type OAuthResponse = {
+  service_id: string
+}
+
 class Api extends BaseAPI {
   async registerUser(userData: User) {
     return fetch(`${this._baseUrl}/auth/signup`, this._setBaseOptions('POST', userData)).then(
@@ -43,6 +47,18 @@ class Api extends BaseAPI {
 
   async logoutUser() {
     return fetch(`${this._baseUrl}/auth/logout`, this._setBaseOptions('POST')).then((res) =>
+      this._getResponse(res)
+    )
+  }
+
+  async getServiceId() {
+    return fetch(`${this._baseUrl}/oauth/yandex/service-id`, this._setBaseOptions()).then((res) =>
+      this._getResponse<OAuthResponse>(res)
+    )
+  }
+
+  async oauthLogin(data: { code: string }) {
+    return fetch(`${this._baseUrl}/oauth/yandex`, this._setBaseOptions('POST', data)).then((res) =>
       this._getResponse(res)
     )
   }
