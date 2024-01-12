@@ -44,7 +44,7 @@ async function startApp() {
   let vite: ViteDevServer
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const clientSourcePath = path.dirname(require.resolve('client'))
-  const clientModulePath = require.resolve('client/dist-ssr/client.cjs')
+  const clientModulePath = require.resolve('client/dist-ssr/importBuild.cjs')
 
   if (isDev()) {
     vite = await createViteServer({

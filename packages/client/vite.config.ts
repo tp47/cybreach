@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { fileURLToPath } from 'url'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -14,8 +14,6 @@ export default defineConfig({
   },
   plugins: [react()],
   resolve: {
-    alias: {
-      '@': resolve('./src'),
-    },
+    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }],
   },
 })

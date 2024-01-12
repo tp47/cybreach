@@ -1,22 +1,20 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { AnonimousRoute, ProtectedRoute } from '@/components/hocs/'
 import {
-  CreateTopicPage,
   ForumPage,
   ForumTopic,
   GamePage,
   LeaderBoardPage,
+  LoginPage,
+  RegisterPage,
   ProfilePage,
   ErrorPage,
   MainPage,
 } from '@/components'
-import { AnonimousRoute, ProtectedRoute } from '@/components/hocs/'
-import { LoginPage, RegisterPage } from '@/components'
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: '/',
     element: <ProtectedRoute page={<MainPage />} />,
-    errorElement: <ErrorPage errorCode={404} />,
   },
   {
     path: 'signin',
@@ -47,9 +45,9 @@ const router = createBrowserRouter([
     element: <ProtectedRoute page={<ForumTopic />} />,
   },
   {
-    path: 'create-topic',
-    element: <ProtectedRoute page={<CreateTopicPage />} />,
+    path: '*',
+    element: <ErrorPage errorCode={404} />,
   },
-])
+]
 
-export default router
+export default routes

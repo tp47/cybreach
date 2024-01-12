@@ -1,4 +1,5 @@
-import { Drawable, EventBus } from '@/model'
+import { EventBus } from '@/model'
+import { Drawable } from '../drawable'
 import { TimerConfig } from './timer.types'
 
 class Timer extends Drawable {
