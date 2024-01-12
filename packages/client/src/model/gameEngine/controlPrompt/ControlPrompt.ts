@@ -1,4 +1,4 @@
-import { Drawable } from '@/model'
+import { Drawable } from '../drawable'
 import { ControlPromptConfig } from './controlPrompt.types'
 
 class ControlPrompt extends Drawable {
