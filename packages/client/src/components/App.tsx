@@ -10,6 +10,8 @@ import { useFullScreen } from '@/hooks/useFullScreen'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
 
+import { AuthApi } from '@/services/api'
+
 function App() {
   const [isInit, setIsInit] = useState(false)
 
@@ -20,8 +22,22 @@ function App() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(UserAction.get())
-    setIsInit(true)
+    const urlParams = new URLSearchParams(window.location.search)
+    const code = urlParams.get('code')
+
+    if (code) {
+      AuthApi.oauthLogin({ code }).then(() => {
+        dispatch(UserAction.get())
+        setIsInit(true)
+
+        const url = new URL(window.location.href)
+        url.searchParams.delete('code')
+        window.history.pushState({}, '', url.href)
+      })
+    } else {
+      dispatch(UserAction.get())
+      setIsInit(true)
+    }
   }, [dispatch])
 
   if (!isInit || isLoading) {
