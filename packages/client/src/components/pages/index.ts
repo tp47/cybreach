@@ -1,9 +1,10 @@
-export { LeaderBoard } from './LeaderBoard'
-export { Forum } from './Forum'
+export { LeaderBoardPage } from './LeaderBoardPage'
+export { ForumPage } from './ForumPage'
 export { ForumTopic } from './ForumTopic'
 export { ProfilePage } from './ProfilePage'
 export { ErrorPage } from './ErrorPage'
 export { MainPage } from './MainPage'
+export { CreateTopicPage } from './CreateTopicPage'
 
 export * from './LoginPage'
 export * from './RegisterPage'
