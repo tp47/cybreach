@@ -1,2 +1,2 @@
-// Uses in SSR
-// Do NOT delete this file
+// Required for SSR
+// DO NOT DELETE this file

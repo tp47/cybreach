@@ -1,14 +1,14 @@
-import { Routes, Route } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { routes } from '@/routes'
+import '@/index.css'
 
+import { Routes, Route } from 'react-router-dom'
+import { routes } from '@/routes'
 import { ErrorBoundary } from '@/services/helpers/ErrorBoundary'
+import { MainLayout } from '@/components'
+import { LoaderStub } from '@/components'
+import { useEffect, useState } from 'react'
+import { useFullScreen } from '@/hooks/useFullScreen'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
-import { useFullScreen } from '@/hooks/useFullScreen'
-
-import { MainLayout } from './templates'
-import { LoaderStub } from './atoms'
 
 function App() {
   const [isInit, setIsInit] = useState(false)
