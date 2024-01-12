@@ -5,3 +5,6 @@ node_modules/
 dist
 tmp
 *.lock
+package-lock.json
+packages/client/assets.json
+yarn.lock
