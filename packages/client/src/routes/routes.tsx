@@ -1,9 +1,9 @@
 import { AnonimousRoute, ProtectedRoute } from '@/components/hocs/'
 import {
-  Forum,
+  ForumPage,
   ForumTopic,
   GamePage,
-  LeaderBoard,
+  LeaderBoardPage,
   LoginPage,
   RegisterPage,
   ProfilePage,
@@ -34,11 +34,11 @@ const routes = [
   },
   {
     path: 'leaderboard',
-    element: <ProtectedRoute page={<LeaderBoard />} />,
+    element: <ProtectedRoute page={<LeaderBoardPage />} />,
   },
   {
     path: 'forum',
-    element: <ProtectedRoute page={<Forum />} />,
+    element: <ProtectedRoute page={<ForumPage />} />,
   },
   {
     path: 'forum/:id',
