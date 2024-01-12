@@ -10,7 +10,8 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d && yarn dev"
   },
   "license": "MIT",
   "workspaces": [

@@ -15,23 +15,25 @@ import { useRoutes } from '@/routes'
 import { Topics } from '@/models/Topics'
 import { Comments } from '@/models/Comments'
 
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env
+
 const sequelizeOptions: SequelizeOptions = {
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'root',
-  database: 'cyber',
-  dialect: 'postgres'
+  host: POSTGRES_HOST,
+  port: Number(POSTGRES_PORT),
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB,
+  dialect: 'postgres',
 }
 
-const sequelize = new Sequelize(sequelizeOptions);
+const sequelize = new Sequelize(sequelizeOptions)
 
 async function startApp() {
   const app = express()
   const port = Number(process.env.SERVER_PORT) || 3001
 
   sequelize.addModels([Topics, Comments])
-  
+
   sequelize.sync().then(() => {
     console.log('DB connected')
   })
