@@ -32,9 +32,9 @@ async function startApp() {
 
   sequelize.addModels([Topics, Comments])
   
-  // sequelize.sync().then(() => {
-  //   console.log('DB connected')
-  // })
+  sequelize.sync().then(() => {
+    console.log('DB connected')
+  })
 
   app.use(cors())
   app.use(bodyParser.json())
