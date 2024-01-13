@@ -50,9 +50,9 @@ export default function ForumContent() {
         <ul className="text-white">
           {TOPICS.map((topic) => (
             <Link key={topic.id} to={`${topic.id}`}>
-              <li className="border-b border-green-300 p-[10px] hover:bg-green-950">
+              <li className="border-b border-green-300 dark:border-purple-400 p-[10px] hover:bg-green-950 dark:hover:bg-purple-700">
                 <div className="mb-[10px] text-[18px]">{topic.title}</div>
-                <div className="flex justify-between text-green-300 text-[12px]">
+                <div className="flex justify-between text-green-300 dark:text-purple-400 text-[12px]">
                   <div>{topic.author.name}</div>
                   <div className="flex gap-[10px] items-center">
                     <div className="flex gap-[5px] items-center cursor-pointer">
