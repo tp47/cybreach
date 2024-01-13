@@ -11,7 +11,8 @@
     "lint": "lerna run lint",
     "format": "lerna run format",
     "preview": "lerna run preview",
-    "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d && yarn dev"
+    "docker": "docker-compose up --build",
+    "docker:dev": "docker-compose up -d && yarn dev"
   },
   "license": "MIT",
   "workspaces": [

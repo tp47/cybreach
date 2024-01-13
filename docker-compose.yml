@@ -10,11 +10,48 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - pg-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - default
+
+  server:
+    container_name: prakticum-server
+    image: prackicum-server
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+      args:
+        SERVER_PORT: ${SERVER_PORT}
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+    networks:
+      - default
+    depends_on:
+      - postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:6.19
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - 8080:80
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
     networks:
       - default
 
 volumes:
   pg-data:
+  pgadmin-data:
 
 networks:
   default:

@@ -7,23 +7,23 @@ WORKDIR /app
 
 FROM base as builder
 
+COPY package.json yarn.lock /app/
+RUN yarn install --frozen-lockfile
+
 COPY . .
 
-RUN yarn install --frozen-lockfile \
-  && rm -rf /app/packages/server/dist/ \
-  && yarn build
+RUN yarn lerna bootstrap
+RUN rm -rf /app/packages/client/dist/ && rm -rf /app/packages/client/dist-ssr/ && yarn build --scope=client
+RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+
 
 FROM node:$NODE_VERSION-bullseye-slim as production
 WORKDIR /app
 
-COPY --from=builder /app/packages/client/ /client/
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
-
-# Подменяем пакет клиента на физический путь к пакету, т.к. в Docker
-#  нельзя подключить соседний пакет из monorepo
-RUN sed -i 's/"client": "0.0.0"/"client": "file:..\/client"/g' /app/package.json \
-  && yarn install --production=true
+RUN yarn install --production=true
+COPY --from=builder /app/packages/client/ /app/node_modules/client/
 
 EXPOSE $SERVER_PORT
 CMD [ "node", "/app/index.js" ]
