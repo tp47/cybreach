@@ -16,11 +16,10 @@ export type ReactionsAttr = {
     user_id: number;
 }
 
-@Table({ tableName: 'reactions' })
+@Table({ tableName: 'reactions', createdAt: true })
 export class Reactions extends Model<Reactions, ReactionsAttr> {
 
     @ForeignKey(() => Comments)
-    @BelongsTo(() => Comments)
     @Column({
         type: DataType.NUMBER,
         onDelete: 'CASCADE',
@@ -37,5 +36,9 @@ export class Reactions extends Model<Reactions, ReactionsAttr> {
         type: DataType.NUMBER,
         allowNull: false
     })
-    user_id : number
+    user_id: number
+
+    @BelongsTo(() => Comments)
+    comment: Comments;
+
 }
