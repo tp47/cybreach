@@ -1,5 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { Topics } from "./Topics";
+import { Reactions, ReactionsAttr } from "./Reactions";
 
 export type CommentsAttr = {
   id?: number
@@ -8,6 +9,7 @@ export type CommentsAttr = {
   topic_id: number
   parent_comment_id?: number
   child_comments?: CommentsAttr[]
+  reactions?: ReactionsAttr[]
 }
 
 @Table({ tableName: 'comments', createdAt: true })
@@ -30,4 +32,7 @@ export class Comments extends Model<Comments, CommentsAttr> {
 
   @HasMany(() => Comments, { foreignKey: 'parent_comment_id' })
   child_comments: Comments[]
+
+  @HasMany(() => Reactions, { foreignKey: 'comment_id' })
+  reactions: Reactions[];
 }
