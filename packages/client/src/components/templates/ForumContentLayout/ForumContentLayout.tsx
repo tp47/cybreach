@@ -11,13 +11,19 @@ export default function ForumContentLayout({ header, content, footer }: IProps) 
   return (
     <div className="h-full w-full flex flex-col justify-between">
       <ErrorBoundary>
-        <div className="bg-green-300 h-[60px] rounded-t-2xl">{header ? header : null}</div>
+        <div className="bg-green-300 dark:bg-purple-400 h-[60px] rounded-t-2xl">
+          {header ? header : null}
+        </div>
       </ErrorBoundary>
       <ErrorBoundary>
-        <div className="h-full border-r border-l border-green-300">{content ? content : null}</div>
+        <div className="h-full border-r border-l border-green-300 dark:border-purple-400">
+          {content ? content : null}
+        </div>
       </ErrorBoundary>
       <ErrorBoundary>
-        <div className="bg-green-300 h-[60px] rounded-b-2xl">{footer ? footer : null}</div>
+        <div className="bg-green-300 dark:bg-purple-400 h-[60px] rounded-b-2xl">
+          {footer ? footer : null}
+        </div>
       </ErrorBoundary>
     </div>
   )

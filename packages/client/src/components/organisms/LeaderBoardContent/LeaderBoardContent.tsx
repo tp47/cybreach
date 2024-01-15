@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/hooks'
 import { LEADERBOARD_DATA } from '@/types/leaderboard'
 
 const styles = {
@@ -6,11 +7,19 @@ const styles = {
     h-full
     text-white
   `,
-  table: `
+  table_light: `
     w-full
     rounded-2xl
     overflow-hidden
     bg-green-300
+    border-separate
+    border-spacing-[2px]
+  `,
+  table_dark: `
+    w-full
+    rounded-2xl
+    overflow-hidden
+    bg-purple-400
     border-separate
     border-spacing-[2px]
   `,
@@ -81,9 +90,11 @@ interface IProps {
 }
 
 export default function LeaderBoardContent({ list }: IProps) {
+  const darkMode = useAppSelector((state) => state.theme.darkMode)
+
   return (
     <main className={styles.main}>
-      <table className={styles.table}>
+      <table className={darkMode ? styles.table_dark : styles.table_light}>
         <thead>
           <tr className={styles.head}>
             <th className={styles.number}>#</th>
