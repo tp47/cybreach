@@ -21,7 +21,15 @@ export class Reactions extends Model<Reactions, ReactionsAttr> {
 
     @ForeignKey(() => Comments)
     @Column({
-        type: DataType.NUMBER,
+        type: DataType.INTEGER,
+        unique: true,
+        autoIncrement: true,
+        primaryKey: true
+      })
+      override id: number
+
+    @Column({
+        type: DataType.INTEGER,
         onDelete: 'CASCADE',
     })
     comment_id: number
@@ -33,7 +41,7 @@ export class Reactions extends Model<Reactions, ReactionsAttr> {
     type: ReactionType
 
     @Column({
-        type: DataType.NUMBER,
+        type: DataType.INTEGER,
         allowNull: false
     })
     user_id: number

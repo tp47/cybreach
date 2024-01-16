@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { setDarkMode } from '@/store/theme/themeSlice'
+import { setDarkMode } from '@/store/theme/ThemeSlice'
 import { useEffect } from 'react'
 
 const ThemeSwitcher = () => {

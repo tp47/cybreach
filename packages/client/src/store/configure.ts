@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './user/UserSlice'
-import themeSlice from './theme/themeSlice'
+import themeSlice from './theme/ThemeSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
