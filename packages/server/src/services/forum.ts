@@ -1,17 +1,24 @@
 import { Comments, CommentsAttr } from "@/models/Comments"
+import { Reactions, ReactionType } from "@/models/Reactions"
 import { Topics } from "@/models/Topics"
 import { Sequelize, type WhereOptions } from "sequelize"
 
-type TopicCreate = {
+type TopicCreateParams = {
   title: string
   author: string
 }
 
-type CommentCreate = {
+type CommentCreateParams = {
   content: string
   author: string
   topic_id: number
   parent_comment_id?: number
+}
+
+type ReactionCreateParams = {
+  type: ReactionType
+  user_id: number
+  comment_id: number
 }
 
 export class ForumService {
@@ -29,12 +36,12 @@ export class ForumService {
     })
   }
 
-  public createTopic({ title, author }: TopicCreate) {
+  public createTopic({ title, author }: TopicCreateParams) {
     return Topics.create({ title, author })
   }
 
   public async getTopic(id: number) {
-    const topic = await Topics.findOne({where: { id }})
+    const topic = await Topics.findOne({ where: { id } })
     const comments = await Comments.findAll({ where: { topic_id: id } })
 
     if (topic) {
@@ -45,7 +52,7 @@ export class ForumService {
 
     const buildCommentTree = (parentCommentId: number | null): CommentsAttr[] => {
       const tree: CommentsAttr[] = [];
-  
+
       commentsCopy
         .filter(comment => comment.parent_comment_id === parentCommentId)
         .forEach(comment => {
@@ -55,7 +62,7 @@ export class ForumService {
             tree.push(comment)
           }
         })
-  
+
       return tree;
     }
 
@@ -64,7 +71,7 @@ export class ForumService {
     return { topic, comments: tree }
   }
 
-  public createComment(params: CommentCreate) {
+  public createComment(params: CommentCreateParams) {
     return Comments.create(params)
   }
 
@@ -72,11 +79,19 @@ export class ForumService {
     return Comments.findAll({ where: options })
   }
 
+  public createReaction(params: ReactionCreateParams) {
+    return Reactions.create(params)
+  }
+
+  public getAllReactions(options?: WhereOptions<Reactions>) {
+    return Reactions.findAll({ where: options })
+  }
+
   public async updateViews(topic_id: number) {
     const topic = await Topics.findOne({ where: { id: topic_id } })
     if (topic) {
       topic.count_views = topic.count_views + 1
-      
+
       await topic.save()
     }
     console.log(topic)

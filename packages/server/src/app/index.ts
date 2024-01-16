@@ -12,8 +12,8 @@ import * as path from 'path'
 import compileTemplate from '@/ssr'
 import { isDev } from '@/utils'
 import { useRoutes } from '@/routes'
-import { Topics } from '@/models/Topics'
-import { Comments } from '@/models/Comments'
+import { Comments, Reactions, Topics } from '@/models'
+
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env
 
@@ -32,7 +32,7 @@ async function startApp() {
   const app = express()
   const port = Number(process.env.SERVER_PORT) || 3001
 
-  sequelize.addModels([Topics, Comments])
+  sequelize.addModels([Topics, Comments, Reactions])
 
   sequelize.sync().then(() => {
     console.log('DB connected')
