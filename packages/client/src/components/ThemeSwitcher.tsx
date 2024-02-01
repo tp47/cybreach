@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { setDarkMode } from '@/store/theme/ThemeSlice'
 import { useEffect } from 'react'
+import { Button, ThemeIconSVG } from '@/components'
 
 const ThemeSwitcher = () => {
   const dispatch = useAppDispatch()
@@ -21,14 +22,13 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <button
+    <Button
       onClick={toggleDarkMode}
-      className={`px-5 rounded-full mr-5  ${!darkMode ? 'bg-green-300' : 'bg-purple-400'} ${
-        !darkMode ? 'text-gray-900' : 'text-white'
+      className={`w-[60px] mr-2 ${
+        !darkMode ? 'fill-green-300 hover:fill-green-400' : 'fill-purple-400 hover:fill-purple-500'
       } transition-colors duration-200`}
-    >
-      {darkMode ? 'Light' : 'Dark'}
-    </button>
+      image={<ThemeIconSVG darkMode={darkMode} />}
+    />
   )
 }
 
