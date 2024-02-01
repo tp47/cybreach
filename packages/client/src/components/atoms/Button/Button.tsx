@@ -3,9 +3,10 @@ import { ButtonHTMLAttributes } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string
+  image?: any
 }
 
-export default function Button({ label, ...props }: ButtonProps) {
+export default function Button({ label, image, ...props }: ButtonProps) {
   const darkMode = useAppSelector((state) => state.theme.darkMode)
 
   const buttonClass = darkMode
@@ -59,6 +60,7 @@ export default function Button({ label, ...props }: ButtonProps) {
   return (
     <button className={buttonClass} {...props}>
       {label}
+      {image}
     </button>
   )
 }
