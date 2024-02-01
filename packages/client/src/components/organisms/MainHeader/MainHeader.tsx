@@ -1,6 +1,5 @@
 import { AvatarSVG } from '@/components'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
-import ThemeIconSVG from '@/components/atoms/ThemeIconSVG/ThemeIconSVG'
 import { Link } from 'react-router-dom'
 
 export default function MainHeader() {
