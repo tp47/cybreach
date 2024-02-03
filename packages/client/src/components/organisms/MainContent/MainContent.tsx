@@ -107,7 +107,7 @@ export default function MainContent() {
   return (
     <main
       className={`${darkMode ? styles.main_dark : styles.main_light}${
-        showTutorial ? '' : 'bg-custom-main-menu bg-no-repeat'
+        showTutorial ? '' : 'bg-custom-main-menu-light dark:bg-custom-main-menu-dark bg-no-repeat'
       }`}
     >
       <nav className={styles.nav}>

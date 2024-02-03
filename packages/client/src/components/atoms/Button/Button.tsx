@@ -27,7 +27,7 @@ export default function Button({ label, image, ...props }: ButtonProps) {
     disabled:cursor-not-allowed
     disabled:shadow-none
     disabled:border-stone-500
-    active:bg-emerald-600
+    active: bg-emerald-600
     active:text-purple-700
     transition-all
     duration-750
