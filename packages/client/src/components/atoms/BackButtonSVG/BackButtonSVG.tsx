@@ -1,5 +1,3 @@
-import { useAppSelector } from '@/hooks'
-
 interface IProps {
   className?: string
 }

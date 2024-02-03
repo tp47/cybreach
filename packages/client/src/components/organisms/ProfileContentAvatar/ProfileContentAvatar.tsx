@@ -5,6 +5,7 @@ import { Button } from '@/components/atoms'
 import { AuthApi } from '@/services/api'
 import { UserAction } from '@/store/user/UserActions'
 import { useAppDispatch } from '@/hooks'
+import { defaultAvatarPath, resourcesEndpoind } from '@/constants/avatarsPath'
 
 interface IProps {
   user: User | null
@@ -32,7 +33,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     max-w-[470px]
     border-2
     border-green-300
-    dark:border-purple-300
+    dark:border-purple-400
     rounded-xl
   `,
     icons: `
@@ -89,8 +90,6 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     }
   }
 
-  const defaultAvatarPath = 'public/assets/images/default-avatar.jpg'
-
   return (
     <div>
       <div className={styles.name}>{user?.display_name}</div>
@@ -99,11 +98,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
         <div onClick={() => handleChangeAvatarModal()}>
           <img
             className={styles.image}
-            src={
-              user?.avatar
-                ? `https://ya-praktikum.tech/api/v2/resources${user?.avatar}`
-                : `${defaultAvatarPath}`
-            }
+            src={user?.avatar ? `${resourcesEndpoind}${user?.avatar}` : `${defaultAvatarPath}`}
             alt="user profile avatar"
           />
         </div>

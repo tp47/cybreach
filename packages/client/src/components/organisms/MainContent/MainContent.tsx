@@ -27,7 +27,7 @@ const styles = {
   main_dark: `h-full
   w-full
   border-2
-  border-purple-300
+  border-purple-400
   rounded-2xl
   p-[60px]
   bg-right
@@ -35,7 +35,7 @@ const styles = {
   flex
   gap-[200px]
 `,
-  nav: 'h-full flex flex-col min-w-[330px] max-w-[330px]',
+  nav: 'h-full flex flex-col min-w-[360px] max-w-[360px]',
   list: 'h-full flex flex-col justify-center gap-[20px]',
   btn_light: `
   bg-green-950
@@ -62,7 +62,7 @@ const styles = {
   btn_dark: `
 bg-purple-950
 border-2
-border-purple-300
+border-purple-400
 rounded-lg
 py-[12px] px-[15px]
 w-full
@@ -75,14 +75,14 @@ disabled:bg-stone-500
 disabled:text-stone-400
 disabled:shadow-none
 disabled:border-stone-500
-active:bg-emerald-600
+active:bg-pink-600
 active:text-purple-300
 transition-all
 duration-750
 uppercase
 `,
-  tutorial_light: 'text-xl w-full text-green-300',
-  tutorial_dark: 'text-xl w-full text-purple-400',
+  tutorial_light: 'text-xl w-full text-green-300 mt-10 backdrop-blur-xl',
+  tutorial_dark: 'text-xl w-full text-purple-200 mt-10 backdrop-blur-xl',
 }
 
 export default function MainContent() {
@@ -111,7 +111,7 @@ export default function MainContent() {
       }`}
     >
       <nav className={styles.nav}>
-        <h1 className="text-bold text-7xl text-green-300 dark:text-purple-400 decoration-underline">
+        <h1 className="text-bold text-7xl text-green-300 dark:text-pink-600 decoration-underline mt-10">
           CYBREACH
         </h1>
         <ul className={styles.list}>
