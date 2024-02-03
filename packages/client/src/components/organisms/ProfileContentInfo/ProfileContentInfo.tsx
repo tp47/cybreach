@@ -18,6 +18,7 @@ import { Password } from '@/types/user'
 import { useAppDispatch } from '@/hooks'
 import { useState } from 'react'
 import { UserAction } from '@/store/user/UserActions'
+import toLabel from '@/services/helpers/toLabel'
 
 interface FieldValues
   extends Record<
@@ -161,22 +162,20 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
   ]
 
   return (
-    <div>
+    <div className="h-full flex flex-col justify-between">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-2">
-          {fields.map((field, index) => (
-            <FieldProfile
-              label={field.label}
-              register={register}
-              isDisabled={isDisabled}
-              patternForm={field.patternForm}
-              name={field.label}
-              type={field.label}
-              error={field.error}
-              key={index}
-            />
-          ))}
-        </div>
+        {fields.map((field, index) => (
+          <FieldProfile
+            label={toLabel(field.label)}
+            register={register}
+            isDisabled={isDisabled}
+            patternForm={field.patternForm}
+            name={field.label}
+            type={field.label}
+            error={field.error}
+            key={index}
+          />
+        ))}
       </form>
 
       <div className="flex flex-col justify-between mt-8">
@@ -184,13 +183,13 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
           <Button
             onClick={handleEdit}
             label="Edit profile"
-            className="bg-transparent text-green-400 text-left cursor-pointer"
+            className="bg-transparent text-green-400 dark:text-purple-500 text-right text-lg mt-auto cursor-pointer hover:underline "
           />
         ) : (
           <Button
             onClick={handleSubmit(onSubmit)}
             label="Submit changes"
-            className="bg-transparent text-green-400 text-left cursor-pointer"
+            className="bg-transparent text-green-400 dark:text-purple-500 text-right text-lg mt-2 cursor-pointer hover:underline"
           />
         )}
 
@@ -198,27 +197,25 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
           <Button
             onClick={handleEdit}
             label="Cancel"
-            className="bg-transparent text-red-400 text-left cursor-pointer"
+            className="bg-transparent text-red-400 text-right text-lg mt-2 cursor-pointer hover:underline"
           />
         )}
-      </div>
-
-      <div className="flex flex-col justify-between">
         {isDisabled && (
           <>
             <Button
               onClick={handleModal}
               label="Change password"
-              className="bg-transparent text-gray-400 text-left cursor-pointer"
+              className="bg-transparent text-gray-400 text-right text-lg mt-2 cursor-pointer hover:underline"
             />
             <Button
               label="Exit"
               onClick={() => onLogout()}
-              className="bg-transparent text-red-400 text-left mt-4 cursor-pointer"
+              className="bg-transparent text-red-400 text-right text-lg mt-2 cursor-pointer hover:underline"
             />
           </>
         )}
       </div>
+
       <Modal
         isOpen={isOpen}
         handleModal={handleModal}
@@ -226,9 +223,9 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
         content={
           <div>
             <div>
-              <form className="pt-5" onSubmit={handleSubmit(onSubmitPassword)}>
+              <form className="pt-5 h-full" onSubmit={handleSubmit(onSubmitPassword)}>
                 <Field
-                  label={FieldsForm.OLD_PASSWORD}
+                  label={toLabel(FieldsForm.OLD_PASSWORD)}
                   register={register}
                   patternForm={{
                     value: passwordPattern,
@@ -239,7 +236,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   error={errors?.old_password?.message}
                 />
                 <Field
-                  label={FieldsForm.NEW_PASSWORD}
+                  label={toLabel(FieldsForm.NEW_PASSWORD)}
                   register={register}
                   patternForm={{
                     value: passwordPattern,
@@ -250,7 +247,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   error={errors?.new_password?.message}
                 />
                 <Field
-                  label={FieldsForm.CONFIRM_PASSWORD}
+                  label={toLabel(FieldsForm.CONFIRM_PASSWORD)}
                   register={register}
                   patternForm={{
                     value: passwordPattern,

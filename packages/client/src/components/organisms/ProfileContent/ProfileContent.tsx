@@ -6,12 +6,14 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 
 const styles = {
   main: `
-    border-2
-    border-green-300
-    bg-black
-    p-20
     w-full
     h-full
+    border-2
+    border-green-300
+    dark:border-purple-400
+    bg-black
+    dark:bg-white
+    p-20
     flex
     rounded-2xl
     justify-center
@@ -19,15 +21,17 @@ const styles = {
   `,
   container: `
     flex
-    gap-x-20
+    gap-x-16
     w-[90%]
     justify-between
     mx-auto
   `,
   right: `
+    flex
+    flex-col
+    justify-between
     mt-20
     basis-1/2
-    h-full
     w-full
   `,
 }

@@ -4,8 +4,10 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'custom-main-menu-dark': 'linear-gradient(to right, #fdf8f4 30%, transparent 75%), url("/assets/images/main-bg-negate.jpeg")',
-        'custom-main-menu-light':'linear-gradient(to right, #040909 30%, transparent 75%), url("/assets/images/main-bg.jpeg")',
+        'custom-main-menu-dark':
+          'linear-gradient(to right, #fdf8f4 30%, transparent 75%), url("/assets/images/main-bg-negate.jpeg")',
+        'custom-main-menu-light':
+          'linear-gradient(to right, #040909 30%, transparent 75%), url("/assets/images/main-bg.jpeg")',
         'custom-light-layout': 'linear-gradient(110deg, #040909 33%, #1A372E 85.93%)',
         'custom-dark-layout': 'linear-gradient(110deg, #ffffff 10%, transparent 35%, #4a1869)',
         'custom-game-dark': 'url("/assets/images/game-bg-negate.png")',

@@ -1,7 +1,6 @@
-import { ProfileContent } from '@/components/organisms/ProfileContent'
+import { ProfileContent, Header } from '@/components'
 import { MainLayout } from '@/components/templates'
-import { ProfileHeader } from '@/components/organisms/ProfileHeader'
 
 export default function ProfilePage(): JSX.Element {
-  return <MainLayout header={<ProfileHeader />} content={<ProfileContent />} />
+  return <MainLayout header={<Header title="profile" />} content={<ProfileContent />} />
 }

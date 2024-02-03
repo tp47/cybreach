@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
 import { setUser } from '@/store/user/UserSlice'
+import toLabel from '@/services/helpers/toLabel'
 
 interface FieldValues
   extends Record<
@@ -53,7 +54,7 @@ export default function RegisterForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col mb-4">
           <Field
-            label={FieldsForm.FIRST_NAME}
+            label={toLabel(FieldsForm.FIRST_NAME)}
             register={register}
             patternForm={{
               value: namePattern,
@@ -64,7 +65,7 @@ export default function RegisterForm() {
             error={errors?.[FieldsForm.FIRST_NAME]?.message}
           />
           <Field
-            label={FieldsForm.SECOND_NAME}
+            label={toLabel(FieldsForm.SECOND_NAME)}
             register={register}
             patternForm={{
               value: namePattern,
@@ -75,7 +76,7 @@ export default function RegisterForm() {
             error={errors?.[FieldsForm.SECOND_NAME]?.message}
           />
           <Field
-            label={FieldsForm.LOGIN}
+            label={toLabel(FieldsForm.LOGIN)}
             register={register}
             patternForm={{
               value: loginPattern,
@@ -86,7 +87,7 @@ export default function RegisterForm() {
             error={errors?.login?.message}
           />
           <Field
-            label={FieldsForm.EMAIL}
+            label={toLabel(FieldsForm.EMAIL)}
             register={register}
             patternForm={{
               value: emailPattern,
@@ -97,7 +98,7 @@ export default function RegisterForm() {
             error={errors?.email?.message}
           />
           <Field
-            label={FieldsForm.PASSWORD}
+            label={toLabel(FieldsForm.PASSWORD)}
             register={register}
             patternForm={{
               value: passwordPattern,
@@ -108,7 +109,7 @@ export default function RegisterForm() {
             error={errors?.password?.message}
           />
           <Field
-            label={FieldsForm.PHONE}
+            label={toLabel(FieldsForm.PHONE)}
             register={register}
             patternForm={{
               value: phonePattern,

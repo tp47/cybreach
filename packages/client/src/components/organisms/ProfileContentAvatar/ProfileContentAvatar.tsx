@@ -22,12 +22,18 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     text-white
     uppercase
     font-normal
+    text-center
+    dark:text-black
   `,
     image: `
-    bg-profile
     cursor-pointer
     mt-10
     bg-cover
+    max-w-[470px]
+    border-2
+    border-green-300
+    dark:border-purple-300
+    rounded-xl
   `,
     icons: `
     flex
@@ -41,9 +47,11 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     w-[28px]
     bg-no-repeat
     bg-cover
+    fill-green-300
+    dark:fill-purple-400
   `,
     imageBox: `
-    w-[438px]
+    w-full
   `,
   }
 
@@ -81,6 +89,8 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     }
   }
 
+  const defaultAvatarPath = 'public/assets/images/default-avatar.jpg'
+
   return (
     <div>
       <div className={styles.name}>{user?.display_name}</div>
@@ -89,15 +99,19 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
         <div onClick={() => handleChangeAvatarModal()}>
           <img
             className={styles.image}
-            src={`https://ya-praktikum.tech/api/v2/resources${user?.avatar}`}
-            alt=""
+            src={
+              user?.avatar
+                ? `https://ya-praktikum.tech/api/v2/resources${user?.avatar}`
+                : `${defaultAvatarPath}`
+            }
+            alt="user profile avatar"
           />
         </div>
-        <div className={styles.icons}>
+        {/* <div className={styles.icons}>
           <div className={`${styles.icon} bg-like`} />
           <div className={`${styles.icon} bg-romb`} />
           <div className={`${styles.icon} bg-battery`} />
-        </div>
+        </div> */}
       </div>
 
       <Modal
