@@ -10,7 +10,7 @@ export default function Header({ ...props }) {
     <header className=" w-full">
       <div className="flex w-full h-[60px] my-3 justify-center items-center">
         <Button
-          className="mr-auto my-auto absolute left-12"
+          className="my-auto absolute left-12"
           image={
             <BackButtonSVG className="w-[60px] fill-green-300 dark:fill-purple-700 hover:fill-green-400 dark:hover:fill-pink-500" />
           }
