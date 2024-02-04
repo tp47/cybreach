@@ -1,7 +1,8 @@
-import { Button } from '@/components'
+import { Button, GameLogoSVG } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { SyntheticEvent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+// import CybreachSVG from
 
 const enum BUTTON {
   GAME = 'game',
@@ -27,7 +28,7 @@ const styles = {
   main_dark: `h-full
   w-full
   border-2
-  border-purple-400
+  border-pink-500
   rounded-2xl
   p-[60px]
   bg-right
@@ -35,7 +36,7 @@ const styles = {
   flex
   gap-[200px]
 `,
-  nav: 'h-full flex flex-col min-w-[360px] max-w-[360px]',
+  nav: 'h-full flex flex-col min-w-[420px] max-w-[360px]',
   list: 'h-full flex flex-col justify-center gap-[20px]',
   btn_light: `
   bg-green-950
@@ -62,27 +63,27 @@ const styles = {
   btn_dark: `
 bg-purple-950
 border-2
-border-purple-400
+border-pink-500
 rounded-lg
 py-[12px] px-[15px]
 w-full
 shadow-[0px_0px_4px_1px]
-shadow-purple-300
+shadow-pink-600
 text-white
-hover:bg-purple-300
-hover:text-purple-950
+active:bg-purple-300
+active:text-purple-950
 disabled:bg-stone-500
 disabled:text-stone-400
 disabled:shadow-none
 disabled:border-stone-500
-active:bg-pink-600
-active:text-purple-300
+hover:bg-pink-600
+hover:text-purple-200
 transition-all
 duration-750
 uppercase
 `,
-  tutorial_light: 'text-xl w-full text-green-300 mt-10 backdrop-blur-xl',
-  tutorial_dark: 'text-xl w-full text-purple-200 mt-10 backdrop-blur-xl',
+  tutorial_light: 'text-xl w-full text-green-300',
+  tutorial_dark: 'text-xl w-full text-purple-200',
 }
 
 export default function MainContent() {
@@ -111,9 +112,7 @@ export default function MainContent() {
       }`}
     >
       <nav className={styles.nav}>
-        <h1 className="text-bold text-7xl text-green-300 dark:text-pink-600 decoration-underline mt-10">
-          CYBREACH
-        </h1>
+        <GameLogoSVG className="h-full bg-cover bg-no-repeat bg-center fill-green-400 dark:fill-pink-600" />
         <ul className={styles.list}>
           {ARRAY_BUTTONS.map((name, idx) => (
             <li key={idx}>

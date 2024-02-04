@@ -12,7 +12,7 @@ export default {
         'custom-dark-layout': 'linear-gradient(110deg, transparent 15%, #4a1869)',
         'custom-game-dark': 'url("/assets/images/game-bg-negate.png")',
         'custom-game-light': 'url("/assets/images/game-bg.png")',
-        'custom-leaderboard-dark': 'linear-gradient(to top,transparent 8%, #c084fc)',
+        'custom-leaderboard-dark': 'linear-gradient(to top,transparent 8%, #da2877)',
         'custom-leaderboard-light': 'linear-gradient(to top, transparent 8%, #87eeab )',
         profile: 'url(public/assets/svg/profile.svg)',
         like: 'url(public/assets/svg/like.svg)',

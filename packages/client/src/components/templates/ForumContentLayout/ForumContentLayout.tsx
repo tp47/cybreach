@@ -16,7 +16,7 @@ export default function ForumContentLayout({ header, content, footer }: IProps) 
         </div>
       </ErrorBoundary>
       <ErrorBoundary>
-        <div className="h-full border-r border-l border-green-300 dark:border-purple-400">
+        <div className="h-full border-r border-l border-green-300 dark:border-pink-500">
           {content ? content : null}
         </div>
       </ErrorBoundary>

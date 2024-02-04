@@ -1,6 +1,7 @@
 // Required for vite-ssr-plugin
 // DO NOT RENAME this file
 
+import React from 'react'
 import App from './src/components/App'
 import { renderToString } from 'react-dom/server'
 import { setupStore } from 'client/src/store/configure'

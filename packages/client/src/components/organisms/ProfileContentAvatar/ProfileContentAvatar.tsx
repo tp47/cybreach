@@ -33,7 +33,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     max-w-[470px]
     border-2
     border-green-300
-    dark:border-purple-400
+    dark:border-pink-500
     rounded-xl
   `,
     icons: `
@@ -49,7 +49,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     bg-no-repeat
     bg-cover
     fill-green-300
-    dark:fill-purple-400
+    dark:fill-purple-600
   `,
     imageBox: `
     w-full

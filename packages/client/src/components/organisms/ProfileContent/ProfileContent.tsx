@@ -10,7 +10,7 @@ const styles = {
     h-full
     border-2
     border-green-300
-    dark:border-purple-400
+    dark:border-pink-500
     bg-black
     dark:bg-white
     p-20

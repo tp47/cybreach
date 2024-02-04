@@ -25,7 +25,7 @@ const ThemeSwitcher = () => {
     <Button
       onClick={toggleDarkMode}
       className={`w-[60px] mr-2 ${
-        !darkMode ? 'fill-green-300 hover:fill-green-400' : 'fill-purple-300 hover:fill-purple-100'
+        !darkMode ? 'fill-green-300 hover:fill-green-400' : 'fill-purple-800 hover:fill-pink-500'
       } transition-colors duration-200`}
       image={<ThemeIconSVG darkMode={darkMode} />}
     />

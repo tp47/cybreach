@@ -12,20 +12,20 @@ export default function Header({ ...props }) {
         <Button
           className="mr-auto my-auto"
           image={
-            <BackButtonSVG className="w-[60px] fill-green-300 dark:fill-purple-400 hover:fill-green-400 dark:hover:fill-purple-500" />
+            <BackButtonSVG className="w-[60px] fill-green-300 dark:fill-purple-700 hover:fill-green-400 dark:hover:fill-pink-500" />
           }
           onClick={() => navigate(-1)}
         />
         <div className="w-full">
           {icon && { icon }}
-          <h1 className="text-green-300 dark:text-purple-500 text-6xl uppercase text-center w-full">
+          <h1 className="text-green-300 dark:text-purple-700 text-6xl uppercase text-center w-full">
             {title}
           </h1>
         </div>
         <div className="absolute right-12 flex">
           <ThemeSwitcher />
           <Link to="/profile" className="bg-transparent group">
-            <AvatarSVG className="w-[60px] fill-green-300 dark:fill-purple-300 group-hover:fill-green-400 dark:group-hover:fill-purple-100" />
+            <AvatarSVG className="w-[60px] fill-green-300 dark:fill-purple-800 group-hover:fill-green-400 dark:group-hover:fill-pink-500" />
           </Link>
         </div>
       </div>

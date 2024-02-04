@@ -9,7 +9,7 @@ const styles = {
     text-white
     border-2
     border-green-300
-    dark:border-purple-400
+    dark:border-pink-500
     rounded-2xl
     bg-custom-leaderboard-light
     dark:bg-custom-leaderboard-dark
@@ -48,7 +48,7 @@ const styles = {
     w-[48px]
     border
     border-green-300
-    dark:border-purple-400
+    dark:border-pink-500
     rounded-xl
     bg-contain
     bg-center
