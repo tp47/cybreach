@@ -24,7 +24,7 @@ export default function Modal({ isOpen, content, title }: IProps): JSX.Element {
       after:top-0
       after:left-0
       after:z-5
-      after:bg-slate-800
+      after:backdrop-blur-xl
       after:opacity-80
     `,
     content: ``,

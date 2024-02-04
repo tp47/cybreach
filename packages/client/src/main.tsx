@@ -24,4 +24,4 @@ ReactDOM.hydrateRoot(
   </React.StrictMode>
 )
 
-startServiceWorker()
+// startServiceWorker()

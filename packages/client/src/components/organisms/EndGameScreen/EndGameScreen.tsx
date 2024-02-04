@@ -39,9 +39,9 @@ export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndG
   }, [user, result, setScoreEffect])
 
   return (
-    <section className="flex flex-col h-full w-full border-2 border-green-300 dark:border-purple-400 rounded-2xl p-[60px] bg-right gap-[24px] justify-center items-center bg-custom-game bg-no-repeat bg-cover">
+    <section className="flex flex-col h-full w-full border-2 border-green-300 dark:border-pink-500 rounded-2xl p-[60px] bg-right gap-[24px] justify-center items-center bg-custom-game-light dark:bg-custom-game-dark bg-no-repeat bg-cover">
       {result === GameResult.SOLVED && (
-        <div className="text-green-300 dark:text-purple-400 text-3xl w-[60%] uppercase text-center mb-10">
+        <div className="text-green-300 dark:text-purple-800 text-3xl w-[60%] uppercase text-center mb-10">
           you solved the code matrix!
         </div>
       )}
@@ -54,7 +54,7 @@ export default function EndGameScreen({ onStartGame, onLeaveGame, result }: EndG
         <Button label="Try again!" onClick={onStartGame} />
         <Button label="another time, get out" onClick={onLeaveGame} />
       </div>
-      <div className="text-green-300 dark:text-purple-400">
+      <div className="text-green-300 dark:text-purple-800">
         Press alt + F to toogle full screen mode
       </div>
     </section>

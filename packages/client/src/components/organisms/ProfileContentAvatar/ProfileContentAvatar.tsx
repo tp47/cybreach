@@ -5,6 +5,7 @@ import { Button } from '@/components/atoms'
 import { AuthApi } from '@/services/api'
 import { UserAction } from '@/store/user/UserActions'
 import { useAppDispatch } from '@/hooks'
+import { defaultAvatarPath, resourcesEndpoind } from '@/constants/avatarsPath'
 
 interface IProps {
   user: User | null
@@ -19,15 +20,21 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
   const styles = {
     name: `
     text-5xl
-    text-white
+    text-gray-300
     uppercase
     font-normal
+    text-center
+    dark:text-gray-500
   `,
     image: `
-    bg-profile
     cursor-pointer
     mt-10
     bg-cover
+    max-w-[470px]
+    border-2
+    border-green-300
+    dark:border-pink-500
+    rounded-xl
   `,
     icons: `
     flex
@@ -41,9 +48,11 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
     w-[28px]
     bg-no-repeat
     bg-cover
+    fill-green-300
+    dark:fill-purple-600
   `,
     imageBox: `
-    w-[438px]
+    w-full
   `,
   }
 
@@ -89,15 +98,15 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
         <div onClick={() => handleChangeAvatarModal()}>
           <img
             className={styles.image}
-            src={`https://ya-praktikum.tech/api/v2/resources${user?.avatar}`}
-            alt=""
+            src={user?.avatar ? `${resourcesEndpoind}${user?.avatar}` : `${defaultAvatarPath}`}
+            alt="user profile avatar"
           />
         </div>
-        <div className={styles.icons}>
+        {/* <div className={styles.icons}>
           <div className={`${styles.icon} bg-like`} />
           <div className={`${styles.icon} bg-romb`} />
           <div className={`${styles.icon} bg-battery`} />
-        </div>
+        </div> */}
       </div>
 
       <Modal

@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: Good Future;
+        src: url(/fonts/good-future.woff) format("woff");
+    }
+
+    @font-face {
+        font-family: Nasalization;
+        src: url(/public/assets/fonts/nasalization.woff) format("woff")
+    }
+
+    h1 {
+        font-family: 'Good Future';
+    }
+
+    body {
+        font-family: 'Nasalization';
+    }
+
+}

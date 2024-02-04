@@ -1,4 +1,4 @@
-import { Button, Field } from '@/components'
+import { Button, Field, YandexSVG } from '@/components'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { loginPattern, passwordPattern } from '../../../constants/validation.const'
 import { FieldsForm } from '@/constants/fieldsForm'
@@ -43,11 +43,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl transition-all duration-500">
-      <h1 className="text-green-400 text-center text-lg mb-4 font-bold">BREACH IN</h1>
-
+    <div className="bg-gray-900 border-2 border-green-400 p-4 w-80 rounded-xl transition-all duration-500">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col mb-4">
+        <div className="flex flex-col mt-2 mb-4">
           <Field
             label={FieldsForm.LOGIN}
             register={register}
@@ -75,19 +73,23 @@ export default function LoginForm() {
               {authError}
             </span>
           )}
-          <div className="flex flex-col justify-between mt-8">
-            <Button label="BREACH IN" type="submit" disabled={!isValid} />
-          </div>
+        </div>
+        <div className="flex flex-col justify-between mt-10 gap-4 items-center">
+          <Button label="BREACH IN" type="submit" disabled={!isValid} customClass="h-10 py-[6px]" />
+          <Button
+            label="NO ACCESS? PLUG IN!"
+            type="button"
+            onClick={onSwitch}
+            customClass="h-10 py-[6px]"
+          />
+          <Button
+            type="button"
+            className="w-10 rounded-full hover:shadow-[0px_0px_4px_4px] hover:shadow-green-300"
+            image={<YandexSVG />}
+            onClick={handleOAuth}
+          />
         </div>
       </form>
-
-      <div className="flex flex-col justify-between">
-        <Button label="OAuth" type="button" onClick={handleOAuth} />
-      </div>
-
-      <div className="flex flex-col justify-between">
-        <Button label="NO ACCESS? PLUG IN!" type="button" onClick={onSwitch} />
-      </div>
     </div>
   )
 }

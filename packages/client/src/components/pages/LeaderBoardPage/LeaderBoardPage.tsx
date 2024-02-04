@@ -1,4 +1,4 @@
-import { Header, MainLayout } from '@/components'
+import { Header, LoaderStub, MainLayout } from '@/components'
 import { LeaderBoardContent } from '@/components/organisms/LeaderBoardContent'
 import LeaderboardApi from '@/services/api/leaderboardApi'
 import { LEADERBOARD_DATA } from '@/types/leaderboard'
@@ -18,7 +18,12 @@ function LeaderBoardPage(): JSX.Element {
   return (
     <MainLayout
       header={<Header title="leaderboard" />}
-      content={<LeaderBoardContent list={list} />}
+      content={
+        <>
+          {!list && <LoaderStub inLayout />}
+          {list && <LeaderBoardContent list={list} />}
+        </>
+      }
     />
   )
 }
