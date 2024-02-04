@@ -2,7 +2,11 @@ import { AvatarSVG } from '@/components'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
 import { Link } from 'react-router-dom'
 
-export default function MainHeader({ showTutorial }) {
+type MainHeaderProps = {
+  showTutorial: boolean
+}
+
+export default function MainHeader({ showTutorial }: MainHeaderProps) {
   return (
     <header className="my-3 w-full min-h-[60px]">
       <div className="flex w-full">

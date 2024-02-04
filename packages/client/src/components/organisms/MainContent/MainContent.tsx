@@ -41,7 +41,12 @@ const styles = {
   tutorial_dark: 'text-xl w-full text-purple-200',
 }
 
-export default function MainContent({ showTutorial, toggleTutorial }) {
+type MainContentProps = {
+  showTutorial: boolean
+  toggleTutorial: () => void
+}
+
+export default function MainContent({ showTutorial, toggleTutorial }: MainContentProps) {
   const navigate = useNavigate()
   const darkMode = useAppSelector((state) => state.theme.darkMode)
 
