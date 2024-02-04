@@ -22,7 +22,7 @@ function GameContainer() {
   }, [])
 
   return (
-    <section className="flex flex-col h-full w-full border-2 border-green-300 rounded-2xl p-[60px] justify-center items-center bg-black">
+    <section className="flex flex-col h-full w-full border-2 max-h-[742px] border-green-300 rounded-2xl p-[60px] justify-center items-center bg-black">
       <canvas id={canvasId} ref={canvasRef}></canvas>
     </section>
   )
