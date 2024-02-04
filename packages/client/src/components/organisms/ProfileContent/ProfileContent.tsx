@@ -11,8 +11,8 @@ const styles = {
     border-2
     border-green-300
     dark:border-pink-500
-    bg-black
-    dark:bg-white
+    bg-custom-profile-light
+    dark:bg-custom-profile-dark
     p-20
     flex
     rounded-2xl

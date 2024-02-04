@@ -43,11 +43,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl transition-all duration-500">
-      <h1 className="text-green-400 text-center text-lg mb-4 font-bold">BREACH IN</h1>
-
+    <div className="bg-gray-900 border-2 border-green-400 p-4 w-80 rounded-xl transition-all duration-500">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-2 mb-4">
           <Field
             label={FieldsForm.LOGIN}
             register={register}
@@ -77,8 +75,13 @@ export default function LoginForm() {
           )}
         </div>
         <div className="flex flex-col justify-between mt-10 gap-4 items-center">
-          <Button label="BREACH IN" type="submit" disabled={!isValid} />
-          <Button label="NO ACCESS? PLUG IN!" type="button" onClick={onSwitch} />
+          <Button label="BREACH IN" type="submit" disabled={!isValid} customClass="h-10 py-[6px]" />
+          <Button
+            label="NO ACCESS? PLUG IN!"
+            type="button"
+            onClick={onSwitch}
+            customClass="h-10 py-[6px]"
+          />
           <Button
             type="button"
             className="w-10 rounded-full hover:shadow-[0px_0px_4px_4px] hover:shadow-green-300"

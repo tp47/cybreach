@@ -48,11 +48,9 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl shadow-current transition-all duration-500">
-      <h1 className="text-green-400 text-center text-lg mb-4 font-bold">PLUG IN</h1>
-
+    <div className="bg-gray-900 border-2 border-green-400 p-4 w-80 rounded-xl shadow-current transition-all duration-500">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col mb-4">
+        <div className="flex flex-col mt-2 mb-4">
           <Field
             label={toLabel(FieldsForm.FIRST_NAME)}
             register={register}
@@ -125,12 +123,17 @@ export default function RegisterForm() {
             </span>
           )}
           <div className="flex flex-col justify-between mt-8">
-            <Button label="PLUG IN" type="submit" disabled={!isValid} />
+            <Button label="PLUG IN" type="submit" disabled={!isValid} customClass="h-10 py-[6px]" />
           </div>
         </div>
       </form>
-      <div className="flex flex-col justify-between">
-        <Button label="HAVE ACCESS? BREACH IN!" type="button" onClick={onSwitch} />
+      <div className="flex flex-col justify-between mb-4">
+        <Button
+          label="HAVE ACCESS? BREACH IN!"
+          type="button"
+          onClick={onSwitch}
+          customClass="h-10 py-[6px]"
+        />
       </div>
     </div>
   )

@@ -20,11 +20,11 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
   const styles = {
     name: `
     text-5xl
-    text-white
+    text-gray-300
     uppercase
     font-normal
     text-center
-    dark:text-black
+    dark:text-gray-500
   `,
     image: `
     cursor-pointer

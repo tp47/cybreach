@@ -2,7 +2,6 @@ import { Button, GameLogoSVG } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { SyntheticEvent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import CybreachSVG from
 
 const enum BUTTON {
   GAME = 'game',
@@ -23,7 +22,7 @@ const styles = {
     bg-right
     bg-cover
     flex
-    gap-[200px]
+    gap-[160px]
   `,
   main_dark: `h-full
   w-full
@@ -34,70 +33,24 @@ const styles = {
   bg-right
   bg-cover
   flex
-  gap-[200px]
+  gap-[160px]
 `,
-  nav: 'h-full flex flex-col min-w-[420px] max-w-[360px]',
+  nav: 'h-full flex flex-col min-w-[420px] max-w-[420px]',
   list: 'h-full flex flex-col justify-center gap-[20px]',
-  btn_light: `
-  bg-green-950
-  border-2
-  border-green-300
-  rounded-lg
-  py-[12px] px-[15px]
-  w-full
-  shadow-[0px_0px_4px_1px]
-  shadow-green-300
-  text-white
-  hover:bg-green-300
-  hover:text-green-950
-  disabled:bg-stone-500
-  disabled:text-stone-400
-  disabled:shadow-none
-  disabled:border-stone-500
-  active:bg-emerald-600
-  active:text-green-300
-  transition-all
-  duration-750
-  uppercase
-`,
-  btn_dark: `
-bg-purple-950
-border-2
-border-pink-500
-rounded-lg
-py-[12px] px-[15px]
-w-full
-shadow-[0px_0px_4px_1px]
-shadow-pink-600
-text-white
-active:bg-purple-300
-active:text-purple-950
-disabled:bg-stone-500
-disabled:text-stone-400
-disabled:shadow-none
-disabled:border-stone-500
-hover:bg-pink-600
-hover:text-purple-200
-transition-all
-duration-750
-uppercase
-`,
   tutorial_light: 'text-xl w-full text-green-300',
   tutorial_dark: 'text-xl w-full text-purple-200',
 }
 
-export default function MainContent() {
+export default function MainContent({ showTutorial, toggleTutorial }) {
   const navigate = useNavigate()
   const darkMode = useAppSelector((state) => state.theme.darkMode)
-
-  const [showTutorial, setShowTutorial] = useState(false)
 
   const onClickNav = useCallback(
     (e: SyntheticEvent<HTMLButtonElement>) => {
       const { name } = e.currentTarget
 
       if (name === BUTTON.TUTORIAL) {
-        setShowTutorial((prev) => !prev)
+        toggleTutorial()
       } else {
         navigate(`/${name}`)
       }
@@ -116,12 +69,7 @@ export default function MainContent() {
         <ul className={styles.list}>
           {ARRAY_BUTTONS.map((name, idx) => (
             <li key={idx}>
-              <Button
-                label={name}
-                name={name}
-                onClick={onClickNav}
-                className={darkMode ? styles.btn_dark : styles.btn_light}
-              />
+              <Button label={name} name={name} onClick={onClickNav} />
             </li>
           ))}
         </ul>

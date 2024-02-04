@@ -4,10 +4,12 @@ import { ButtonHTMLAttributes } from 'react'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string
   image?: any
+  customClass?: string
 }
 
 export default function Button({ label, image, ...props }: ButtonProps) {
   const darkMode = useAppSelector((state) => state.theme.darkMode)
+  const { customClass } = props
 
   const buttonClass = darkMode
     ? `
@@ -26,11 +28,13 @@ export default function Button({ label, image, ...props }: ButtonProps) {
     disabled:text-stone-400
     disabled:shadow-none
     disabled:border-stone-500
+    disabled:cursor-not-allowed
     hover:bg-pink-600
     hover:text-purple-200
     transition-all
     duration-750
     uppercase
+    text-base
     `
     : `
     bg-green-950
@@ -48,15 +52,17 @@ export default function Button({ label, image, ...props }: ButtonProps) {
     disabled:text-stone-400
     disabled:shadow-none
     disabled:border-stone-500
+    disabled:cursor-not-allowed
     active:bg-emerald-600
     active:text-green-300
     transition-all
     duration-750
     uppercase
+    text-base
   `
 
   return (
-    <button className={buttonClass} {...props}>
+    <button className={`${buttonClass} ${customClass}`} {...props}>
       {label}
       {image}
     </button>
