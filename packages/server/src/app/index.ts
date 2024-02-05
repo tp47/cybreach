@@ -9,11 +9,9 @@ dotenv.config()
 
 import express from 'express'
 import * as path from 'path'
-import compileTemplate from '@/ssr'
 import { isDev } from '@/utils'
 import { useRoutes } from '@/routes'
 import { Comments, Reactions, Topics } from '@/models'
-
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env
 
@@ -46,7 +44,6 @@ async function startApp() {
   let vite: ViteDevServer
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const clientSourcePath = path.dirname(require.resolve('client'))
-  const clientModulePath = require.resolve('client/dist-ssr/importBuild.cjs')
 
   if (isDev()) {
     vite = await createViteServer({
@@ -56,15 +53,10 @@ async function startApp() {
     })
 
     app.use(vite.middlewares)
-
-    app.use('*', (req, res, next) => {
-      compileTemplate(req, res, next, vite, { distPath, clientModulePath, clientSourcePath })
-    })
   }
 
-  if (!isDev()) {
-    app.use('/assets', express.static(path.resolve(distPath, 'assets')))
-  }
+  app.use(express.static(distPath))
+  app.use('/assets/public', express.static(distPath))
 
   app.listen(port, () => {
     console.log(`App is listening on http://localhost:${port}`)

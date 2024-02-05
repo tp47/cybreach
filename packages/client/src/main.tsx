@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from '@/components/App'
 import { Provider } from 'react-redux'
-import { startServiceWorker } from '@/services/serviceWorker/serviceWorker'
+// import { startServiceWorker } from '@/services/serviceWorker/serviceWorker'
 import { setupStore } from './store/configure'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -24,4 +24,4 @@ ReactDOM.hydrateRoot(
   </React.StrictMode>
 )
 
-startServiceWorker()
+// startServiceWorker()
