@@ -4,7 +4,7 @@ export interface ITopic {
   id: number
   title: string
   description: string
-  author: User
-  created_at: number
+  author: User | string
+  createdAt: number
   comments_count: number
 }

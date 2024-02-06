@@ -9,7 +9,7 @@ interface TopicCreationAttrs {
   count_views?: number
 }
 
-@Table({ tableName: 'topics', created_at: true })
+@Table({ tableName: 'topics', createdAt: true })
 export class Topics extends Model<Topics, TopicCreationAttrs> {
   @Column({
     type: DataType.INTEGER,

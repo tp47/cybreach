@@ -15,7 +15,7 @@ const comments = [
     author: {
       name: 'Ivan',
     },
-    created_at: 1704535740676,
+    createdAt: 1704535740676,
     text: 'my old comment there',
   },
   {
@@ -23,7 +23,7 @@ const comments = [
     author: {
       name: 'Petr',
     },
-    created_at: 1704535740676,
+    createdAt: 1704535740676,
     text: 'my new comment there',
   },
 ]
@@ -98,7 +98,7 @@ export default function ForumTopicContent() {
                 >
                   <div className="flex">
                     <div>{comment.author.name}</div>
-                    <div className="ml-auto text-[12px]">{getFormatDate(comment.created_at)}</div>
+                    <div className="ml-auto text-[12px]">{getFormatDate(comment.createdAt)}</div>
                   </div>
                   <div className="italic px-[10px]">{comment.text}</div>
                 </li>
