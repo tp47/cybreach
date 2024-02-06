@@ -3,6 +3,9 @@ import { CreateIconSVG } from '@/components/atoms/CreateIconSVG'
 import { ForumContentLayout } from '@/components/templates/ForumContentLayout'
 import { getFormatDate } from '@/services/helpers/dateTools'
 import { Link } from 'react-router-dom'
+import { ForumAPI } from '@/services/forum/ForumService'
+import { ITopic } from '@/types/forum'
+import { LoaderStub } from '@/components/atoms'
 
 export const TOPICS = [
   {
@@ -37,36 +40,50 @@ export const TOPICS = [
 ]
 
 export default function ForumContent() {
+  const { data: topics, isLoading, error } = ForumAPI.useFetchAllTopicsQuery('')
+
   return (
-    <ForumContentLayout
-      header={
-        <div className="h-full px-[10px] flex items-center">
-          <Link className="w-[35px] ml-auto" to="/create-topic">
-            <CreateIconSVG />
-          </Link>
-        </div>
-      }
-      content={
-        <ul className="text-white">
-          {TOPICS.map((topic) => (
-            <Link key={topic.id} to={`${topic.id}`}>
-              <li className="border-b border-green-300 dark:border-pink-500 p-[10px] hover:bg-green-950 dark:hover:bg-purple-700">
-                <div className="mb-[10px] text-[18px]">{topic.title}</div>
-                <div className="flex justify-between text-green-300 dark:text-purple-800 text-[12px]">
-                  <div>{topic.author.name}</div>
-                  <div className="flex gap-[10px] items-center">
-                    <div className="flex gap-[5px] items-center cursor-pointer">
-                      {topic.comments_count}
-                      <CommentSVG className="w-[15px]" />
-                    </div>
-                    <div>{getFormatDate(topic.create_at)}</div>
-                  </div>
+    <>
+      {isLoading && <LoaderStub inLayout />}
+      {!isLoading && (
+        <ForumContentLayout
+          header={
+            <div className="h-full px-[10px] flex items-center">
+              <Link className="w-[35px] ml-auto" to="/create-topic">
+                <CreateIconSVG />
+              </Link>
+            </div>
+          }
+          content={
+            <>
+              {error && (
+                <div className="flex w-full h-full gap-2 text-red-600 text-4xl justify-center mx-auto items-center uppercase">
+                  <p>Fetch error</p>
                 </div>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      }
-    />
+              )}
+              <ul className="text-white dark:text-black">
+                {topics?.map((topic: ITopic) => (
+                  <Link key={topic.id} to={`${topic.id}`}>
+                    <li className="border-b border-green-300 dark:border-pink-500 p-[10px] hover:bg-green-950 dark:hover:bg-purple-700">
+                      <div className="mb-[10px] text-[18px]">{topic.title}</div>
+                      <div className="flex justify-between text-green-300 dark:text-purple-800 text-[12px]">
+                        <div className="text-base">{topic.author as unknown as string}</div>
+                        <div className="flex gap-[10px] items-center">
+                          <div className="flex gap-[5px] items-center cursor-pointer">
+                            {topic.comments_count}
+                            <CommentSVG className="w-[20px]" />
+                          </div>
+                          <div>{getFormatDate(topic.created_at)}</div>
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </>
+          }
+        />
+      )}
+    </>
   )
 }

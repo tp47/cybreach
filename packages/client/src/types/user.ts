@@ -7,6 +7,8 @@ export type User = {
   password: string
   phone: string
   avatar?: string
+  // for DX
+  name?: string
 }
 
 export type Password = {

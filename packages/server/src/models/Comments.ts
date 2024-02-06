@@ -12,7 +12,7 @@ export type CommentsAttr = {
   reactions?: ReactionsAttr[]
 }
 
-@Table({ tableName: 'comments', createdAt: true })
+@Table({ tableName: 'comments', created_at: true })
 export class Comments extends Model<Comments, CommentsAttr> {
   @ForeignKey(() => Topics)
   @Column({

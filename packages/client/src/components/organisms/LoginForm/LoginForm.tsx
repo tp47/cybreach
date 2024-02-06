@@ -33,6 +33,7 @@ export default function LoginForm() {
   const handleOAuth = async () => {
     try {
       const CLIENT_ID = await AuthApi.getServiceId().then((data) => data.service_id)
+      // const REDIRECT_URI = encodeURIComponent('http://cyberpunks.ya-praktikum.tech')
       const REDIRECT_URI = encodeURIComponent('http://localhost:3000')
       const authUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
 

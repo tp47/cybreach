@@ -16,12 +16,12 @@ const forumController = {
   },
 
   async createTopic(req: Request, res: Response) {
-    const { title = '', author = '' } = req.body
+    const { title = '', author = '', description = '' } = req.body
     if (title && author) {
-      await forumService.createTopic({ title, author })
+      await forumService.createTopic({ title, author, description })
       res.status(201).json('Created')
     } else {
-      res.status(400).json('Title or Author is not valid')
+      res.status(400).json('title or author is not valid')
     }
   },
 

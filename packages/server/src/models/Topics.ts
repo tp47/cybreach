@@ -4,11 +4,12 @@ import { Comments } from './Comments'
 interface TopicCreationAttrs {
   title: string
   author: string
-  count_comments?: number
+  description: string
+  comments_count?: number
   count_views?: number
 }
 
-@Table({ tableName: 'topics', createdAt: true })
+@Table({ tableName: 'topics', created_at: true })
 export class Topics extends Model<Topics, TopicCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
@@ -19,13 +20,16 @@ export class Topics extends Model<Topics, TopicCreationAttrs> {
   override id: number
 
   @Column({ type: DataType.STRING, allowNull: false })
+  description: string
+
+  @Column({ type: DataType.STRING, allowNull: false })
   title: string
 
   @Column({ type: DataType.STRING, allowNull: false })
   author: string
 
   @Column({ type: DataType.INTEGER, defaultValue: 0 })
-  count_comments: number
+  comments_count: number
 
   @Column({ type: DataType.INTEGER, defaultValue: 0 })
   count_views: number
@@ -33,4 +37,3 @@ export class Topics extends Model<Topics, TopicCreationAttrs> {
   @HasMany(() => Comments)
   comments: Comments[]
 }
-

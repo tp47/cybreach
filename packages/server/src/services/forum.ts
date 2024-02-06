@@ -6,6 +6,7 @@ import { Sequelize, type WhereOptions } from "sequelize"
 type TopicCreateParams = {
   title: string
   author: string
+  description: string
 }
 
 type CommentCreateParams = {
@@ -26,7 +27,7 @@ export class ForumService {
     return Topics.findAll({
       where: options,
       attributes: {
-        include: [[Sequelize.fn('COUNT', Sequelize.col('comments.id')), 'count_comments']]
+        include: [[Sequelize.fn('COUNT', Sequelize.col('comments.id')), 'comments_count']]
       },
       include: [{
         model: Comments,
@@ -36,8 +37,8 @@ export class ForumService {
     })
   }
 
-  public createTopic({ title, author }: TopicCreateParams) {
-    return Topics.create({ title, author })
+  public createTopic({ title, author, description }: TopicCreateParams) {
+    return Topics.create({ title, author, description })
   }
 
   public async getTopic(id: number) {
@@ -45,7 +46,7 @@ export class ForumService {
     const comments = await Comments.findAll({ where: { topic_id: id } })
 
     if (topic) {
-      topic.count_comments = comments.length
+      topic.comments_count = comments.length
     }
 
     const commentsCopy = JSON.parse(JSON.stringify(comments)) as CommentsAttr[]

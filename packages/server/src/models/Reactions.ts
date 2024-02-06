@@ -16,7 +16,7 @@ export type ReactionsAttr = {
     user_id: number;
 }
 
-@Table({ tableName: 'reactions', createdAt: true })
+@Table({ tableName: 'reactions', created_at: true })
 export class Reactions extends Model<Reactions, ReactionsAttr> {
 
     @ForeignKey(() => Comments)
