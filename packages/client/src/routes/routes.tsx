@@ -9,6 +9,7 @@ import {
   ProfilePage,
   ErrorPage,
   MainPage,
+  CreateTopicPage,
 } from '@/components'
 
 const routes = [
@@ -43,6 +44,10 @@ const routes = [
   {
     path: 'forum/:id',
     element: <ProtectedRoute page={<ForumTopic />} />,
+  },
+  {
+    path: 'create-topic',
+    element: <ProtectedRoute page={<CreateTopicPage />} />,
   },
   {
     path: '*',
