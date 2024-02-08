@@ -24,24 +24,24 @@ class Timer extends Drawable {
   public draw(): void {
     this.drawRoundedRect(
       {
-        x: this.x + 330,
+        x: this.x + 412,
         y: this.y + 2,
-        width: 145,
+        width: 100,
         height: this.height,
       },
       this.styles.timer.radiuses,
       this.styles.container.fill
     )
 
-    this.drawText({ x: this.x, y: this.y + this.height / 1.5 }, 'BREACH TIME REMAINING:')
+    this.drawText({ x: this.x, y: this.y + this.height / 1.5 }, 'BREACH TIME REMAINING :')
 
     this.drawTimer()
   }
 
   private drawTimer(): void {
-    const time = (this.calculateRemainingTime() / 1000).toFixed(5).toString()
+    const time = (this.calculateRemainingTime() / 1000).toFixed(3).toString()
 
-    this.drawText({ x: this.x + 360, y: this.y + this.height / 1.5 + 1 }, time)
+    this.drawText({ x: this.x + 430, y: this.y + this.height / 1.5 + 1 }, time)
   }
 
   private calculateRemainingTime(): number {

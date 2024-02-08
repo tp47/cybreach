@@ -44,7 +44,7 @@ export default function CreateTopicContent() {
         className="w-full h-full flex flex-col p-[40px] border-2 border-green-300 dark:border-purple-500 rounded-2xl"
       >
         <div>
-          <Field label="title" type="text" name="title" register={register} />
+          <Field label="title" type="text" name="title" register={register} bigLabel />
         </div>
         <div className="h-full flex flex-col mb-[40px]">
           <label

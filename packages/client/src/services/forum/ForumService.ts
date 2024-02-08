@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const ForumAPI = createApi({
   reducerPath: 'forumAPI',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/forum' }),
-  tagTypes: ['Topic'],
+  tagTypes: ['Topic', 'Comments'],
   endpoints: (build) => ({
     fetchAllTopics: build.query({
       query: () => ({
@@ -18,6 +18,11 @@ export const ForumAPI = createApi({
         body: post,
       }),
       invalidatesTags: ['Topic'],
+    }),
+    fetchTopic: build.query({
+      query: (id) => ({
+        url: '/topic/:id',
+      }),
     }),
   }),
 })

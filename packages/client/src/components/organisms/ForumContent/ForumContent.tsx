@@ -73,7 +73,7 @@ export default function ForumContent() {
                             {topic.comments_count}
                             <CommentSVG className="w-[20px]" />
                           </div>
-                          <div>{getFormatDate(topic.created_at)}</div>
+                          <div>{getFormatDate(topic.createdAt)}</div>
                         </div>
                       </div>
                     </li>

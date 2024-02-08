@@ -14,6 +14,7 @@ const styles = {
     bg-custom-leaderboard-light
     dark:bg-custom-leaderboard-dark
     px-1
+    overflow-scroll
   `,
   table_light: `
     h-full

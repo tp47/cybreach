@@ -9,15 +9,14 @@ interface FieldProps<T extends FieldValues> {
   label: Path<Record<string, string>>
   register: UseFormRegister<Record<string, string>>
   patternForm?: ValidationRule<RegExp>
+  bigLabel?: boolean | null | undefined
 }
 
-const isBiggerLabel = location.pathname === '/create-topic'
-
 export default function Field<T extends FieldValues>(props: FieldProps<T>) {
-  const { label, name, type, error, register, patternForm } = props
+  const { label, name, type, error, register, patternForm, bigLabel } = props
 
   return (
-    <div className={`flex flex-col ${isBiggerLabel ? 'text-xl uppercase' : 'text-sm'}`}>
+    <div className={`flex flex-col ${bigLabel ? 'text-xl uppercase' : 'text-sm'}`}>
       <label className="block text-emerald-400 dark:text-purple-500">{label}</label>
       <Input
         register={register}

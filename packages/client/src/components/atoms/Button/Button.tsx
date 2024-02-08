@@ -25,7 +25,7 @@ export default function Button({ label, image, ...props }: ButtonProps) {
     active:bg-purple-300
     active:text-purple-950
     disabled:bg-stone-500
-    disabled:text-stone-400
+    disabled:text-green-300
     disabled:shadow-none
     disabled:border-stone-500
     disabled:cursor-not-allowed
@@ -49,7 +49,7 @@ export default function Button({ label, image, ...props }: ButtonProps) {
     hover:bg-green-300
     hover:text-green-950
     disabled:bg-stone-500
-    disabled:text-stone-400
+    disabled:text-green-300
     disabled:shadow-none
     disabled:border-stone-500
     disabled:cursor-not-allowed

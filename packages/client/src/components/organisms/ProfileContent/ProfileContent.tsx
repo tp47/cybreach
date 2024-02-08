@@ -3,6 +3,7 @@ import { ProfileContentInfo } from '../ProfileContentInfo'
 import { ProfileContentAvatar } from '../ProfileContentAvatar'
 import { UserAction } from '@/store/user/UserActions'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useEffect } from 'react'
 
 const styles = {
   main: `
@@ -39,6 +40,10 @@ export default function ProfileContent(): JSX.Element {
   const { user, authError } = useAppSelector((state) => state.user)
 
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    !user && dispatch(UserAction.get())
+  }, [])
 
   const onLogout = () => {
     dispatch(UserAction.logout())

@@ -33,7 +33,7 @@ class Game extends Drawable {
       throw new Error('Canvas context is null')
     }
 
-    super(canvas, { x: 0, y: 0, width: 1179, height: 624 })
+    super(canvas, { x: 0, y: 0, width: 1179, height: 444 })
 
     this.canvas = canvas
     this.context = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -46,7 +46,7 @@ class Game extends Drawable {
       maxMatrixSize: 7,
       minSequencesAmount: 1,
       maxSequencesAmount: 1,
-      minSequenceLength: 2,
+      minSequenceLength: 5,
       minBufferSize: 4,
       maxBufferSize: 6,
       matrixValues: ['A0', 'E9', '4C', '8B', '6F'],

@@ -1,1 +1,1 @@
-export { default as ForumTopicContent } from './ForumTopicContent'
+export { default as TopicPageContent } from './ForumTopicContent'

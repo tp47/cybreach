@@ -1,6 +1,6 @@
 export { LeaderBoardPage } from './LeaderBoardPage'
 export { ForumPage } from './ForumPage'
-export { ForumTopic } from './ForumTopic'
+export { TopicPage } from './TopicPage'
 export { ProfilePage } from './ProfilePage'
 export { ErrorPage } from './ErrorPage'
 export { MainPage } from './MainPage'

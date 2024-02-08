@@ -38,7 +38,7 @@ const styles = {
   nav: 'h-full flex flex-col min-w-[420px] max-w-[420px]',
   list: 'h-full flex flex-col justify-center gap-[20px]',
   tutorial_light: 'text-xl w-full text-green-300',
-  tutorial_dark: 'text-xl w-full text-purple-200',
+  tutorial_dark: 'text-xl w-full text-pink-700',
 }
 
 type MainContentProps = {
@@ -81,17 +81,19 @@ export default function MainContent({ showTutorial, toggleTutorial }: MainConten
       </nav>
       {showTutorial && (
         <div className={darkMode ? styles.tutorial_dark : styles.tutorial_light}>
+          <p className="mb-4">ВЫ ВЗЛАМЫВАЕТЕ СИСТЕМУ! :)</p>
           <p className="mb-4">
             Вам нужно за отведенное время и количество шагов выбрать нужные комбинации цифр и
             символов в матрице 5х5 в порядке, указанном в последовательности.
           </p>
-          <p>
+          <p className="mb-4">
             Выбор начинается с верхней строчки, второй кусок кода выбирается из столбца, в котором
             находился первый кусок выбранного кода, третий – из строчки, в которой находился второй
             выбранного кода и так далее. Выбранные куски кода исчезают из матрицы. Обратный отсчет
             начнется с момента запуска раунда. Количество последовательностей, необходимых для
             победы, время и ограничение ходов меняется со сложностью игры.
           </p>
+          <p>За каждый успешный взлом вы получаете 10 очков и продвигаетесь в таблице лидеров.</p>
         </div>
       )}
     </main>
