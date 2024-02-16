@@ -33,12 +33,12 @@ export default function LoginForm() {
   const handleOAuth = async () => {
     try {
       // PROD
-      const CLIENT_ID = 'ec608a30584645bcb540dc86414ed113'
-      const REDIRECT_URI = encodeURIComponent('http://cyberpunks.ya-praktikum.tech')
+      // const CLIENT_ID = 'ec608a30584645bcb540dc86414ed113'
+      // const REDIRECT_URI = encodeURIComponent('http://cyberpunks.ya-praktikum.tech')
 
       // DEV
-      // const CLIENT_ID = await AuthApi.getServiceId().then((data) => data.service_id)
-      // const REDIRECT_URI = encodeURIComponent('http://localhost:3000')
+      const CLIENT_ID = await AuthApi.getServiceId().then((data) => data.service_id)
+      const REDIRECT_URI = encodeURIComponent('http://localhost:3000')
 
       const authUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
 

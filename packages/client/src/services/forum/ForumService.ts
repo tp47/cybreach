@@ -21,7 +21,7 @@ export const ForumAPI = createApi({
     }),
     fetchTopic: build.query({
       query: (id) => ({
-        url: '/topic/:id',
+        url: `/topic/${id}`,
       }),
     }),
   }),

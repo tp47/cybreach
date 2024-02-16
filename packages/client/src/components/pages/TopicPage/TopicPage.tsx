@@ -1,6 +1,6 @@
 import { MainLayout } from '../../templates'
-import { Header, TopicPageContent } from '../../organisms'
+import { Header, TopicContent } from '../../organisms'
 
 export default function TopicPage(): JSX.Element | null {
-  return <MainLayout header={<Header title="Topic" />} content={<TopicPageContent />} />
+  return <MainLayout header={<Header title="Topic" />} content={<TopicContent />} />
 }

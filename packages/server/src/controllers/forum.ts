@@ -29,6 +29,7 @@ const forumController = {
     const id = +req.params.id
 
     if (id && !isNaN(id)) {
+      console.log('REQUEST OF TOPIC ID', id)
       const topic = await forumService.getTopic(id)
 
       if (topic) {
