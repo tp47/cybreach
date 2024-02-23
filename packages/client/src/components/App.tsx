@@ -11,11 +11,12 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
 
 import { AuthApi } from '@/services/api'
+import { useCreateAuthorMutation } from '@/services/api/forumApi'
 
 function App() {
   const [isInit, setIsInit] = useState(false)
-
-  const { isLoading } = useAppSelector((state) => state.user)
+  const { user, isLoading } = useAppSelector((state) => state.user)
+  const [createAuthor, {}] = useCreateAuthorMutation()
 
   useFullScreen()
 
@@ -39,6 +40,17 @@ function App() {
       setIsInit(true)
     }
   }, [dispatch])
+
+  useEffect(() => {
+    if (user) {
+      const forumUser = {
+        id: user?.id,
+        name: user?.display_name || user?.login || user?.email,
+        avatar: user?.avatar,
+      }
+      createAuthor(forumUser)
+    }
+  }, [user])
 
   if (!isInit || isLoading) {
     return <MainLayout content={<LoaderStub />} />

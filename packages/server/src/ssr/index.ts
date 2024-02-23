@@ -44,7 +44,7 @@ async function compileTemplate(
       render = (await vite.ssrLoadModule(path.resolve(clientSourcePath, '_default.page.server.tsx'))).render
     }
 
-    const appState = `<script>window.__PRELOADED_STATE__=${serialize(initialState)}</script>`;
+    const appState = `window.__PRELOADED_STATE__=${serialize(initialState)}`;
 
     const appStyles = `<style>${getStylesheetFromStaticFolder(path.dirname(clientModulePath))}</style>`
 
@@ -52,7 +52,7 @@ async function compileTemplate(
 
     const html = template
       .replace(`<!--ssr-outlet-->`, appHtml)
-      .replace(`<!--store-outlet-->`, appState)
+      .replace(`/*ssr-store-outlet*/`, appState)
       .replace(`<style id="ssr-styles-outlet"></style>`, appStyles)
 
 

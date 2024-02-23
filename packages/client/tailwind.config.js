@@ -16,6 +16,8 @@ export default {
         'custom-leaderboard-light': 'linear-gradient(to top, transparent 8%, #87eeab )',
         'custom-profile-dark': 'linear-gradient(to left, white 40%, transparent 60%, #da2877)',
         'custom-profile-light': 'linear-gradient(to left, black 40%, transparent 60%, #87eeab)',
+        'custom-warning':
+          'linear-gradient(to bottom, #5e0303, transparent, transparent 66%, #5e0303)',
         profile: 'url(public/assets/svg/profile.svg)',
         like: 'url(public/assets/svg/like.svg)',
         romb: 'url(public/assets/svg/romb.svg)',

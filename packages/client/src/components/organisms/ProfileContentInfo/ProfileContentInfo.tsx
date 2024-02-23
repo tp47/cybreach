@@ -166,7 +166,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
       <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((field, index) => (
           <FieldProfile
-            label={toLabel(field.label)}
+            label={field.label}
             register={register}
             isDisabled={isDisabled}
             patternForm={field.patternForm}
@@ -225,7 +225,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
             <div>
               <form className="pt-5 h-full" onSubmit={handleSubmit(onSubmitPassword)}>
                 <Field
-                  label={toLabel(FieldsForm.OLD_PASSWORD)}
+                  label={FieldsForm.OLD_PASSWORD}
                   register={register}
                   patternForm={{
                     value: passwordPattern,
@@ -236,7 +236,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   error={errors?.old_password?.message}
                 />
                 <Field
-                  label={toLabel(FieldsForm.NEW_PASSWORD)}
+                  label={FieldsForm.NEW_PASSWORD}
                   register={register}
                   patternForm={{
                     value: passwordPattern,
@@ -247,7 +247,7 @@ export default function ProfileContentInfo({ onLogout, user }: IProps): JSX.Elem
                   error={errors?.new_password?.message}
                 />
                 <Field
-                  label={toLabel(FieldsForm.CONFIRM_PASSWORD)}
+                  label={FieldsForm.CONFIRM_PASSWORD}
                   register={register}
                   patternForm={{
                     value: passwordPattern,

@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/hooks'
 import { LEADERBOARD_DATA } from '@/types/leaderboard'
-import { defaultAvatarPath, resourcesEndpoind } from '@/constants/avatarsPath'
+import { UNSET_AVATAR_PATH, RESOURCES_URL } from '@/constants/avatarsPath'
 
 const styles = {
   main: `
@@ -14,6 +14,7 @@ const styles = {
     bg-custom-leaderboard-light
     dark:bg-custom-leaderboard-dark
     px-1
+    overflow-scroll
   `,
   table_light: `
     h-full
@@ -109,9 +110,7 @@ export default function LeaderBoardContent({ list }: IProps) {
               <td className={`${styles.td} ${styles.withPicture}`}>
                 <img
                   className={styles.image}
-                  src={
-                    item.data.avatar ? `${resourcesEndpoind}${item.data.avatar}` : defaultAvatarPath
-                  }
+                  src={item.data.avatar ? `${RESOURCES_URL}${item.data.avatar}` : UNSET_AVATAR_PATH}
                   alt={`${item.data.playerName}'s avatar`}
                 />
                 {item.data.playerName}

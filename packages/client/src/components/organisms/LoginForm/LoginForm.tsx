@@ -32,8 +32,14 @@ export default function LoginForm() {
 
   const handleOAuth = async () => {
     try {
+      // PROD
+      // const CLIENT_ID = 'ec608a30584645bcb540dc86414ed113'
+      // const REDIRECT_URI = encodeURIComponent('http://cyberpunks.ya-praktikum.tech')
+
+      // DEV
       const CLIENT_ID = await AuthApi.getServiceId().then((data) => data.service_id)
       const REDIRECT_URI = encodeURIComponent('http://localhost:3000')
+
       const authUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
 
       document.location.href = authUrl
@@ -43,7 +49,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="bg-gray-900 border-2 border-green-400 p-4 w-80 rounded-xl transition-all duration-500">
+    <div className="bg-gray-900 border-2 border-green-400 dark:border-pink-500 p-4 w-80 rounded-xl transition-all duration-500">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col mt-2 mb-4">
           <Field

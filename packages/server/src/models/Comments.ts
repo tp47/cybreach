@@ -1,11 +1,13 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
-import { Topics } from "./Topics";
-import { Reactions, ReactionsAttr } from "./Reactions";
+import { Authors, Reactions, Topics} from "@/models";
+import type { ReactionsAttr } from "./Reactions";
+// import type { AuthorAttrs } from "./Authors";
+
 
 export type CommentsAttr = {
   id?: number
   content: string
-  author: string
+  author_id: number
   topic_id: number
   parent_comment_id?: number
   child_comments?: CommentsAttr[]
@@ -14,6 +16,7 @@ export type CommentsAttr = {
 
 @Table({ tableName: 'comments', createdAt: true })
 export class Comments extends Model<Comments, CommentsAttr> {
+
   @ForeignKey(() => Topics)
   @Column({
     type: DataType.INTEGER,
@@ -24,9 +27,6 @@ export class Comments extends Model<Comments, CommentsAttr> {
   @Column({ type: DataType.STRING, allowNull: false })
   content: string
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  author: string
-
   @BelongsTo(() => Comments, { foreignKey: 'parent_comment_id' })
   parent_comment: Comments
 
@@ -35,4 +35,7 @@ export class Comments extends Model<Comments, CommentsAttr> {
 
   @HasMany(() => Reactions, { foreignKey: 'comment_id' })
   reactions: Reactions[];
+
+  @BelongsTo(() => Authors, { foreignKey: 'author_id' })
+  author: Authors
 }
