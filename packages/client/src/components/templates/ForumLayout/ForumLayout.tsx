@@ -9,7 +9,7 @@ interface IProps {
 
 export default function ForumLayout({ header, content, footer }: IProps) {
   return (
-    <div className="h-full w-full flex flex-col justify-between">
+    <div className="h-full w-full max-h-[calc(100vh-124px)] flex flex-col justify-between">
       <div className="bg-green-300 dark:bg-pink-600 h-[60px] rounded-t-2xl">
         {header ? header : null}
       </div>

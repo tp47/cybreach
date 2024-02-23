@@ -7,7 +7,7 @@ export default function Header({ ...props }) {
   const navigate = useNavigate()
 
   return (
-    <header className=" w-full">
+    <header className="w-full min-h-[84px] shrink-0">
       <div className="flex w-full h-[60px] my-3 justify-center items-center">
         <Button
           className="my-auto absolute left-12"
