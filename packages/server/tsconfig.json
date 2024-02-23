@@ -4,7 +4,7 @@
     "target": "es2019",
     "module": "commonjs",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true, 
+    "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
