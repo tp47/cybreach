@@ -5,7 +5,7 @@ import { Button } from '@/components/atoms'
 import { AuthApi } from '@/services/api'
 import { UserAction } from '@/store/user/UserActions'
 import { useAppDispatch } from '@/hooks'
-import { defaultAvatarPath, resourcesEndpoind } from '@/constants/avatarsPath'
+import { UNSET_AVATAR_PATH, RESOURCES_URL } from '@/constants/avatarsPath'
 
 interface IProps {
   user: User | null
@@ -98,7 +98,7 @@ export default function ProfileContentAvatar({ user }: IProps): JSX.Element {
         <div onClick={() => handleChangeAvatarModal()}>
           <img
             className={styles.image}
-            src={user?.avatar ? `${resourcesEndpoind}${user?.avatar}` : `${defaultAvatarPath}`}
+            src={user?.avatar ? `${RESOURCES_URL}${user?.avatar}` : `${UNSET_AVATAR_PATH}`}
             alt="user profile avatar"
           />
         </div>

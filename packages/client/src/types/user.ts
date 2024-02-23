@@ -1,4 +1,5 @@
 export type User = {
+  id: number
   first_name: string
   second_name: string
   display_name?: string
@@ -7,8 +8,6 @@ export type User = {
   password: string
   phone: string
   avatar?: string
-  // for DX
-  name?: string
 }
 
 export type Password = {

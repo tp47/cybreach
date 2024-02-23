@@ -1,5 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
-import { Comments } from "./Comments";
+import { Comments, Authors , Topics } from "@/models";
 
 export enum ReactionType {
     LIKE = "like",
@@ -12,8 +12,10 @@ export enum ReactionType {
 export type ReactionsAttr = {
     id?: number;
     type: ReactionType;
-    comment_id: number;
-    user_id: number;
+    author?: Authors
+    author_id: number;
+    comment?: number;
+    topic?: number
 }
 
 @Table({ tableName: 'reactions', createdAt: true })
@@ -29,24 +31,18 @@ export class Reactions extends Model<Reactions, ReactionsAttr> {
       override id: number
 
     @Column({
-        type: DataType.INTEGER,
-        onDelete: 'CASCADE',
-    })
-    comment_id: number
-
-    @Column({
         type: DataType.STRING,
         allowNull: false,
     })
     type: ReactionType
 
-    @Column({
-        type: DataType.INTEGER,
-        allowNull: false
-    })
-    user_id: number
-
-    @BelongsTo(() => Comments)
+    @BelongsTo(() => Comments, { foreignKey: 'comment_id'})
     comment: Comments;
+
+    @BelongsTo(() => Topics, { foreignKey: 'topic_id' })
+    topic: Comments;
+
+    @BelongsTo(() => Authors, { foreignKey: 'author_id' })
+    author: Authors
 
 }

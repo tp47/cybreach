@@ -1,39 +1,40 @@
-import { Button } from '@/components/atoms'
+import { Button, ErrorLine } from '@/components/atoms'
 import { Field } from '@/components/molecules'
 import { useAppSelector } from '@/hooks'
-import { ForumAPI } from '@/services/forum/ForumService'
+import { useCreateTopicMutation } from '@/services/api/forumApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-interface FieldValues extends Record<'title' | 'description' | 'author', string> {}
-
 interface SubmitRequestParams {
-  author: string
+  author_id: number
   title: string
   description: string
 }
 
-export default function CreateTopicContent() {
+interface FieldValues extends Record<keyof SubmitRequestParams, string> {}
+
+export default function CreateTopicForm() {
   const navigate = useNavigate()
   const { user } = useAppSelector((state) => state.user)
   const { register, handleSubmit } = useForm<FieldValues>({ mode: 'onBlur' })
-  const [createPost, {}] = ForumAPI.useCreateTopicMutation()
+  const [createPost, { error, isError }] = useCreateTopicMutation()
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: SubmitRequestParams) => {
-    console.log({ data })
+    console.log({ data, user })
 
     const body = {
       ...data,
-      author:
-        user!.display_name ||
-        user!.login ||
-        `${user!.first_name || null} ${user!.second_name || null}`,
+      author_id: user?.id,
     }
 
     try {
       await createPost(body)
+    } catch (e) {
+      console.log({ e })
     } finally {
-      navigate('/forum')
+      if (!isError) {
+        navigate('/forum')
+      }
     }
   }
 
@@ -62,6 +63,7 @@ export default function CreateTopicContent() {
             ></textarea>
           </div>
         </div>
+        {isError && <ErrorLine error={error?.data} />}
         <Button type="submit" label="Create" />
       </form>
     </main>

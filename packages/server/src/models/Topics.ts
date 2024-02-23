@@ -1,16 +1,19 @@
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript'
-import { Comments } from './Comments'
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript'
+import { Authors, Comments, Reactions } from '@/models'
 
-interface TopicCreationAttrs {
+export interface TopicAttrs {
   title: string
-  author: string
+  author_id: number
   description: string
   comments_count?: number
   count_views?: number
 }
 
 @Table({ tableName: 'topics', createdAt: true })
-export class Topics extends Model<Topics, TopicCreationAttrs> {
+export class Topics extends Model<Topics, TopicAttrs> {
+
+  @ForeignKey(() => Comments)
+  @ForeignKey(() => Reactions)
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -25,15 +28,18 @@ export class Topics extends Model<Topics, TopicCreationAttrs> {
   @Column({ type: DataType.STRING, allowNull: false })
   title: string
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  author: string
-
   @Column({ type: DataType.INTEGER, defaultValue: 0 })
   comments_count: number
 
   @Column({ type: DataType.INTEGER, defaultValue: 0 })
   count_views: number
 
-  @HasMany(() => Comments)
+  @Column({ type: DataType.INTEGER, defaultValue: 0 })
+  author_id: number
+
+  @HasMany(() => Comments, {foreignKey: 'topic_id'})
   comments: Comments[]
+
+  @BelongsTo(() => Authors, { foreignKey: 'author_id' })
+  author: Authors
 }

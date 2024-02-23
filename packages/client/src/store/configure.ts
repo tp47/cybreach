@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './user/UserSlice'
 import themeSlice from './theme/ThemeSlice'
-import { ForumAPI } from '@/services/forum/ForumService'
+import { ForumAPI } from '@/services/api/forumApi'
 
 const rootReducer = combineReducers({
   user: userReducer,

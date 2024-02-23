@@ -7,14 +7,14 @@ interface IProps {
   footer?: ReactNode
 }
 
-export default function ForumContentLayout({ header, content, footer }: IProps) {
+export default function ForumLayout({ header, content, footer }: IProps) {
   return (
     <div className="h-full w-full flex flex-col justify-between">
       <div className="bg-green-300 dark:bg-pink-600 h-[60px] rounded-t-2xl">
         {header ? header : null}
       </div>
 
-      <div className="h-full w-full border-r border-2 border-green-300 dark:border-pink-600">
+      <div className="h-full w-full border-r border-2 border-green-300 dark:border-pink-600 overflow-scroll">
         {content && content}
         {!content && '...'}
       </div>
