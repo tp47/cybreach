@@ -16,7 +16,7 @@ export default function FieldProfile(props: FieldProps) {
 
   return (
     <div className="text-sm justify-between">
-      <div className="flex pb-2 border-emerald-500 border-b-2 items-end">
+      <div className="flex pb-2 border-emerald-500 dark:border-pink-500 border-b-2 items-end">
         <label className="block text-gray-400 uppercase w-[150px]" htmlFor={name}>
           {label}
         </label>

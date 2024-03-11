@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { UserAction } from '@/store/user/UserActions'
 import { setUser } from '@/store/user/UserSlice'
+import toLabel from '@/services/helpers/toLabel'
 
 interface FieldValues
   extends Record<
@@ -47,13 +48,11 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="bg-gray-900 border-2 border-green-400 p-4 w-72 rounded-xl shadow-current transition-all duration-500">
-      <h1 className="text-green-400 text-center text-lg mb-4 font-bold">PLUG IN</h1>
-
+    <div className="bg-gray-900 border-2 border-green-400 p-4 w-80 rounded-xl shadow-current transition-all duration-500">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col mb-4">
+        <div className="flex flex-col mt-2 mb-4">
           <Field
-            label={FieldsForm.FIRST_NAME}
+            label={toLabel(FieldsForm.FIRST_NAME)}
             register={register}
             patternForm={{
               value: namePattern,
@@ -64,7 +63,7 @@ export default function RegisterForm() {
             error={errors?.[FieldsForm.FIRST_NAME]?.message}
           />
           <Field
-            label={FieldsForm.SECOND_NAME}
+            label={toLabel(FieldsForm.SECOND_NAME)}
             register={register}
             patternForm={{
               value: namePattern,
@@ -75,7 +74,7 @@ export default function RegisterForm() {
             error={errors?.[FieldsForm.SECOND_NAME]?.message}
           />
           <Field
-            label={FieldsForm.LOGIN}
+            label={toLabel(FieldsForm.LOGIN)}
             register={register}
             patternForm={{
               value: loginPattern,
@@ -86,7 +85,7 @@ export default function RegisterForm() {
             error={errors?.login?.message}
           />
           <Field
-            label={FieldsForm.EMAIL}
+            label={toLabel(FieldsForm.EMAIL)}
             register={register}
             patternForm={{
               value: emailPattern,
@@ -97,7 +96,7 @@ export default function RegisterForm() {
             error={errors?.email?.message}
           />
           <Field
-            label={FieldsForm.PASSWORD}
+            label={toLabel(FieldsForm.PASSWORD)}
             register={register}
             patternForm={{
               value: passwordPattern,
@@ -108,7 +107,7 @@ export default function RegisterForm() {
             error={errors?.password?.message}
           />
           <Field
-            label={FieldsForm.PHONE}
+            label={toLabel(FieldsForm.PHONE)}
             register={register}
             patternForm={{
               value: phonePattern,
@@ -124,12 +123,17 @@ export default function RegisterForm() {
             </span>
           )}
           <div className="flex flex-col justify-between mt-8">
-            <Button label="PLUG IN" type="submit" disabled={!isValid} />
+            <Button label="PLUG IN" type="submit" disabled={!isValid} customClass="h-10 py-[6px]" />
           </div>
         </div>
       </form>
-      <div className="flex flex-col justify-between">
-        <Button label="HAVE ACCESS? BREACH IN!" type="button" onClick={onSwitch} />
+      <div className="flex flex-col justify-between mb-4">
+        <Button
+          label="HAVE ACCESS? BREACH IN!"
+          type="button"
+          onClick={onSwitch}
+          customClass="h-10 py-[6px]"
+        />
       </div>
     </div>
   )

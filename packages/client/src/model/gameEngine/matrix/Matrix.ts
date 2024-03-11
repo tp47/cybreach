@@ -83,13 +83,13 @@ class MatrixDrawable extends Drawable {
           height: elementHeight,
         })
         if (this.selectedElements.includes(index)) {
-          this.drawText({ x, y }, '[]', elementFont, selectedElementColor)
+          this.drawText({ x, y }, '[X]', elementFont, selectedElementColor)
         } else {
           this.drawText({ x, y }, element, elementFont, selectedElementColor)
         }
       } else {
         if (this.selectedElements.includes(index)) {
-          this.drawText({ x, y }, '[]', elementFont)
+          this.drawText({ x, y }, '[X]', elementFont)
         } else {
           this.drawText({ x, y }, element, elementFont, this.styles.colors.main)
         }

@@ -3,32 +3,47 @@ import { ProfileContentInfo } from '../ProfileContentInfo'
 import { ProfileContentAvatar } from '../ProfileContentAvatar'
 import { UserAction } from '@/store/user/UserActions'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useEffect } from 'react'
 
 const styles = {
   main: `
+    w-full
+    h-full
     border-2
     border-green-300
-    bg-black
+    dark:border-pink-500
+    bg-custom-profile-light
+    dark:bg-custom-profile-dark
     p-20
-    flex h-full w-full rounded-2xl justify-center items-center
+    flex
+    rounded-2xl
+    justify-center
+    items-center
   `,
   container: `
-    max-w-screen-xl
     flex
-    gap-x-20
-    w-[100%]
+    gap-x-16
+    w-[90%]
     justify-between
     mx-auto
   `,
   right: `
+    flex
+    flex-col
+    justify-between
     mt-20
     basis-1/2
+    w-full
   `,
 }
 export default function ProfileContent(): JSX.Element {
   const { user, authError } = useAppSelector((state) => state.user)
 
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    !user && dispatch(UserAction.get())
+  }, [])
 
   const onLogout = () => {
     dispatch(UserAction.logout())

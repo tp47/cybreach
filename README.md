@@ -1,77 +1,151 @@
 ### Описание проекта:
 
-Ремейк логической игры "Взлом" из вселенной Cyberpunk2077. 
+Ремейк логической игры "Взлом" из вселенной Cyberpunk2077.
 Подробное объяснение правил - в разделе "Tutorial".
 
 ### Видео с описанием функциональности приложения:
+
 https://www.loom.com/share/14336d4fb05949e6adf23a34c9e223c0
 
 ### Проект на Netlify:
-https://cybreach.netlify.app
 
+https://cybreach.netlify.app
 
 ### Как запускать?
 
-I) Запуск через NPM:
-
-1. Убедитесь что у вас установлен `node` и `docker`
-2. Выполните команду `npm install`
-3. Выполните команду `npm run dev`
-3. Выполните команду `npm run dev:client` чтобы запустить только клиент
-4. Выполните команду `npm run dev:server` чтобы запустить только server
-
-II) Запуск через Yarn:
-
-
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap`
-3. Выполните команду `yarn dev`
-3. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
-4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
+I) Запустить только клиент:
+
+1. Выполните команду `yarn dev --scope=client`
+
+II) Запустить только сервер:
+
+Предварительно требуется произвести build клиента, чтобы корректно работал server side rendering, для этого:
+
+1. Перейти в каталог `packages/client`
+
+```
+cd packages/client
+```
+
+2. Произвести build клиента
+
+```
+yarn build:ssr
+```
+
+3. Перейти в каталог `packages/server`
+
+```
+cd ../server
+```
+
+4. Запустить сервер
+
+```
+yarn dev
+```
+
+5. По адресу http://localhost:3001 будет доступно приложение
+
+III) Запустить клиент и сервер:
+
+Предварительно требуется произвести build клиента, чтобы корректно работал server side rendering, для этого:
+
+1. Перейти в каталог `packages/client`
+
+```
+cd packages/client
+```
+
+2. Зарегистрировать клиентскую часть
+
+```
+yarn link
+```
+
+3. Запустить локальный сервер клиент
+
+```
+yarn dev:ssr
+```
+
+4. В отдельном терминале перейти в каталог `packages/server`
+
+```
+cd packages/server
+```
+
+5. Произвести link клиентской части приложения
+
+```
+yarn link "client"
+```
+
+6. Запустить сервер
+
+```
+yarn dev
+```
+
+7. По адресу http://localhost:3001 будет доступно приложение
+
+
+IV) Запустить сервер совместно с базой данных в Docker-контенейрах:
+
+В корневой папке проекта запустить команду 
+
+```
+yarn docker
+```
+
+Дождаться окончания сборки и запуска контейнеров, отслеживать процесс в СLI.
+
+Приложение будет доступно по адресу http://localhost:5000
 
 ### Как добавить зависимости?
+
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
 
-Чтобы добавить зависимость для клиента 
-```yarn lerna add {your_dep} --scope client```
+Чтобы добавить зависимость для клиента
+`yarn lerna add {your_dep} --scope client`
 
 Для сервера
-```yarn lerna add {your_dep} --scope server```
+`yarn lerna add {your_dep} --scope server`
 
 И для клиента и для сервера
-```yarn lerna add {your_dep}```
-
+`yarn lerna add {your_dep}`
 
 Если вы хотите добавить dev зависимость, проделайте то же самое, но с флагом `dev`
-```yarn lerna add {your_dep} --dev --scope server```
-
+`yarn lerna add {your_dep} --dev --scope server`
 
 ### Тесты
 
 Для клиента используется [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro/)
 
-```yarn test```
+`yarn test`
 
 ### Линтинг
 
-```yarn lint```
+`yarn lint`
 
 ### Форматирование prettier
 
-```yarn format```
+`yarn format`
 
 ### Production build
 
-```yarn build```
+`yarn build`
 
 И чтобы посмотреть что получилось
-
 
 `yarn preview --scope client`
 `yarn preview --scope server`
 
 ## Хуки
+
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)
 Если очень-очень нужно пропустить проверки, используйте `--no-verify` (но не злоупотребляйте :)
 
@@ -80,6 +154,7 @@ II) Запуск через Yarn:
 Откройте issue, я приду :)
 
 ## Автодеплой статики на vercel
+
 Зарегистрируйте аккаунт на [vercel](https://vercel.com/)
 Следуйте [инструкции](https://vitejs.dev/guide/static-deploy.html#vercel-for-git)
 В качестве `root directory` укажите `packages/client`
@@ -87,10 +162,11 @@ II) Запуск через Yarn:
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
 ## Production окружение в докере
+
 Перед первым запуском выполните `node init.js`
 
-
 `docker compose up` - запустит три сервиса
+
 1. nginx, раздающий клиентскую статику (client)
 2. node, ваш сервер (server)
 3. postgres, вашу базу данных (postgres)
