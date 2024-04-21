@@ -1,8 +1,12 @@
-import { Sequelize, type WhereOptions } from "sequelize"
+import { Sequelize, type WhereOptions } from 'sequelize'
 import {
-  Authors, Comments, Topics, Reactions,
-  type CommentsAttr, type ReactionType
-} from "@/models"
+  Authors,
+  Comments,
+  Topics,
+  Reactions,
+  type CommentsAttr,
+  type ReactionType,
+} from '@/models'
 
 type AuthorCreateParams = {
   id: number
@@ -37,20 +41,21 @@ export class ForumService {
         where: options,
         attributes: {
           include: [[Sequelize.fn('COUNT', Sequelize.col('comments.id')), 'comments_count']],
-          exclude: ['author_id', 'topic_id']
+          exclude: ['author_id', 'topic_id'],
         },
-        include: [{
-          model: Comments,
-          attributes: []
-        },
-        {
-          model: Authors,
-          attributes: {
-            include: ['name', 'avatar']
+        include: [
+          {
+            model: Comments,
+            attributes: [],
           },
-        }
+          {
+            model: Authors,
+            attributes: {
+              include: ['name', 'avatar'],
+            },
+          },
         ],
-        group: ['Topics.id', 'author.id', 'author.name', 'author.avatar']
+        group: ['Topics.id', 'author.id', 'author.name', 'author.avatar'],
       })
     } catch (error) {
       throw new Error(`${error}`)
@@ -61,7 +66,7 @@ export class ForumService {
     try {
       const [author, created] = await Authors.findCreateFind({
         where: { id },
-      });
+      })
       if (!created) {
         const updatedAuthor = await author.update({ name, avatar })
         return updatedAuthor
@@ -89,31 +94,27 @@ export class ForumService {
       },
       include: {
         model: Authors,
-        attributes: { exclude: [] }
+        attributes: { exclude: [] },
       },
     })
-    const comments = await Comments.findAll(
-      {
-        where: { topic_id: id },
-        attributes: {
-          exclude: ['author_id', 'topic_id', 'comment_id']
+    const comments = await Comments.findAll({
+      where: { topic_id: id },
+      attributes: {
+        exclude: ['author_id', 'topic_id', 'comment_id'],
+      },
+      include: [
+        {
+          model: Authors,
+          attributes: {
+            include: ['name', 'avatar'],
+            exclude: ['createdAt', 'updatedAt'],
+          },
         },
-        include: [
-          {
-            model: Authors,
-            attributes: {
-              include: ['name', 'avatar'],
-              exclude: ['createdAt', 'updatedAt']
-            },
-          }
-        ],
-        group: ['Comments.id', 'author.id', 'author.name', 'author.avatar']
-      }
-    )
-
+      ],
+      group: ['Comments.id', 'author.id', 'author.name', 'author.avatar'],
+    })
 
     try {
-
       if (topic) {
         topic.comments_count = comments.length
       }
@@ -121,11 +122,11 @@ export class ForumService {
       const commentsCopy = JSON.parse(JSON.stringify(comments)) as CommentsAttr[]
 
       const buildCommentTree = (parentCommentId: number | null): CommentsAttr[] => {
-        const tree: CommentsAttr[] = [];
+        const tree: CommentsAttr[] = []
 
         commentsCopy
-          .filter(comment => comment.parent_comment_id === parentCommentId)
-          .forEach(comment => {
+          .filter((comment) => comment.parent_comment_id === parentCommentId)
+          .forEach((comment) => {
             if (comment.id) {
               const childComments = buildCommentTree(comment.id)
               comment.child_comments = childComments
@@ -133,13 +134,12 @@ export class ForumService {
             }
           })
 
-        return tree;
+        return tree
       }
 
       const tree = buildCommentTree(null)
 
       return { post: { ...topic?.toJSON(), author: topic?.author }, comments: tree }
-
     } catch (error) {
       throw new Error(`${error}`)
     }
@@ -183,6 +183,70 @@ export class ForumService {
       if (topic) {
         topic.count_views = topic.count_views + 1
         await topic.save()
+      }
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  public async deleteTopic(topic_id: number) {
+    try {
+      await Topics.destroy({ where: { id: topic_id } })
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  public async editTopic(
+    topic_id: number,
+    { title, description }: { title: string; description: string }
+  ) {
+    try {
+      const topic = await Topics.findByPk(topic_id)
+      if (topic) {
+        topic.title = title
+        topic.description = description
+        await topic.save()
+      }
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  public async deleteComment(comment_id: number) {
+    try {
+      await Comments.destroy({ where: { id: comment_id } })
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  public async editComment(comment_id: number, { content }: { content: string }) {
+    try {
+      const comment = await Comments.findByPk(comment_id)
+      if (comment) {
+        comment.content = content
+        await comment.save()
+      }
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  public async deleteReaction(reaction_id: number) {
+    try {
+      await Reactions.destroy({ where: { id: reaction_id } })
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  public async editReaction(reaction_id: number, { type }: { type: ReactionType }) {
+    try {
+      const reaction = await Reactions.findByPk(reaction_id)
+      if (reaction) {
+        reaction.type = type
+        await reaction.save()
       }
     } catch (error) {
       throw new Error(`${error}`)

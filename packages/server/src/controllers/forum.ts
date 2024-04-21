@@ -142,6 +142,93 @@ const forumController = {
       res.status(500).json(`Error on updating views count, ${error}`)
     }
   },
+
+  async deleteTopic(req: Request, res: Response) {
+    try {
+      const id = +req.params.id
+      if (id && !isNaN(id)) {
+        await forumService.deleteTopic(id)
+        res.status(200).json('Topic deleted')
+      } else {
+        res.status(400).json('Bad request')
+      }
+    } catch (error) {
+      res.status(500).json(`Error on deleting topic, ${error}`)
+    }
+  },
+
+  async editTopic(req: Request, res: Response) {
+    try {
+      const id = +req.params.id
+      const { title = '', description = '' } = req.body
+      if (id && !isNaN(id) && title && description) {
+        await forumService.editTopic(id, { title, description })
+        res.status(200).json('Topic edited')
+      } else {
+        res.status(400).json('Bad request')
+      }
+    } catch (error) {
+      res.status(500).json(`Error on editing topic, ${error}`)
+    }
+  },
+
+  async deleteComment(req: Request, res: Response) {
+    try {
+      const id = +req.params.id
+      if (id && !isNaN(id)) {
+        await forumService.deleteComment(id)
+        res.status(200).json('Comment deleted')
+      } else {
+        res.status(400).json('Bad request')
+      }
+    } catch (error) {
+      res.status(500).json(`Error on deleting comment, ${error}`)
+    }
+  },
+
+  async editComment(req: Request, res: Response) {
+    try {
+      const id = +req.params.id
+      const { content = '' } = req.body
+      if (id && !isNaN(id) && content) {
+        await forumService.editComment(id, { content })
+        res.status(200).json('Comment edited')
+      } else {
+        res.status(400).json('Bad request')
+      }
+    } catch (error) {
+      res.status(500).json(`Error on editing comment, ${error}`)
+    }
+  },
+
+  async deleteReaction(req: Request, res: Response) {
+    try {
+      const id = +req.params.id
+      if (id && !isNaN(id)) {
+        await forumService.deleteReaction(id)
+        res.status(200).json('Reaction deleted')
+      } else {
+        res.status(400).json('Bad request')
+      }
+    } catch (error) {
+      res.status(500).json(`Error on deleting reaction, ${error}`)
+    }
+  },
+
+  async editReaction(req: Request, res: Response) {
+    try {
+      const id = +req.params.id
+      const { type = '' } = req.body
+      if (id && !isNaN(id) && type) {
+        await forumService.editReaction(id, { type })
+        res.status(200).json('Reaction edited')
+      } else {
+        res.status(400).json('Bad request')
+      }
+    } catch (error) {
+      res.status(500).json(`Error on editing reaction, ${error}`)
+    }
+  },
 }
 
 export { forumController }
