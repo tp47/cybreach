@@ -2,6 +2,7 @@ import { Button, ErrorLine } from '@/components/atoms'
 import { Field } from '@/components/molecules'
 import { useAppSelector } from '@/hooks'
 import { useCreateTopicMutation } from '@/services/api/forumApi'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,7 +12,7 @@ interface SubmitRequestParams {
   description: string
 }
 
-interface FieldValues extends Record<keyof SubmitRequestParams, string> {}
+interface FieldValues extends Record<keyof SubmitRequestParams, string | number> {}
 
 export default function CreateTopicForm() {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ export default function CreateTopicForm() {
   const { register, handleSubmit } = useForm<FieldValues>({ mode: 'onBlur' })
   const [createPost, { error, isError }] = useCreateTopicMutation()
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data: SubmitRequestParams) => {
+  const onSubmit = async (data: SubmitRequestParams) => {
     console.log({ data, user })
 
     const body = {
@@ -41,7 +42,7 @@ export default function CreateTopicForm() {
   return (
     <main className="w-full h-full">
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit as SubmitHandler<FieldValues>)}
         className="w-full h-full flex flex-col p-[40px] border-2 border-green-300 dark:border-purple-500 rounded-2xl"
       >
         <div>
@@ -63,7 +64,7 @@ export default function CreateTopicForm() {
             ></textarea>
           </div>
         </div>
-        {isError && <ErrorLine error={error?.data} />}
+        {isError && <ErrorLine error={(error as FetchBaseQueryError)?.data} />}
         <Button type="submit" label="Create" />
       </form>
     </main>

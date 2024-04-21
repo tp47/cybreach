@@ -11,8 +11,6 @@ interface Props {
 function AddCommentForm({ onSubmitComment, onCloseForm, postId, parentCommentId }: Props) {
   const { handleSubmit, register } = useForm()
 
-  const data = {}
-
   return (
     <form
       onSubmit={handleSubmit(onSubmitComment)}

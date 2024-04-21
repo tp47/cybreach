@@ -27,14 +27,14 @@ export default function Forum() {
               {isError && (
                 <ErrorStub message={`${(error as FetchBaseQueryError)?.data || 'Fetch error'}`} />
               )}
-              {topics.length && (
+              {topics?.length && (
                 <ul className="text-white dark:text-black h-full">
                   {topics?.map((topic: ITopic, idx: number) => (
                     <TopicPreview {...topic} key={idx} />
                   ))}
                 </ul>
               )}
-              {!topics.length && (
+              {!topics?.length && (
                 <div className="w-full h-full flex text-center items-center justify-center text-green-300 dark:text-pink-700 text-2xl uppercase">
                   Nobody wrote here yet...
                 </div>
