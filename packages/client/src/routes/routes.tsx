@@ -10,6 +10,7 @@ import {
   ErrorPage,
   MainPage,
   CreateTopicPage,
+  EditTopicPage,
 } from '@/components'
 
 const routes = [
@@ -48,6 +49,10 @@ const routes = [
   {
     path: 'create-topic',
     element: <ProtectedRoute page={<CreateTopicPage />} />,
+  },
+  {
+    path: 'edit-topic/:id',
+    element: <ProtectedRoute page={<EditTopicPage />} />,
   },
   {
     path: '*',

@@ -8,17 +8,14 @@ import {
   passwordPattern,
   phonePattern,
 } from '@/constants/validation.const'
-import { Button } from '@/components/atoms'
+import { Button, Field, Modal } from '@/components'
 import { FieldProfile } from '@/components/molecules/FieldProfile'
 import { User } from '@/types'
 import { AuthApi } from '@/services/api'
-import { Modal } from '../Modal'
-import { Field } from '@/components/molecules/Field'
 import { Password } from '@/types/user'
 import { useAppDispatch } from '@/hooks'
 import { useState } from 'react'
 import { UserAction } from '@/store/user/UserActions'
-import toLabel from '@/services/helpers/toLabel'
 
 interface FieldValues
   extends Record<
