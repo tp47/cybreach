@@ -30,7 +30,7 @@ export const ForumAPI = createApi({
       query: (id) => ({
         url: `/topic/${id}`,
       }),
-      providesTags: ['Topic'],
+      providesTags: (result, error, id) => [{ type: 'Topic', id }],
     }),
     createComment: build.mutation({
       query: (comment) => ({
@@ -61,7 +61,7 @@ export const ForumAPI = createApi({
         method: 'PUT',
         body: { title, description },
       }),
-      invalidatesTags: ['Topics'],
+      invalidatesTags: (result, error, { topicId }) => [{ type: 'Topic', id: topicId }, 'Topics'],
     }),
     deleteComment: build.mutation({
       query: (commentId) => ({

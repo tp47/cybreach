@@ -3,11 +3,12 @@ import { Field } from '@/components/molecules'
 import { useAppSelector } from '@/hooks'
 import { useEditTopicMutation, useFetchTopicQuery } from '@/services/api/forumApi'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 interface SubmitRequestParams {
-  author_id: number
+  topicId: number
   title: string
   description: string
 }
@@ -15,23 +16,29 @@ interface SubmitRequestParams {
 interface FieldValues extends Record<keyof SubmitRequestParams, string | number> {}
 
 export default function EditTopicForm() {
-  const navigate = useNavigate()
-  const { user } = useAppSelector((state) => state.user)
-  const { register, handleSubmit } = useForm<FieldValues>({ mode: 'onBlur' })
   const { id } = useParams()
-  const { data, isLoading, isError, error } = useFetchTopicQuery(id)
-  const [editPost, {}] = useEditTopicMutation()
+  const navigate = useNavigate()
+  const [editTopic, { isError, error }] = useEditTopicMutation()
+  const { register, handleSubmit, reset } = useForm<FieldValues>({ mode: 'onBlur' })
+  const { data } = useFetchTopicQuery(id)
 
-  const onSubmit = async (data: SubmitRequestParams) => {
-    console.log({ data, user })
-
-    const body = {
-      ...data,
-      author_id: user?.id,
+  useEffect(() => {
+    if (data) {
+      const { title, description } = data.post
+      reset({
+        title: title || '',
+        description: description || '',
+      })
     }
+  }, [data, reset])
 
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      await editPost(body)
+      await editTopic({
+        topicId: id,
+        title: data.title,
+        description: data.description,
+      })
     } catch (e) {
       console.log({ e })
     } finally {
@@ -48,7 +55,7 @@ export default function EditTopicForm() {
         className="w-full h-full flex flex-col p-[40px] border-2 border-green-300 dark:border-purple-500 rounded-2xl"
       >
         <div>
-          <Field label="new title" type="text" name="title" register={register} bigLabel />
+          <Field label="new title" type="text" register={register} name="title" bigLabel />
         </div>
         <div className="h-full flex flex-col mb-[40px]">
           <label

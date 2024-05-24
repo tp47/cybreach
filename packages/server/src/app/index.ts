@@ -11,11 +11,9 @@ import { isDev } from '@/utils'
 import { useRoutes } from '@/routes'
 import { Comments, Reactions, Topics, Authors } from '@/models'
 
-
 dotenv.config()
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env
-
 
 const sequelizeOptions: SequelizeOptions = {
   host: POSTGRES_HOST,
@@ -32,14 +30,9 @@ async function startApp() {
   const app = express()
   const port = Number(process.env.SERVER_PORT) || 3001
 
-  sequelize.addModels([
-    Authors, 
-    Topics, 
-    Comments, 
-    Reactions
-  ])
+  sequelize.addModels([Authors, Topics, Comments, Reactions])
 
-  sequelize.sync({ force : true }).then(() => {
+  sequelize.sync().then(() => {
     console.warn(`Database connected`)
   })
 

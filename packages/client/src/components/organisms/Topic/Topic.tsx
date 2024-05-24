@@ -10,7 +10,7 @@ import {
   Modal,
   Button,
 } from '@/components'
-import { useFetchTopicQuery } from '@/services/api'
+import { useDeleteTopicMutation, useFetchTopicQuery } from '@/services/api'
 import { IComment } from '@/types'
 import { useAppSelector } from '@/hooks'
 import { useState } from 'react'
@@ -20,16 +20,34 @@ export default function Topic() {
   const { id } = useParams()
   const { data, isLoading, error } = useFetchTopicQuery(id)
   const { user } = useAppSelector((state) => state.user)
+  const [deleteTopic, { isError }] = useDeleteTopicMutation()
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const isOwnTopic = data?.post?.author?.id === user?.id
 
   function onSubmitDeletion() {
-    console.warn('deleted')
+    try {
+      deleteTopic(id)
+      onCloseModal()
+    } finally {
+      if (!isError) {
+        navigate('/forum')
+      }
+    }
   }
 
-  function onClose() {
+  function onCloseModal() {
     setIsOpenModal(false)
+  }
+
+  function handleEditTopic() {
+    const { title, description } = data?.post
+    console.warn('!!!!!', { title, description })
+    navigate(`/edit-topic/${id}`)
+  }
+
+  function handleDeleteTopic() {
+    setIsOpenModal(true)
   }
 
   return (
@@ -37,12 +55,7 @@ export default function Topic() {
       header={
         <div className="h-full text-xl font-bold flex items-center pl-4 pr-2 justify-between">
           {data?.post?.title}
-          {isOwnTopic && (
-            <EditBar
-              onEdit={() => navigate(`/edit-topic/${id}`)}
-              onDelete={() => setIsOpenModal(true)}
-            />
-          )}
+          {isOwnTopic && <EditBar onEdit={handleEditTopic} onDelete={handleDeleteTopic} />}
         </div>
       }
       content={
@@ -63,17 +76,18 @@ export default function Topic() {
             isOpen={isOpenModal}
             title="confirm action"
             handleModal={onSubmitDeletion}
-            handleClose={onClose}
+            handleClose={onCloseModal}
           >
             <div className="flex flex-col w-full h-full gap-2">
               <p className="w-full text-center my-4">
                 Are you sure want to delete this topic? After this, all conversation will lost and
                 can not be restored.
               </p>
-              <Button label="delete" customClass="h-10 py-[6px]" />
+              <Button label="delete" customClass="h-10 py-[6px]" onClick={onSubmitDeletion} />
               <Button
                 label="cancel"
                 customClass="h-10 py-[6px] bg-transparent border-none shadow-transparent text-green-200"
+                onClick={onCloseModal}
               />
             </div>
           </Modal>

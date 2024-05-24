@@ -22,6 +22,8 @@ export default function Field(props: FieldProps) {
         patternForm={patternForm}
         label={label}
         type={type}
+        id={name}
+        name={name}
         autoComplete={name}
       />
       <ErrorLine error={error} />

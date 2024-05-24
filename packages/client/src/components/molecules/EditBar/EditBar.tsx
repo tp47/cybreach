@@ -2,11 +2,10 @@ import editIcon from '/src/assets/svg/edit.svg'
 import deleteIcon from '/src/assets/svg/delete.svg'
 
 interface EditBarProps {
-  userId: number
-  onDelete: () => void
-  onEdit: () => void
-  vertical: undefined
-  small: undefined
+  onDelete: () => void | void
+  onEdit: () => void | void
+  vertical?: undefined
+  small?: undefined
 }
 
 export default function EditBar({ onDelete, onEdit }: EditBarProps) {
