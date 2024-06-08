@@ -13,7 +13,7 @@ import {
 import { useDeleteTopicMutation, useFetchTopicQuery } from '@/services/api'
 import { IComment } from '@/types'
 import { useAppSelector } from '@/hooks'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Topic() {
   const navigate = useNavigate()
@@ -24,6 +24,12 @@ export default function Topic() {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const isOwnTopic = data?.post?.author?.id === user?.id
+
+  useEffect(() => {
+    if (error) {
+      navigate('/404')
+    }
+  }, [error, navigate])
 
   function onSubmitDeletion() {
     try {

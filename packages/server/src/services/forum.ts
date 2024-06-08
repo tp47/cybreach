@@ -97,6 +97,11 @@ export class ForumService {
         attributes: { exclude: [] },
       },
     })
+
+    if (!topic) {
+      throw new Error('Topic not found')
+    }
+
     const comments = await Comments.findAll({
       where: { topic_id: id },
       attributes: {
@@ -115,9 +120,7 @@ export class ForumService {
     })
 
     try {
-      if (topic) {
-        topic.comments_count = comments.length
-      }
+      topic.comments_count = comments.length
 
       const commentsCopy = JSON.parse(JSON.stringify(comments)) as CommentsAttr[]
 

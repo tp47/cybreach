@@ -48,7 +48,7 @@ const forumController = {
         res.status(400).json('Bad request')
       }
     } catch (error) {
-      res.status(500).json(`Error on fetching topic, ${error}`)
+      res.status(500).json(`Failed on fetching topic, ${error}`)
     }
   },
 
